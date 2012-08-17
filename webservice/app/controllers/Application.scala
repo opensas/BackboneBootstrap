@@ -5,6 +5,10 @@ import play.api.mvc._
 
 object Application extends Controller {
   
+  def frontend = Action {
+    Redirect(routes.Assets.at("index.html"))
+  }
+
   def index = Action {
     Ok(views.html.index())
   }
