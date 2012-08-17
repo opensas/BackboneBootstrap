@@ -2,7 +2,7 @@
 
 'use strict';
 var src = src || {};
-src.views =src.views || {};
+src.views = src.views || {};
 src.views.crud = src.views.crud || {};
 
 src.views.crud.FilterView = Backbone.View.extend({
