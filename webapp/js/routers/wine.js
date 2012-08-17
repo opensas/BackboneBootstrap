@@ -1,8 +1,8 @@
 /*globals $,_,Backbone,src:true,utils,confirm,alert*/
 
 'use strict';
-if (!src) {src = {};}
-if (!src.routers) {src.routers = {};}
+var src = src || {};
+src.routers = src.routers || {};
 
 src.routers.wine = Backbone.Router.extend({
 

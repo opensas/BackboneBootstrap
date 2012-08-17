@@ -1,7 +1,7 @@
 /*globals $,_,Backbone,utils,confirm,alert*/
 
-var src = {};
-var app = {};
+var src = src || {};
+var app = app || {};
 
 $(function () {
   'use strict';
