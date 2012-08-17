@@ -16,18 +16,22 @@ src.routers.wine = Backbone.Router.extend({
   },
 
   initialize: function() {
-    new src.views.widgets.NavBarView({el: '#navbar'}).render();
-    new src.views.widgets.BreadCrumbView({el: '#breadcrumb'}).render();
+    new src.views.widgets.MainMenuView({el: '#main-menu'}).render();
+    // this.$('#main-menu').html($('#main-menu-template').html());
+    $('#action-bar').html($('#action-bar-template').html());
+    $('#accessibility-bar').html($('#accessibility-bar-template').html());
+    $('#tabs-bar').html($('#tabs-bar-template').html());
+    $('#messages').html($('#messages-template').html());
 
     this.collection = new src.models.Wines();
     this.model = undefined;
 
     new src.views.crud.TableView({
-      el: '#wines', collection: this.collection
+      el: '#table', collection: this.collection
     }).render();
 
     new src.views.wine.RowsView({
-      el: '#wines tbody', collection: this.collection
+      el: '#table tbody', collection: this.collection
     });
 
     //this.collection.fetch();
@@ -36,19 +40,17 @@ src.routers.wine = Backbone.Router.extend({
   },
 
   list: function(query) {
-    //if (this.wineFormView) {this.wineFormView.close();}
     this.collection.setParams(utils.http.parseQuery(query));
 
     this.collection.fetch();
-    $('#wines').show();
+    $('#form').show();
   },
 
   edit: function(id) {
     this.model = id ? this.collection.get(id) : new src.models.Wine();
     
-    //if (this.wineFormView) {this.wineFormView.close();}
     new src.views.wine.FormView({
-      el: '#wineForm', model: this.model, collection: this.collection
+      el: '#form', model: this.model, collection: this.collection
     }).render();
   },
 
@@ -64,7 +66,6 @@ src.routers.wine = Backbone.Router.extend({
       this.model.destroy({success: function() {
         that.navigate('wines', {trigger: true});
       }});
-      //this.navigate('wines', {trigger: true});
       return;
     } else {
       this.navigate('wines', {trigger: false});

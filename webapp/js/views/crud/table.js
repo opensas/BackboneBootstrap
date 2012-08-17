@@ -7,22 +7,24 @@ src.views.crud = src.views.crud || {};
 
 src.views.crud.TableView = Backbone.View.extend({
 
-  template: _.template($('#wines-template').html()),
+  template: _.template($('#table-template').html()),
 
   render: function() {
     this.$el.html(this.template());
 
-    new src.views.crud.PageLenView({
-       el: this.$('#winePageLen'), collection: this.collection
-    }).render();
+    this.$('#messages').html($('#messages-template').html());
 
-    new src.views.crud.PagesView({
-      el: this.$('#winePagination'), collection: this.collection
-    }).render();
+    // new src.views.crud.PageLenView({
+    //    el: this.$('#winePageLen'), collection: this.collection
+    // }).render();
 
-    new src.views.crud.FilterView({
-      el: this.$('#wineFilter'), collection: this.collection
-    }).render();
+    // new src.views.crud.PagesView({
+    //   el: this.$('#winePagination'), collection: this.collection
+    // }).render();
+
+    // new src.views.crud.FilterView({
+    //   el: this.$('#wineFilter'), collection: this.collection
+    // }).render();
 
     return this;
   },

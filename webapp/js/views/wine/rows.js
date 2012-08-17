@@ -7,7 +7,7 @@ src.views.wine = src.views.wine || {};
 
 src.views.wine.RowsView = Backbone.View.extend({
 
-  template: _.template($('#wines-template').html()),
+  template: _.template($('#table-template').html()),
 
   initialize: function() {
     this.collection.bind('reset', this.render, this);

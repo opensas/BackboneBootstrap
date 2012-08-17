@@ -14,7 +14,7 @@ src.views.wine.FormView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));
     this.$el.show();
-    $('#wines').hide();
+    $('#table').hide();
     return this;
   },
 
@@ -48,13 +48,15 @@ src.views.wine.FormView = Backbone.View.extend({
   },
 
   close: function(options) {
-    $('#wines').show();
+    $('#table').show();
     this.$el.unbind();
     this.$el.empty();
     app.navigate('wines', options);
   },
 
-  template: _.template( ' \
+  template: _.template($('#form-template').html()),
+
+  template2: _.template( ' \
 <h2>Edit wine</h2> \
  \
 <div class="row"> \

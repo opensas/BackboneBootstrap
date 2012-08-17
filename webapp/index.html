@@ -5,54 +5,304 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>Backbone.js Wines</title>
+    <title>BackboneBootstrap demo application</title>
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/docs.css" rel="stylesheet">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]> 
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
   </head>
 
   <body>
-    <div class="container">
 
-      <div id="navbar"></div>
-      <div id="breadcrumb"></div>
+    <div class="navbar">
+      <div class="navbar-inner-header">
+        <div class="container">
+          <img src="img/logo/logo-mteyss.png" width="150px">
+        </div>
+      </div>
 
-      <div id="wines"></div>
+      <div id="main-menu"></div>
 
-      <div id="wineForm"></div>
+      <div id="action-bar"></div>
+
+      <div id="accessibility-bar"></div>
+
+      <div class="container">
+
+        <div id="tabs-bar"></div>
+
+        <div id="messages"></div>
+
+        <div id="table"></div>
+
+        <div id="form"></div>
+
+      </div>
 
     </div>
+
   </body>
 
 </html>
 
 <!-- Templates -->
-<script type="text/template" id="wines-template">
+<script type="text/template" id="table-template">
 
-  <h1>Wines</h1>
+    <section id="tables">
+      <div class="page-header">
+        <h1>
+          Wines <small>BackboneBootstrap demo application.</small>
+        </h1>
+      </div>
 
-  <form class="form-search">
-    <div id="wineFilter"></div>
-    <div id="winePageLen"></div>
-    <div id="winePagination"></div>
-  </form>
+      <!-- Grid Example -->
+      <div id="example_wrapper" class="dataTables_wrapper form-inline" role="grid">
 
-  <table id="member-table" class="table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th order="id">Nro.<i class="icon-order"></i></th>
-        <th order="name">Nombre<i class="icon-order"></i></th>
-        <th order="grapes">Uva<i class="icon-order"></i></th>
-        <th order="country">País<i class="icon-order"></i></th>
-        <th order="region">Región<i class="icon-order"></i></th>
-        <th order="year">Año<i class="icon-order"></i></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
-  <a class="btn btn-primary btn-success btn-small add" href="#wines/new">
-    <i class="icon-plus icon-white"></i>add</a>
+        <table cellpadding="0" cellspacing="0" border="0"
+          class="table table-striped table-bordered dataTable" id="example">
+          <thead>
+            <tr>
+              <th order="id">Nro.<i class="icon-order"></i></th>
+              <th order="name">Name<i class="icon-order"></i></th>
+              <th order="grapes">Grapes<i class="icon-order"></i></th>
+              <th order="country">Country<i class="icon-order"></i></th>
+              <th order="region">Region<i class="icon-order"></i></th>
+              <th order="year">Year<i class="icon-order"></i></th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+        <a class="btn btn-primary btn-success btn-small add" href="#wines/new">
+          <i class="icon-plus icon-white"></i>add
+        </a>
+      </div>
+    </section>
+
+</script>
+
+<script type="text/template" id="main-menu-template">
+<div class="navbar-inner">
+
+      <div class="container">
+
+        <a class="btn btn-navbar" data-toggle="collapse"
+          data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+          class="icon-bar"></span> <span class="icon-bar"></span>
+        </a>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li><a href="#">Home</a></li>
+
+
+            <li class="dropdown"><a data-toggle="dropdown"
+              class="dropdown-toggle active" href="#">Casos<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown submenu"><a href="#"
+                  class="dropdown-toggle" data-toggle="dropdown">Multas SECLO</a>
+                  <ul class="dropdown-menu submenu-show submenu-hide">
+                    <li class="dropdown submenu"><a href="#"
+                      class="dropdown-toggle" data-toggle="dropdown">Item a</a>
+                      <ul class="dropdown-menu submenu-show submenu-hide">
+                        <li><a href="#">sasdas</a></li>
+                        <li><a href="#">Ingreso de Certificados</a></li>
+                        <li><a href="#">...</a></li>
+                      </ul></li>
+                    <li class="dropdown submenu"><a href="#"
+                      class="dropdown-toggle" data-toggle="dropdown">Item b</a>
+                      <ul class="dropdown-menu submenu-show submenu-hide">
+                        <li><a href="#">Level 1.2.1</a></li>
+                        <li><a href="#">Level 1.2.2</a></li>
+                      </ul></li>
+                    <li><a href="#">Multas Ley 2571</a></li>
+                    <li><a href="#">Level 1.4</a></li>
+                    <li><a href="#">Level 1.5</a></li>
+                  </ul></li>
+                <li><a href="#">Multas Ley 2571</a></li>
+              </ul></li>
+
+
+            <li class="dropdown"><a href="#" class="dropdown-toggle"
+              data-toggle="dropdown">Sentencias <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="nav-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul></li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle"
+              data-toggle="dropdown">Tablas <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="nav-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul></li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle"
+              data-toggle="dropdown">Consultas <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="nav-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul></li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle"
+              data-toggle="dropdown">Informacion <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="nav-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul></li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle"
+              data-toggle="dropdown">Estad&iacute;sticas <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="nav-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul></li>
+          </ul>
+          <ul class="nav pull-right">
+            <li class="dropdown"><a href="#" class="dropdown-toggle"
+              data-toggle="dropdown"><i class="icon-user icon-white"></i>
+                Usuario <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+
+                <li><a href="#">Perfil</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Cerrar ses&iacute;on</a></li>
+              </ul></li>
+          </ul>
+        </div>
+      </div>
+</script>
+
+<script type="text/template" id="action-bar-template">
+    <div class="subnav">
+      <ul class="nav nav-pills">
+        <li><a href="#typography" data-title="Consulta"><i class="icon-search"></i></a></li>
+        <li><a href="#code"   data-title="Alta"><i class="icon-plus"></i></a></li>
+        <li><a href="#tables"   data-title="Editar"><i class="icon-pencil"></i></a></li>
+        <li><a href="#buttons"  data-title="Baja"><i class="icon-trash"></i></a></li>
+        <li><a href="#icons"    data-title="Exportar"><i  class="icon-list-alt"></i></a></li>
+        <li><a href="#icons"    data-title="Imprimir"><i class="icon-print"></i></a></li>
+      </ul>
+    </div>
+</script>
+
+<script type="text/template" id="accessibility-bar-template">
+  <div class="navbar-inner-info">
+    <div class="row">
+      <div class="utils">
+        <a href="#" rel="tooltip" title="vista daltónicos"
+          onclick="colorBlind()"><i class="icon-eye-open"></i></a> / <a
+          href="#" rel="tooltip" title="disminuir fuente" class="sizeminus"
+          onclick="resizeText(-1)">A-</a> / <a href="#" rel="tooltip"
+          title="aumentar fuente" class="sizeplus" onclick="resizeText(1)">A+</a>
+        / <a href="#" rel="tooltip" title="valores por defecto"
+          onclick="window.location.reload();"><i class="icon-refresh"></i></a>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/template" id="tabs-bar-template">
+    <!-- Tabs -->
+    <ul class="nav nav-tabs">
+      <li><a href="#consulta" data-toggle="tab">Principal</a></li>
+      <li><a href="#infracciones" data-toggle="tab">Infracciones</a></li>
+      <li><a href="#expedientes" data-toggle="tab">Expedientes</a></li>
+      <li><a href="#letrados" data-toggle="tab">Letrados</a></li>
+      <li><a href="#partes" data-toggle="tab">Partes</a></li>
+      <li><a href="#movimientos" data-toggle="tab">Movimientos</a></li>
+      <li><a href="#contables" data-toggle="tab">Contables</a></li>
+      <li><a href="#liquidaciones" data-toggle="tab">Liquidaciones</a></li>
+      <li><a href="#pagos" data-toggle="tab">Pagos</a></li>
+      <li><a href="#boletas" data-toggle="tab">Boletas</a></li>
+      <li><a href="#oficios-bcra" data-toggle="tab">Oficios BCRA</a></li>
+    </ul>
+</script>
+
+<script type="text/template" id="messages-template">
+</script>
+
+<script type="text/template" id="form-template">
+      <div class="panel">
+        <div class="panel-header">Wines</div>
+        <div class="panel-content">
+
+          <div class="row">
+        
+            <div class="span3">
+              <label class="control-label" for="id">Id</label> 
+              <input type="text" class="span3" id="id" value="<%= id || "new" %>">
+              <p class="help-block">The id is automatically assigned</p>
+            </div>
+
+            <div class="span2">
+              <label class="control-label" for="name">name</label> 
+              <input type="text" class="span2" id="name" value="<%= name %>">
+              <p class="help-block">Enter the name of the wine</p>
+            </div>
+
+            <div class="span2">
+              <label class="control-label" for="grapes">Grapes</label> 
+              <input type="text" class="span2" id="grapes" value="<%= grapes %>">
+              <p class="help-block">Enter the name of the wines grapes</p>
+            </div>
+
+            <div class="span3">
+              <label class="control-label" for="country">Country</label> 
+              <input type="text" class="span3" id="country" value="<%= country %>">
+              <p class="help-block">Enter the wines country</p>
+            </div>
+
+            <div class="span2">
+              <label class="control-label" for="region">Region</label> 
+              <input type="text" class="span2" id="region" value="<%= region %>">
+              <p class="help-block">Enter the wines region</p>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="span2">
+              <label class="control-label" for="year">Year</label> 
+              <input type="text" class="span2" id="year" value="<%= year %>">
+              <p class="help-block">Enter the wines year</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <div class="btn btn-primary save">Save changes</div>
+        <div class="btn cancel">Cancel</div>
+      </div>
 </script>
 
 <!-- libs -->
@@ -72,8 +322,7 @@
 
 <script src="js/models/wine.js"></script>
 
-<script src="js/views/widgets/navbar.js"></script>
-<script src="js/views/widgets/breadcrumb.js"></script>
+<script src="js/views/widgets/mainmenu.js"></script>
 <script src="js/views/crud/page_len.js"></script>
 <script src="js/views/crud/table.js"></script>
 <script src="js/views/crud/filter.js"></script>
