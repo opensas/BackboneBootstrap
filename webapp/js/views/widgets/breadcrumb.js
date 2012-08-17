@@ -1,9 +1,9 @@
 /*globals $,_,Backbone,utils,src:true*/
 
 'use strict';
-if (!src) {src = {};}
-if (!src.views) {src.views = {};}
-if (!src.views.widgets) {src.views.widgets = {};}
+var src = src || {};
+src.views = src.views || {};
+src.views.widgets = src.views.widgets || {};
 
 src.views.widgets.BreadCrumbView = Backbone.View.extend({
 

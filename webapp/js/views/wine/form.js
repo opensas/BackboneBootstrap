@@ -1,9 +1,9 @@
 /*globals $,_,Backbone,utils,src:true*/
 
 'use strict';
-if (!src) {src = {};}
-if (!src.views) {src.views = {};}
-if (!src.views.wine) {src.views.wine = {};}
+var src = src || {};
+src.views = src.views || {};
+src.views.wine = src.views.wine || {};
 
 src.views.wine.FormView = Backbone.View.extend({
 

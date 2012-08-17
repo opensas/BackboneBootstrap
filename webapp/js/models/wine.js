@@ -1,8 +1,8 @@
 /*globals $,_,Backbone,src:true,utils,confirm,alert*/
 
 'use strict';
-if (!src) { src = {}; }
-if (!src.models) { src.models = {}; }
+var src = src || {};
+src.models = src.models || {};
 
 src.models.Wine = Backbone.Model.extend({
   defaults: {
@@ -19,7 +19,7 @@ src.models.Wines = Backbone.Collection.extend({
 
   model: src.models.Wine,
 
-  url: 'http://localhost:9000/wines',
+  url: app.config.endpoint,
 
   page:   1,
   len:    10,

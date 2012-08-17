@@ -1,9 +1,9 @@
 /*globals $,_,Backbone,utils,src:true*/
 
 'use strict';
-if (!src) {src = {};}
-if (!src.views) {src.views = {};}
-if (!src.views.crud) {src.views.crud = {};}
+var src = src || {};
+src.views =src.views || {};
+src.views.crud = src.views.crud || {};
 
 src.views.crud.FilterView = Backbone.View.extend({
 
