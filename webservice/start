@@ -1,0 +1,2 @@
+exec java "-DapplyEvolutions.default=true" -cp "`dirname $0`/target/staged/*" play.core.server.NettyServer `dirname $0`
+

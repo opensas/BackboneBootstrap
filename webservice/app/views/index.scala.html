@@ -1,0 +1,20 @@
+@main("Welcome to BackboneBootstrap") {
+
+  <h1>Welcome to BackboneBootstrap backend!</h1>
+
+  <h2>@Wine.count() Wines</h2>
+
+  <ul>
+    <li><a href="@routes.Wines.list()">
+      Wines.list() (@routes.Wines.list())
+    </a></li>
+    <li><a href="@routes.Wines.show(1)">
+      Wines.show(1) (@routes.Wines.show(1))
+    </a></li>
+    <li><a href="@routes.Wines.show(999)">
+      Wines.show(999) (@routes.Wines.show(999) - not found)
+    </a></li>
+  </ul>
+
+<hr />
+}
