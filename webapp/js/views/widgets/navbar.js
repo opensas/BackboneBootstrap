@@ -20,7 +20,10 @@ src.views.widgets.NavBarView = Backbone.View.extend({
       <div class="nav-collapse"> \
         <ul class="nav"> \
           <li class="active"><a href="#">Home</a></li> \
-          <li><a href="#">Link</a></li> \
+          <li><a href="http://bb-jugar.rhcloud.com/api">Test cloud web service</a></li> \
+        </ul> \
+        <ul class="nav"> \
+          <li><a href="localhost:9000/api">Test local web service</a></li> \
         </ul> \
         <ul class="nav pull-right"> \
           <li><a href="#">Link</a></li> \
