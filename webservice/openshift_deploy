@@ -18,8 +18,8 @@ cp -r ../../webservice/* .
 rm openshift_deploy
 mv openshift_deploy.bak openshift_deploy
 
-# remove compiled files
-rm -fr dist target
+# remove compiled files and RUNNING_PID file
+rm -fr dist target RUNNING_PID
 
 # remove public folder of the web service
 rm -fr public/*
@@ -31,6 +31,6 @@ cp -r ../../webapp/* ./public/
 rm public/openshift_deploy public/start
 
 # run normal deploy on openshift
-./openshift_deploy
+./openshift_deploy $@
 
 popd
