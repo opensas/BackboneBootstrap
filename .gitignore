@@ -5,12 +5,13 @@
 !.gitignore
 
 # Ignore Play! working directory #
-db
-eclipse
-log
-logs
-precompiled
-tmp
-test-result
-eclipse
-server.pid
+
+webservice/logs
+webservice/target
+webservice/project/project
+webservice/project/target
+# websevice/dist        ##commit to github
+webservice/RUNNING_PID
+
+# Ignore openshift deployment folder
+openshift
