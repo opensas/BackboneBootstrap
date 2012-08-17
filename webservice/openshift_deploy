@@ -1,3 +1,6 @@
+# debug
+set -x 
+
 pushd ../openshift/bb
 
 # remove previous copy of the project
@@ -6,8 +9,14 @@ rm -fr app project public dist target windows start README*
 # remove all conf files except openshift.conf
 rm -fr conf/evolutions conf/application.conf conf/routes
 
+mv openshift_deploy openshift_deploy.bak
+
 # copy web service
 cp -r ../../webservice/* .
+
+# restore deploy script
+rm openshift_deploy
+mv openshift_deploy.bak openshift_deploy
 
 # remove compiled files
 rm -fr dist target
@@ -18,7 +27,7 @@ rm -fr public/*
 # copy the webapp to public
 cp -r ../../webapp/* ./public/
 
-# ge rid of start scrips
+# get rid of start scrips
 rm public/openshift_deploy public/start
 
 # run normal deploy on openshift
