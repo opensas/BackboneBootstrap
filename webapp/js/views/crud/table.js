@@ -12,18 +12,18 @@ src.views.crud.TableView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template());
 
-    this.$('#messages').html($('#messages-template').html());
+    this.$('#messages-view').html($('#messages-template').html());
 
     new src.views.crud.PageLenView({
-       el: this.$('#page-len'), collection: this.collection
+       el: this.$('#page-len-view'), collection: this.collection
     }).render();
 
     new src.views.crud.PagesView({
-      el: this.$('#pages'), collection: this.collection
+      el: this.$('#pages-view'), collection: this.collection
     }).render();
 
     new src.views.crud.FilterView({
-      el: this.$('#filter-box'), collection: this.collection
+      el: this.$('#filter-view'), collection: this.collection
     }).render();
 
     return this;

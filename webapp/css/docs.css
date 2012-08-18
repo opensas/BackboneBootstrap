@@ -865,10 +865,21 @@ form.well {
   font-size: 16px;
 }
 
-#filter-box {
+#filter-view {
   float: right;
 }
 
 div .pagination.page {
   float: right;
+}
+
+table.table th[order] {
+  cursor: pointer;
+}
+
+table.table th[order].order-asc {
+  background: url('../img/grid/sort_asc.png') no-repeat center right;
+}
+table.table th[order].order-desc {
+  background: url('../img/grid/sort_desc.png') no-repeat center right;
 }

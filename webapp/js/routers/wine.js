@@ -17,21 +17,21 @@ src.routers.wine = Backbone.Router.extend({
 
   initialize: function() {
     //new src.views.widgets.MainMenuView({el: '#main-menu'}).render();
-    $('#main-menu').replaceWith($('#main-menu-template').html());
-    $('#action-bar').replaceWith($('#action-bar-template').html());
-    $('#accessibility-bar').replaceWith($('#accessibility-bar-template').html());
-    $('#tabs-bar').replaceWith($('#tabs-bar-template').html());
-    $('#messages').replaceWith($('#messages-template').html());
+    $('#main-menu-view').replaceWith($('#main-menu-template').html());
+    $('#toolbar-view').replaceWith($('#action-bar-template').html());
+    $('#accessibility-view').replaceWith($('#accessibility-bar-template').html());
+    $('#tabs-view').replaceWith($('#tabs-bar-template').html());
+    $('#messages-view').replaceWith($('#messages-template').html());
 
     this.collection = new src.models.Wines();
     this.model = undefined;
 
     new src.views.crud.TableView({
-      el: '#table', collection: this.collection
+      el: '#table-view', collection: this.collection
     }).render();
 
     new src.views.wine.RowsView({
-      el: '#table tbody', collection: this.collection
+      el: '#table-view tbody', collection: this.collection
     });
 
     //this.collection.fetch();
@@ -43,14 +43,14 @@ src.routers.wine = Backbone.Router.extend({
     this.collection.setParams(utils.http.parseQuery(query));
 
     this.collection.fetch();
-    $('#form').show();
+    $('#form-view').show();
   },
 
   edit: function(id) {
     this.model = id ? this.collection.get(id) : new src.models.Wine();
     
     new src.views.wine.FormView({
-      el: '#form', model: this.model, collection: this.collection
+      el: '#form-view', model: this.model, collection: this.collection
     }).render();
   },
 
