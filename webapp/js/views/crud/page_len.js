@@ -33,7 +33,7 @@ src.views.crud.PageLenView = Backbone.View.extend({
   },
 
   template: _.template(' \
-    <label>Records per page</label> \
+    <label> \
     <select class="span1" id="page_len"> \
       <option value="3">3</option> \
       <option value="5">5</option> \
@@ -41,7 +41,7 @@ src.views.crud.PageLenView = Backbone.View.extend({
       <option value="25">25</option> \
       <option value="50">50</option>  \
       <option value="100">100</option> \
-    </select> \
+    </select> records per page </label> \
   ')
 
 });

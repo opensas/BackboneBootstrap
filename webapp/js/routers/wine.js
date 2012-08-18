@@ -16,12 +16,12 @@ src.routers.wine = Backbone.Router.extend({
   },
 
   initialize: function() {
-    new src.views.widgets.MainMenuView({el: '#main-menu'}).render();
-    // this.$('#main-menu').html($('#main-menu-template').html());
-    $('#action-bar').html($('#action-bar-template').html());
-    $('#accessibility-bar').html($('#accessibility-bar-template').html());
-    $('#tabs-bar').html($('#tabs-bar-template').html());
-    $('#messages').html($('#messages-template').html());
+    //new src.views.widgets.MainMenuView({el: '#main-menu'}).render();
+    $('#main-menu').replaceWith($('#main-menu-template').html());
+    $('#action-bar').replaceWith($('#action-bar-template').html());
+    $('#accessibility-bar').replaceWith($('#accessibility-bar-template').html());
+    $('#tabs-bar').replaceWith($('#tabs-bar-template').html());
+    $('#messages').replaceWith($('#messages-template').html());
 
     this.collection = new src.models.Wines();
     this.model = undefined;

@@ -14,17 +14,17 @@ src.views.crud.TableView = Backbone.View.extend({
 
     this.$('#messages').html($('#messages-template').html());
 
-    // new src.views.crud.PageLenView({
-    //    el: this.$('#winePageLen'), collection: this.collection
-    // }).render();
+    new src.views.crud.PageLenView({
+       el: this.$('#page-len'), collection: this.collection
+    }).render();
 
-    // new src.views.crud.PagesView({
-    //   el: this.$('#winePagination'), collection: this.collection
-    // }).render();
+    new src.views.crud.PagesView({
+      el: this.$('#pages'), collection: this.collection
+    }).render();
 
-    // new src.views.crud.FilterView({
-    //   el: this.$('#wineFilter'), collection: this.collection
-    // }).render();
+    new src.views.crud.FilterView({
+      el: this.$('#filter-box'), collection: this.collection
+    }).render();
 
     return this;
   },

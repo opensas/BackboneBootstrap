@@ -3,7 +3,7 @@
 var src = src || {};
 var app = app || {};
 
-$(function () {
+$(function() {
   'use strict';
 
   app = new src.routers.wine();

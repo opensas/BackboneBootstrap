@@ -28,18 +28,23 @@ src.views.crud.PagesView = Backbone.View.extend({
   },
 
   addOne: function(page) {
-    var view = new src.views.crud.PageView({model: page});
+    var view = new src.views.crud.PageView({
+      model: page
+    });
     this.$('ul').append(view.render().el);
   },
 
   template: _.template(' \
-    Showing <%= from %>-<%= to %> of <%= total %> \
-    <div class="pagination"> \
-      <ul> \
-      </ul> \
-    </div> \
+      <div class="span6"> \
+        <div>Showing <%= from %>-<%= to %> of <%= total %> entries </div> \
+      </div> \
+      <div class="span6"> \
+        <div class="pagination page"> \
+          <ul> \
+          </ul> \
+        </div> \
+      </div> \
   ')
-
 });
 
 src.views.crud.PageView = Backbone.View.extend({
@@ -50,16 +55,22 @@ src.views.crud.PageView = Backbone.View.extend({
   },
 
   events: {
-    'click':    'page'
+    'click': 'page'
   },
 
   page: function(e) {
     e.preventDefault();
     var li = this.$('li');
 
-    if (li.hasClass('disabled') || li.hasClass('active')) { return; }
+    if (li.hasClass('disabled') || li.hasClass('active')) {
+      return;
+    }
 
-    app.navigateWith({page: this.model.page}, {trigger: true});
+    app.navigateWith({
+      page: this.model.page
+    }, {
+      trigger: true
+    });
   },
 
   template: _.template(' \

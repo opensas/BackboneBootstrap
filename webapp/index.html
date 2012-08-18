@@ -14,35 +14,32 @@
     <!--[if lt IE 9]> 
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
   </head>
 
   <body>
-
-    <div class="navbar">
-      <div class="navbar-inner-header">
-        <div class="container">
-          <img src="img/logo/logo-mteyss.png" width="150px">
-        </div>
-      </div>
-
-      <div id="main-menu"></div>
-
+    
+  <div class="navbar">
+    <div class="navbar-inner-header app-title">
+      <h1>BackboneBootstrap</h1>
+      <p>Demo app featuring Backbone and Bootstrap.</p>
+    </div>
+    <div id="main-menu"></div>
+  </div>
+<div class="subnav">
       <div id="action-bar"></div>
+  </div>
 
-      <div id="accessibility-bar"></div>
+    <div id="accessibility-bar"></div>
 
-      <div class="container">
+    <div class="container">
 
-        <div id="tabs-bar"></div>
+      <div id="tabs-bar"></div>
 
-        <div id="messages"></div>
+      <div id="messages"></div>
 
-        <div id="table"></div>
+      <div id="table"></div>
 
-        <div id="form"></div>
-
-      </div>
+      <div id="form"></div>
 
     </div>
 
@@ -60,29 +57,37 @@
         </h1>
       </div>
 
-      <!-- Grid Example -->
-      <div id="example_wrapper" class="dataTables_wrapper form-inline" role="grid">
-
-        <table cellpadding="0" cellspacing="0" border="0"
-          class="table table-striped table-bordered dataTable" id="example">
-          <thead>
-            <tr>
-              <th order="id">Nro.<i class="icon-order"></i></th>
-              <th order="name">Name<i class="icon-order"></i></th>
-              <th order="grapes">Grapes<i class="icon-order"></i></th>
-              <th order="country">Country<i class="icon-order"></i></th>
-              <th order="region">Region<i class="icon-order"></i></th>
-              <th order="year">Year<i class="icon-order"></i></th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-        <a class="btn btn-primary btn-success btn-small add" href="#wines/new">
-          <i class="icon-plus icon-white"></i>add
-        </a>
+      <div class="row">
+        <div class="span6">
+          <div id="page-len"></div>
+        </div>
+        <div class="span6">
+          <div id="filter-box"></div>
+        </div>
       </div>
+
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th order="id">N.<i class="icon-order"></i></th>
+            <th order="name">Name<i class="icon-order"></i></th>
+            <th order="grapes">Grapes<i class="icon-order"></i></th>
+            <th order="country">Country<i class="icon-order"></i></th>
+            <th order="region">Region<i class="icon-order"></i></th>
+            <th order="year">Year<i class="icon-order"></i></th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+      <div class="row" id="pages"></div>
+
+      <a class="btn btn-primary btn-success btn-small add" href="#wines/new">
+        <i class="icon-plus icon-white"></i>add
+      </a>
+
     </section>
 
 </script>
@@ -100,99 +105,52 @@
           <ul class="nav">
             <li><a href="#">Home</a></li>
 
-
             <li class="dropdown"><a data-toggle="dropdown"
-              class="dropdown-toggle active" href="#">Casos<b class="caret"></b></a>
+              class="dropdown-toggle active" href="#">Option 1<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="dropdown submenu"><a href="#"
-                  class="dropdown-toggle" data-toggle="dropdown">Multas SECLO</a>
+                  class="dropdown-toggle" data-toggle="dropdown">Sub option 1.1</a>
                   <ul class="dropdown-menu submenu-show submenu-hide">
                     <li class="dropdown submenu"><a href="#"
-                      class="dropdown-toggle" data-toggle="dropdown">Item a</a>
+                      class="dropdown-toggle" data-toggle="dropdown">Sub option 1.1.1</a>
                       <ul class="dropdown-menu submenu-show submenu-hide">
-                        <li><a href="#">sasdas</a></li>
-                        <li><a href="#">Ingreso de Certificados</a></li>
-                        <li><a href="#">...</a></li>
+                        <li><a href="#">Sub option 1.1.1.1</a></li>
+                        <li><a href="#">Sub option 1.1.1.2</a></li>
+                        <li><a href="#">Sub option 1.1.1.3</a></li>
                       </ul></li>
                     <li class="dropdown submenu"><a href="#"
-                      class="dropdown-toggle" data-toggle="dropdown">Item b</a>
+                      class="dropdown-toggle" data-toggle="dropdown">Sub option 1.1.2</a>
                       <ul class="dropdown-menu submenu-show submenu-hide">
-                        <li><a href="#">Level 1.2.1</a></li>
-                        <li><a href="#">Level 1.2.2</a></li>
+                        <li><a href="#">Sub option 1.1.2.1</a></li>
+                        <li><a href="#">Sub option 1.1.2.2</a></li>
                       </ul></li>
-                    <li><a href="#">Multas Ley 2571</a></li>
-                    <li><a href="#">Level 1.4</a></li>
-                    <li><a href="#">Level 1.5</a></li>
+                    <li><a href="#">Sub option 1.1.3</a></li>
                   </ul></li>
-                <li><a href="#">Multas Ley 2571</a></li>
+                <li><a href="#">Sub option 1.2</a></li>
               </ul></li>
 
 
             <li class="dropdown"><a href="#" class="dropdown-toggle"
-              data-toggle="dropdown">Sentencias <b class="caret"></b></a>
+              data-toggle="dropdown">Option 2<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
+                <li><a href="#">Sub option 2.1</a></li>
+                <li><a href="#">Sub option 2.2</a></li>
+                <li><a href="#">Sub option 2.3</a></li>
                 <li class="divider"></li>
                 <li class="nav-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul></li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle"
-              data-toggle="dropdown">Tablas <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="nav-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul></li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle"
-              data-toggle="dropdown">Consultas <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="nav-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul></li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle"
-              data-toggle="dropdown">Informacion <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="nav-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul></li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle"
-              data-toggle="dropdown">Estad&iacute;sticas <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="nav-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
+                <li><a href="#">Sub option 2.4</a></li>
+                <li><a href="#">Sub option 2.5</a></li>
               </ul></li>
           </ul>
           <ul class="nav pull-right">
             <li class="dropdown"><a href="#" class="dropdown-toggle"
               data-toggle="dropdown"><i class="icon-user icon-white"></i>
-                Usuario <b class="caret"></b></a>
+                User<b class="caret"></b></a>
               <ul class="dropdown-menu">
 
-                <li><a href="#">Perfil</a></li>
+                <li><a href="#">My profile</a></li>
                 <li class="divider"></li>
-                <li><a href="#">Cerrar ses&iacute;on</a></li>
+                <li><a href="#">Close session</a></li>
               </ul></li>
           </ul>
         </div>
@@ -202,12 +160,12 @@
 <script type="text/template" id="action-bar-template">
     <div class="subnav">
       <ul class="nav nav-pills">
-        <li><a href="#typography" data-title="Consulta"><i class="icon-search"></i></a></li>
-        <li><a href="#code"   data-title="Alta"><i class="icon-plus"></i></a></li>
-        <li><a href="#tables"   data-title="Editar"><i class="icon-pencil"></i></a></li>
-        <li><a href="#buttons"  data-title="Baja"><i class="icon-trash"></i></a></li>
-        <li><a href="#icons"    data-title="Exportar"><i  class="icon-list-alt"></i></a></li>
-        <li><a href="#icons"    data-title="Imprimir"><i class="icon-print"></i></a></li>
+        <li><a href="#typography" data-title="Browse"><i class="icon-search"></i></a></li>
+        <li><a href="#code"       data-title="Add"><i class="icon-plus"></i></a></li>
+        <li><a href="#tables"     data-title="Edit"><i class="icon-pencil"></i></a></li>
+        <li><a href="#buttons"    data-title="Delete"><i class="icon-trash"></i></a></li>
+        <li><a href="#icons"      data-title="Export"><i  class="icon-list-alt"></i></a></li>
+        <li><a href="#icons"      data-title="Print"><i class="icon-print"></i></a></li>
       </ul>
     </div>
 </script>
@@ -231,17 +189,9 @@
 <script type="text/template" id="tabs-bar-template">
     <!-- Tabs -->
     <ul class="nav nav-tabs">
-      <li><a href="#consulta" data-toggle="tab">Principal</a></li>
-      <li><a href="#infracciones" data-toggle="tab">Infracciones</a></li>
-      <li><a href="#expedientes" data-toggle="tab">Expedientes</a></li>
-      <li><a href="#letrados" data-toggle="tab">Letrados</a></li>
-      <li><a href="#partes" data-toggle="tab">Partes</a></li>
-      <li><a href="#movimientos" data-toggle="tab">Movimientos</a></li>
-      <li><a href="#contables" data-toggle="tab">Contables</a></li>
-      <li><a href="#liquidaciones" data-toggle="tab">Liquidaciones</a></li>
-      <li><a href="#pagos" data-toggle="tab">Pagos</a></li>
-      <li><a href="#boletas" data-toggle="tab">Boletas</a></li>
-      <li><a href="#oficios-bcra" data-toggle="tab">Oficios BCRA</a></li>
+      <li><a href="#main" data-toggle="tab">Main</a></li>
+      <li><a href="#tab1" data-toggle="tab">First tab</a></li>
+      <li><a href="#tab2" data-toggle="tab">Second tab</a></li>
     </ul>
 </script>
 
@@ -308,8 +258,11 @@
 
 <!-- libs -->
 <script src="lib/json2.min.js"></script>
-<!--<script src="lib/jquery-1.7.2.min.js"></script>-->
-<script src="lib/zepto-1.0rc1.min.js"></script>
+<script src="lib/jquery-1.7.2.min.js"></script>
+<!-- Boostrap -->
+<script src="lib/bootstrap.js"></script>
+<!-- <script src="lib/zepto-1.0rc1.min.js"></script> -->
+
 <script src="lib/underscore-1.3.3.js"></script>
 <script src="lib/backbone-0.9.2.js"></script>
 
