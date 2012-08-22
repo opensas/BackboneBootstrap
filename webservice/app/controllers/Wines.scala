@@ -13,6 +13,7 @@ import formatters.json.ErrorFormatter._
 
 import scala.collection.immutable.Map
 import utils.CORSAction
+import utils.{JsonBadRequest, JsonNotFound, JsonOk}
 
 object Wines extends Controller {
   
@@ -45,65 +46,32 @@ object Wines extends Controller {
   def show(id: Long) = CORSAction {
     Wine.findById(id).map { Wine =>
       Ok(toJson(Wine))
-    }.getOrElse {
-      NotFound(toJson(
-        Error(status = NOT_FOUND, message = "Wine with id %s not found".format(id))
-      ))
-    }
+    }.getOrElse(JsonNotFound("Wine with id %s not found".format(id)))
   }
 
   def save() = CORSAction { request =>
     request.body.asJson.map { json =>
-      json.asOpt[Wine].map { Wine =>
-        Wine.save.map { Wine => 
-          Ok(toJson(Wine.update).toString)
-        }.getOrElse {
-          BadRequest(toJson(
-            Error(status = BAD_REQUEST, message = "Error creating Wine entity")
-          ))
-        }
-      }.getOrElse {
-        BadRequest(toJson(
-          Error(status = BAD_REQUEST, message = "Invalid Wine entity")
-        )) 
-      }
-    }.getOrElse {
-      BadRequest(toJson(
-        Error(status = BAD_REQUEST, message = "Expecting JSON data")
-      )) 
-    }
+      json.asOpt[Wine].map { wine =>
+        wine.save.map { wine => 
+          Ok(toJson(wine.update).toString)
+        }.getOrElse   (JsonBadRequest("Error creating Wine entity"))
+      }.getOrElse     (JsonBadRequest("Invalid Wine entity"))
+    }.getOrElse       (JsonBadRequest("Expecting JSON data"))
   }
 
   def update(id: Long) = CORSAction { implicit request =>
     request.body.asJson.map { json =>
-      json.asOpt[Wine].map { Wine =>
-        Wine.copy(id=Id(id)).update.map { Wine => 
-          Ok(toJson(Wine.update).toString)
-        }.getOrElse {
-          BadRequest(toJson(
-            Error(status = BAD_REQUEST, message = "Error updating Wine entity")
-          ))
-        }
-      }.getOrElse {
-        BadRequest(toJson(
-          Error(status = BAD_REQUEST, message = "Invalid Wine entity")
-        )) 
-      }
-    }.getOrElse {
-      BadRequest(toJson(
-        Error(status = BAD_REQUEST, message = "Expecting JSON data")
-      )) 
-    }
+      json.asOpt[Wine].map { wine =>
+        wine.copy(id=Id(id)).update.map { wine => 
+          Ok(toJson(wine.update).toString)
+        }.getOrElse     (JsonBadRequest("Error updating Wine entity"))
+      }.getOrElse       (JsonBadRequest("Invalid Wine entity"))
+    }.getOrElse         (JsonBadRequest("Expecting JSON data"))
   }
 
   def delete(id: Long) = CORSAction {
     Wine.delete(id)
-    Ok(toJson(
-      Error(status = OK, errorCode = 0,
-        message = "Wine successfully deleted",
-        developerMessage = "Wine with id %s deleted".format(id)
-      )
-    ))
+    JsonOk("Wine successfully deleted","Wine with id %s deleted".format(id))
   }
 
 }
