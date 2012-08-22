@@ -14,6 +14,7 @@ object ErrorFormatter {
       toJson( Map(
         "status"            -> toJson(o.status),
         "errorCode"         -> toJson(o.errorCode),
+        "field"             -> toJson(o.field),
         "message"           -> toJson(o.message),
         "developerMessage"  -> toJson(o.developerMessage)
       ))
@@ -23,6 +24,7 @@ object ErrorFormatter {
       new Error(
         status            = (j \ "status").as[Int],
         errorCode         = (j \ "errorCode").as[Int],
+        field             = (j \ "field").as[String],
         message           = (j \ "message").as[String],
         developerMessage  = (j \ "developerMessage").as[String]
       )

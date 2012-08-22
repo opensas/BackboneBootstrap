@@ -68,7 +68,7 @@ object Wine {
     page: Int = 1, len: Int = DEFAULT_PAGE_LEN,
     order: String = "name", filter: String = "", fields: String = "*",
     parser: ResultSetParser[T]
-    ): T = {
+  ): T = {
     DB.withConnection { implicit connection =>
 
       val condition = if (filter == "") "" else {
