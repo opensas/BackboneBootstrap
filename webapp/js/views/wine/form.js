@@ -19,23 +19,27 @@ src.views.wine.FormView = Backbone.View.extend({
   },
 
   events: {
-    'click div.save':     'save', 
-    'click div.cancel':   'cancel'
+    'click div.save': 'save',
+    'click div.cancel': 'cancel'
   },
 
   save: function() {
     var attrs = {
-      name:     this.$('#name').val(),
-      grapes:   this.$('#grapes').val(),
-      country:  this.$('#country').val(),
-      region:   this.$('#region').val(),
-      year:     this.$('#year').val()
+      name: this.$('#name').val(),
+      grapes: this.$('#grapes').val(),
+      country: this.$('#country').val(),
+      region: this.$('#region').val(),
+      year: this.$('#year').val()
     };
 
     if (this.model.isNew()) {
-      this.collection.create(attrs, {success: this.success});
+      this.collection.create(attrs, {
+        success: this.success
+      });
     } else {
-      this.model.save(attrs, {success: this.success});
+      this.model.save(attrs, {
+        success: this.success
+      });
     }
   },
 
@@ -44,7 +48,9 @@ src.views.wine.FormView = Backbone.View.extend({
   },
 
   cancel: function() {
-    this.close({trigger: false});
+    this.close({
+      trigger: false
+    });
   },
 
   close: function(options) {
@@ -56,7 +62,7 @@ src.views.wine.FormView = Backbone.View.extend({
 
   template: _.template($('#form-template').html()),
 
-  template2: _.template( ' \
+  template2: _.template(' \
 <h2>Edit wine</h2> \
  \
 <div class="row"> \
