@@ -14,6 +14,12 @@ object JsonBadRequest {
   ) = {
     Results.BadRequest(toJson(Error(status, errorCode, message, developerMessage)))
   }
+  def apply(errors: List[Error]) = {
+    Results.BadRequest(toJson(errors))
+  }
+  def apply(error: Error) = {
+    Results.BadRequest(toJson(error))
+  }
 }
 
 object JsonOk {

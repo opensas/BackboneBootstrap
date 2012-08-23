@@ -14,47 +14,31 @@ import formatters.json.ErrorFormatter._
 import scala.collection.immutable.Map
 import utils.CORSAction
 import utils.{JsonBadRequest, JsonNotFound, JsonOk}
+import utils.Http
 
 object Wines extends Controller {
   
   def list = CORSAction { request =>
-    val (page, len, order, filter) = parseQuery(request.queryString)
-    Ok(toJson(Wine.find(page, len, order, filter)))
+    Ok(toJson(Wine.find(request.queryString)))
   }
 
   def count = CORSAction { request =>
-    val (page, len, order, filter) = parseQuery(request.queryString)
-    Ok(toJson(Wine.count(filter)))
-  }
-
-  // page, len, order, filter
-  private def parseQuery(query: Map[String, Seq[String]]): (Int, Int, String, String) = {
-    //val map: Map[String, String] = Http.flatQueryString(query)
-
-    import utils.Http._
-
-    val map: Map[String, String] = query          // Http.toFlatQueryString
-
-    val page: Int = map.getOrElse("page","1").toInt
-    val len: Int = map.getOrElse("len", Wine.DEFAULT_PAGE_LEN.toString).toInt
-    val order = map.getOrElse("order", "name")
-    val filter = map.getOrElse("filter", "")
-
-    (page, len, order, filter)
+    Ok(toJson(Wine.count(request.queryString)))
   }
 
   def show(id: Long) = CORSAction {
-    Wine.findById(id).map { Wine =>
-      Ok(toJson(Wine))
+    Wine.findById(id).map { wine =>
+      Ok(toJson(wine))
     }.getOrElse(JsonNotFound("Wine with id %s not found".format(id)))
   }
 
   def save() = CORSAction { request =>
     request.body.asJson.map { json =>
       json.asOpt[Wine].map { wine =>
-        wine.save.map { wine => 
-          Ok(toJson(wine.update).toString)
-        }.getOrElse   (JsonBadRequest("Error creating Wine entity"))
+        wine.save.fold(
+          errors => JsonBadRequest(errors),
+          wine => Ok(toJson(wine).toString)
+        )
       }.getOrElse     (JsonBadRequest("Invalid Wine entity"))
     }.getOrElse       (JsonBadRequest("Expecting JSON data"))
   }
@@ -62,9 +46,10 @@ object Wines extends Controller {
   def update(id: Long) = CORSAction { implicit request =>
     request.body.asJson.map { json =>
       json.asOpt[Wine].map { wine =>
-        wine.copy(id=Id(id)).update.map { wine => 
-          Ok(toJson(wine.update).toString)
-        }.getOrElse     (JsonBadRequest("Error updating Wine entity"))
+        wine.copy(id=Id(id)).update.fold(
+          errors => JsonBadRequest(errors),
+          wine => Ok(toJson(wine).toString)
+        )
       }.getOrElse       (JsonBadRequest("Invalid Wine entity"))
     }.getOrElse         (JsonBadRequest("Expecting JSON data"))
   }
