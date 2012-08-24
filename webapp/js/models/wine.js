@@ -79,13 +79,16 @@ src.models.Wines = Backbone.Collection.extend({
     return params;
   },
 
-  fetch: function () {
+  fetch: function (options) {
+    options = options || {};
     var that = this;
+    var success = options.success;
     var options = {
       silent: true,       // will manually trigger reset event after fetching the total
       data: this.getParams(),
       success: function (collection, resp) {
         that.fetch_total();
+        if (success) success(collection, resp);
       }
     };
     return Backbone.Collection.prototype.fetch.call(this, options);

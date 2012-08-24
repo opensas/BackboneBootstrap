@@ -883,3 +883,10 @@ table.table th[order].order-asc {
 table.table th[order].order-desc {
   background: url('../img/grid/sort_desc.png') no-repeat center right;
 }
+
+div.alert.alert-error {
+  display: none;
+}
+div.alert.alert-error.active {
+  display: block;
+}

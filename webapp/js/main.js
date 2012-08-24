@@ -8,6 +8,7 @@ $(function() {
 
   app = new src.routers.wine();
   app.navigate('wines');
+  // app.navigate('errors');
 
 });
 

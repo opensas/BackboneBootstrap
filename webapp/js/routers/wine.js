@@ -12,10 +12,12 @@ src.routers.wine = Backbone.Router.extend({
     'wines?*url':               'list',
     'wines/new':                'edit',
     'wines/del/:id':            'del',
-    'wines/:id':                'edit'
+    'wines/:id':                'edit',
+    'errors':                   'testErrors'
   },
 
   initialize: function() {
+    _.bindAll(this, 'test');
     //new src.views.widgets.MainMenuView({el: '#main-menu'}).render();
     $('#main-menu-view').replaceWith($('#main-menu-template').html());
     $('#toolbar-view').replaceWith($('#action-bar-template').html());
@@ -70,6 +72,36 @@ src.routers.wine = Backbone.Router.extend({
     } else {
       this.navigate('wines', {trigger: false});
     }
+  },
+
+  testErrors: function() {
+    this.collection.fetch({
+      success: this.test
+    });
+  },
+
+  test: function() {
+    this.model = this.collection.at(1);
+    
+    new src.views.wine.FormView({
+      el: '#form-view', model: this.model, collection: this.collection
+    }).render();
+
+    // mock response
+    var response = {
+      responseText: '\
+[\
+{"field":"","errorCode":10000,"status":400,"developerMessage":"Error performing operation","message":"General error"},\
+{"field":"name","errorCode":10000,"status":400,"developerMessage":"Error performing operation","message":"Name not specified"},\
+{"field":"name","errorCode":10000,"status":400,"developerMessage":"Error performing operation","message":"Another error for name"},\
+{"field":"year","errorCode":10000,"status":400,"developerMessage":"Error performing operation","message":"Year can\'t be greater than current year"}\
+]'
+    };
+    var err = new ErrorManager({
+      response: response,
+      el: 'div#form-view'
+    });
+    err.render();
   },
 
   routeWith: function(params) {

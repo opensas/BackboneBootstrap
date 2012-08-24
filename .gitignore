@@ -10,6 +10,7 @@ webservice/logs
 webservice/target
 webservice/project/project
 webservice/project/target
+webservice/bin
 # websevice/dist        ##commit to github
 webservice/RUNNING_PID
 

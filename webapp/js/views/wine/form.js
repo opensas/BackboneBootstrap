@@ -8,7 +8,7 @@ src.views.wine = src.views.wine || {};
 src.views.wine.FormView = Backbone.View.extend({
 
   initialize: function() {
-    _.bindAll(this, 'save', 'success', 'cancel', 'close');
+    _.bindAll(this, 'save', 'success', 'error', 'cancel', 'close');
   },
 
   render: function() {
@@ -17,6 +17,8 @@ src.views.wine.FormView = Backbone.View.extend({
     $('#table-view').hide();
     return this;
   },
+
+  errorManager: undefined,
 
   events: {
     'click div.save': 'save',
@@ -38,13 +40,22 @@ src.views.wine.FormView = Backbone.View.extend({
       });
     } else {
       this.model.save(attrs, {
-        success: this.success
+        success: this.success,
+        error: this.error
       });
     }
   },
 
   success: function() {
+    console.log(arguments);
     this.close(true);
+  },
+
+  error: function(model, resp) {
+    this.errorManager = new ErrorManager({
+      el: this.$el,
+      response: resp
+    }).render();
   },
 
   cancel: function() {
@@ -83,7 +94,7 @@ src.views.wine.FormView = Backbone.View.extend({
           </div> \
         </div> \
  \
-        <div class="control-group"> \
+        <div class="control-group error"> \
           <label class="control-label" for="name">Name</label> \
           <div class="controls"> \
             <input type="text" class="input-xlarge" id="name" value="<%= name %>"> \

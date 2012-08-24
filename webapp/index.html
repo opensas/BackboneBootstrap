@@ -202,7 +202,15 @@
 </script>
 
 <script type="text/template" id="form-template">
+
+      <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>Error!</strong>&nbsp;<span class="title"></span>
+        <ul></ul>
+      </div>
+
       <div class="panel">
+
         <div class="panel-header">Wines</div>
         <div class="panel-content">
 
@@ -214,38 +222,43 @@
               <p class="help-block">The id is automatically assigned</p>
             </div>
 
-            <div class="span2">
+            <div class="span2 control-group">
               <label class="control-label" for="name">name</label> 
               <input type="text" class="span2" id="name" value="<%= name %>">
               <p class="help-block">Enter the name of the wine</p>
+              <ul></ul>
             </div>
 
-            <div class="span2">
+            <div class="span2 control-group">
               <label class="control-label" for="grapes">Grapes</label> 
               <input type="text" class="span2" id="grapes" value="<%= grapes %>">
               <p class="help-block">Enter the name of the wines grapes</p>
+              <ul></ul>
             </div>
 
-            <div class="span3">
+            <div class="span3 control-group">
               <label class="control-label" for="country">Country</label> 
               <input type="text" class="span3" id="country" value="<%= country %>">
               <p class="help-block">Enter the wines country</p>
+              <ul></ul>
             </div>
 
-            <div class="span2">
+            <div class="span2 control-group">
               <label class="control-label" for="region">Region</label> 
               <input type="text" class="span2" id="region" value="<%= region %>">
               <p class="help-block">Enter the wines region</p>
+              <ul></ul>
             </div>
 
           </div>
 
           <div class="row">
 
-            <div class="span2">
+            <div class="span2 control-group">
               <label class="control-label" for="year">Year</label> 
               <input type="text" class="span2" id="year" value="<%= year %>">
               <p class="help-block">Enter the wines year</p>
+              <ul></ul>
             </div>
 
           </div>
@@ -272,6 +285,7 @@
 <!-- utils -->
 <script src="js/utils/http.js"></script>
 <script src="js/utils/crud.js"></script>
+<script src="js/utils/errorManager.js"></script>
 
 <!-- app -->
 <script src="js/config.js"></script>
