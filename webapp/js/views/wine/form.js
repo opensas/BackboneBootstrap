@@ -34,12 +34,14 @@ src.views.wine.FormView = Backbone.View.extend({
       grapes: this.$('#grapes').val(),
       country: this.$('#country').val(),
       region: this.$('#region').val(),
+      description: this.$('#description').val(),
       year: this.$('#year').val()
     };
 
     if (this.model.isNew()) {
       this.collection.create(attrs, {
-        success: this.success
+        success: this.success,
+        error: this.error
       });
     } else {
       this.model.save(attrs, {

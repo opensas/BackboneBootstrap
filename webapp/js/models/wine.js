@@ -11,6 +11,7 @@ src.models.Wine = Backbone.Model.extend({
     'grapes': '',
     'country': '',
     'region': '',
+    'description': 'enter the wine\'s description',
     'year': 2000
   }
 });
