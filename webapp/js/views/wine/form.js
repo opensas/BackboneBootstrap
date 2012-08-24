@@ -9,6 +9,7 @@ src.views.wine.FormView = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, 'save', 'success', 'error', 'cancel', 'close');
+    this.previous = this.model.toJSON();
   },
 
   render: function() {
@@ -17,6 +18,8 @@ src.views.wine.FormView = Backbone.View.extend({
     $('#table-view').hide();
     return this;
   },
+
+  previous: {},
 
   errorManager: undefined,
 
@@ -59,6 +62,7 @@ src.views.wine.FormView = Backbone.View.extend({
   },
 
   cancel: function() {
+    this.model.set(this.previous);
     this.close({
       trigger: false
     });
