@@ -63,13 +63,19 @@ utils.crud.paginate = function(collection) {
   };
 };
 
-utils.crud.highlight = function(text, search) {
+utils.crud.highlight = function(text, search, before, after) {
+  if (!search) return text;
+  if (!text) return text;
+
+  before = before || '<span class="label label-info">';
+  after = after || '</span>';
+
   var pos = text.toLowerCase().indexOf(search.toLowerCase());
   if (pos!==-1) {
     return text.substring(0,pos) +
-      '<span class="label label-info">' +
+      before +
       text.substring(pos,pos+search.length) +
-      '</span>' +
+      after +
       text.substring(pos+search.length);
   } else {
     return text;
@@ -77,12 +83,13 @@ utils.crud.highlight = function(text, search) {
   
 };
 
-utils.crud.highlightItems = function(items, search) {
+utils.crud.highlightItems = function(items, search, before, after) {
+  var highlight = utils.crud.highlight;
   search = search.toLowerCase();
   items.each(function() {
     var item = $(this);
     if (item.text().toLowerCase().indexOf(search)!==-1) {
-      item.html(utils.crud.highlight(item.html(), search));
+      item.html(highlight(item.html(), search, before, after));
     }
   });
 };
