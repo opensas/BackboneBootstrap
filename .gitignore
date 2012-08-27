@@ -17,5 +17,8 @@ webservice/RUNNING_PID
 # Ignore openshift deployment folder
 openshift
 
+# Ignore tmp folder
+/tmp
+
 # Ignore demo folder
 webapp/versions
