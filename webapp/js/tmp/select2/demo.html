@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Select2 3.1</title>
+
+  <link href="../../../css/bootstrap.css" rel="stylesheet">
+  <link href="../../../css/select2.css" rel="stylesheet">
+
+  <script src="../../lib/jquery-1.8.0.js"></script>
+  <script src="../../lib/select2.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+    <article class="row" id="basics">
+      <div class="span4">
+        <h3>A couple of items</h3>
+        <p>
+          <select style="width:300px" id="select1">
+            <optgroup label="Alaskan/Hawaiian Time Zone">
+              <option value="AK">Alaska</option>
+              <option value="HI">Hawaii</option>
+            </optgroup>
+            <optgroup label="Eastern Time Zone">
+              <option value="MA">Massachusetts</option>
+              <option value="NJ">New Jersey</option>
+              <option value="NY">New York</option>
+            </optgroup>
+          </select>
+        </p>
+      </div>
+    </article>
+    <article class="row" id="basics">
+      <div class="span4">
+        <h3>Server side combo - countries</h3>
+        <p>
+          <input type="hidden" class="bigdrop" id="country" style="width:600px" tabindex="0"/> 
+        </p>
+      </div>
+    </article>
+
+  </div>
+
+</body>
+<script>
+  $(function() {
+    $("#select1").select2();
+  });
+</script>
+<script>
+  $(function() {
+
+    var countryFormatResult = function(country) {
+      var markup = "<table class='movie-result'><tr>";
+      markup += "<td class='country-code'>" + countryFormatSelection(country) + "</td>";
+      markup += "</tr></table>"
+      return markup;
+    };
+
+    var countryFormatSelection = function(country) {
+      return country.name + ' (' + country.code + ')';
+    }
+
+    $("#country").select2({
+      placeholder: 'Selecta country',
+      minimunInputLenght: 2,
+      ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+        url: "http://localhost:9000/api/countries",
+        dataType: 'json',
+        quietMillis: 300,
+        data: function(term, page) {
+          return {
+            filter: term,
+            page: page,
+            // search term
+            len: 50
+          };
+        },
+        results: function(data, page) { // parse the results into the format expected by Select2.
+          // since we are using custom formatting functions we do not need to alter remote JSON data
+          return {
+            results: data
+          };
+        }
+      },
+      formatResult: countryFormatResult,
+      // omitted for brevity, see the source of this page
+      formatSelection: countryFormatSelection,
+      // omitted for brevity, see the source of this page
+      dropdownCssClass: "bigdrop" // apply css that makes the dropdown taller
+    });
+
+  });
+</script>
+</html>
