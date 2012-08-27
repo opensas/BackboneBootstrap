@@ -29,6 +29,8 @@ case class Wine (
 
 object Wine {
 
+  val filterFields = List("name", "grapes", "country", "region", "year")
+
   val simpleParser = {
     get[Pk[Long]]("id") ~
     get[String]("name") ~
@@ -90,7 +92,7 @@ object Wine {
         var conditions: List[String] = List()
         if (filter != "") {
           conditions ::=
-            List("name", "grapes", "country", "region", "year")
+            this.filterFields
             .map( field => "lower(%s) like lower({filter})".format(field) )
             .mkString(" or ")
         }

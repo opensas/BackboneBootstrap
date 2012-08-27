@@ -59,4 +59,22 @@ object Wines extends Controller {
     JsonOk("Wine successfully deleted","Wine with id %s deleted".format(id))
   }
 
+  def parse[T: play.api.libs.json.Reads](request: Request[AnyContent]): Option[T] = {
+    request.body.asJson.map { json =>
+      json.asOpt[T]
+    }.getOrElse(None)
+  }
+
+  // import play.api.libs.json.JsValue
+  // type EntityWithJsonFormatter[T,F] = T
+  // type EntityFormatter[T,F] = F {def reads(j: JsValue): T}
+
+  // def parse[T: EntityWithJsonFormatter, F:EntityFormatter](request: Request[AnyContent]): Option[T] = {
+  //   request.body.asJson.map { json =>
+  //     json.asOpt[T].map { entity =>
+  //       entity
+  //     }
+  //   }
+  // }
+
 }

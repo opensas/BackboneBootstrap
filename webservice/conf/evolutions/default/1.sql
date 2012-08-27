@@ -13,7 +13,8 @@ CREATE TABLE `wine` (
   `region` varchar(45) DEFAULT NULL,
   `description` varchar(2000),
   `picture` varchar(256) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `wine_uk_name` (`name`)
 );
 
 # --- !Downs
