@@ -17,27 +17,9 @@
   <div class="container">
     <article class="row" id="basics">
       <div class="span4">
-        <h3>A couple of items</h3>
-        <p>
-          <select style="width:300px" id="select1">
-            <optgroup label="Alaskan/Hawaiian Time Zone">
-              <option value="AK">Alaska</option>
-              <option value="HI">Hawaii</option>
-            </optgroup>
-            <optgroup label="Eastern Time Zone">
-              <option value="MA">Massachusetts</option>
-              <option value="NJ">New Jersey</option>
-              <option value="NY">New York</option>
-            </optgroup>
-          </select>
-        </p>
-      </div>
-    </article>
-    <article class="row" id="basics">
-      <div class="span4">
         <h3>Server side combo - countries</h3>
         <p>
-          <input type="hidden" class="bigdrop" id="country" style="width:600px" tabindex="0"/> 
+          <input type="hidden" value="12" class="bigdrop" id="country" style="width:600px" tabindex="0"/> 
         </p>
       </div>
     </article>
@@ -45,11 +27,6 @@
   </div>
 
 </body>
-<script>
-  $(function() {
-    $("#select1").select2();
-  });
-</script>
 <script>
   $(function() {
 
@@ -64,35 +41,87 @@
       return country.name + ' (' + country.code + ')';
     }
 
+    var inferEndpoint = function() {
+      var location = window.location;
+      if (location.hostname.indexOf('rhcloud')!==-1) {
+        return location.origin + '/api/countries';
+      } else {   // if (location.protocol === "file:") {
+        return 'http://localhost:9000/api/countries';
+      }
+    };
+
+    var ajax = {
+      url: inferEndpoint(),
+      len: 20,
+      term: '',
+      timeout: undefined,     // current scheduled but not yet executed request
+      requestSequence: 0,     // sequence used to drop out-of-order responses
+      quietMillis: 300
+    };
+
     $("#country").select2({
-      placeholder: 'Selecta country',
+      placeholder: 'Select a country',
       minimunInputLenght: 2,
-      ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
-        url: "http://localhost:9000/api/countries",
-        dataType: 'json',
-        quietMillis: 300,
-        data: function(term, page) {
-          return {
-            filter: term,
-            page: page,
-            // search term
-            len: 50
+      query: function(options) {
+        window.clearTimeout(ajax.timeout);
+        ajax.timeout = window.setTimeout(function () {
+          
+          ajax.requestSequence += 1;                 // increment the sequence
+          var requestNumber = ajax.requestSequence;  // this request's sequence number
+          
+          var data = {
+            filter: options.term,
+            page: options.page,
+            len: ajax.len
           };
-        },
-        results: function(data, page) { // parse the results into the format expected by Select2.
-          // since we are using custom formatting functions we do not need to alter remote JSON data
-          return {
-            results: data
-          };
+          $.ajax({
+            url: ajax.url,
+            data: data,
+            dataType: 'json',
+            type: 'GET',
+            success: function(data) {
+              if (requestNumber < ajax.requestSequence) {
+                return;
+              }
+              $.ajax({
+                url: ajax.url + '/count',
+                data: { filter: options.term },
+                dataype: 'json',
+                success: function(resp) {
+                  var total = parseInt(resp, 10);
+                  var more = (options.page * ajax.len) < total;
+                  options.callback({results: data, more: more});
+                }
+              });
+            }
+          });
+        }, ajax.quietMillis);
+      },
+
+      initSelection: function (element, callback) {
+        var id = element.val();
+        // no item selected
+        if (id==='') {
+          callback({});
+        } else {
+          $.get(ajax.url+'/'+id, function(data) {
+            callback(data);
+          }, 'json');
         }
       },
       formatResult: countryFormatResult,
-      // omitted for brevity, see the source of this page
       formatSelection: countryFormatSelection,
-      // omitted for brevity, see the source of this page
       dropdownCssClass: "bigdrop" // apply css that makes the dropdown taller
     });
-
   });
+
+  $(function(){
+    // $("#country").val('12');
+    $("#country").select2(
+      'val', '12'
+    );
+  });
+
+
 </script>
 </html>
