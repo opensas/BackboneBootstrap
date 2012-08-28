@@ -36,7 +36,7 @@ src.views.crud.PagesView = Backbone.View.extend({
 
   template: _.template(' \
       <div class="span6"> \
-        <div>Showing <%= from %>-<%= to %> of <%= total %> entries </div> \
+        <div><%= from %>-<%= to %> de <%= total %></div> \
       </div> \
       <div class="span6"> \
         <div class="pagination page"> \

@@ -20,7 +20,6 @@ src.routers.wine = Backbone.Router.extend({
     _.bindAll(this, 'test');
     //new src.views.widgets.MainMenuView({el: '#main-menu'}).render();
     $('#main-menu-view').replaceWith($('#main-menu-template').html());
-    $('#toolbar-view').replaceWith($('#action-bar-template').html());
     $('#accessibility-view').replaceWith($('#accessibility-bar-template').html());
     $('#tabs-view').replaceWith($('#tabs-bar-template').html());
     $('#messages-view').replaceWith($('#messages-template').html());
