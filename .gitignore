@@ -4,6 +4,9 @@
 # except for .gitignore
 !.gitignore
 
+# exclude SVN files
+\.svn
+
 # Ignore Play! working directory #
 
 webservice/logs
