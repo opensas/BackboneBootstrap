@@ -1,7 +1,7 @@
 /*globals require*/
 require(
-  ['jquery', 'src/routers/wine'],
-  function( $, Router ) {
+  ['jquery', 'bootstrap', 'src/routers/wine'],
+  function( $, bootstrap, Router ) {
 
 'use strict';
 window.app = window.app || {};

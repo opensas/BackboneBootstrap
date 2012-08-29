@@ -38,8 +38,7 @@ var Router = Backbone.Router.extend({
 
     _.bindAll(this, 'del', 'test');
     //new src.views.widgets.MainMenuView({el: '#main-menu'}).render();
-    
-    console.log(accessibilityBarTemplate);
+
     $('#main-menu-view').replaceWith(mainMenuTemplate);
     $('#accessibility-view').replaceWith(accessibilityBarTemplate);
     $('#tabs-view').replaceWith(tabsBarTemplate);

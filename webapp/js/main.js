@@ -13,6 +13,7 @@ require.config({
     jquery: 'lib/jquery-1.8.0',
     lodash: 'lib/lodash-0.6.0',
     backbone: 'lib/backbone-0.9.2',
+    bootstrap: 'lib/bootstrap',
     // requirejs plugin
     text: 'lib/text'
   },
@@ -21,6 +22,9 @@ require.config({
     backbone: {
       deps: ['lodash', 'jquery'],
       exports: 'Backbone'
+    },
+    bootstrap: {
+      deps: ['jquery']
     }
   }
 });
