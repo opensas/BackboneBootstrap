@@ -6,6 +6,7 @@
 
 # exclude SVN files
 \.svn
+\_svn
 
 # Ignore Play! working directory #
 
