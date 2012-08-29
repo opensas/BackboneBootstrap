@@ -9,6 +9,15 @@
 
 @media (max-width: 768px){
 	
+	.nav-tabs li{ 
+		display: none; 
+	}
+
+	.nav-tabs select { 
+		display: inline-block; 
+		width: 100%;
+	}
+
 
 	.subnav .nav > li + li > a {
 		border-top: 0px;
@@ -23,7 +32,11 @@
 	.subnav .nav > li > a:after{
 		content: '';
 	}
-}
+	
+
+
+	
+} 	
 
 
 

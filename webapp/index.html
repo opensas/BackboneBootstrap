@@ -22,14 +22,10 @@
 
     <div class="navbar">
       <div class="navbar-inner-header app-title">
-        <h1>BackboneBootstrap</h1>
+        <h3>BackboneBootstrap</h3>
         <p>Demo app featuring Backbone and Bootstrap.</p>
       </div>
       <div id="main-menu-view"></div>
-    </div>
-
-    <div class="subnav">
-      <div id="toolbar-view"></div>
     </div>
 
     <div id="accessibility-view"></div>
@@ -52,12 +48,9 @@
 <script type="text/template" id="table-template">
 
     <section id="tables">
-      <div class="page-header">
-        <h1>
-          Wines <small>BackboneBootstrap demo application.</small>
-        </h1>
-      </div>
-
+      
+      <h5>Wines</h5>
+      
       <div class="row">
         <div class="span6">
           <div id="page-len-view"></div>
@@ -66,6 +59,7 @@
           <div id="filter-view"></div>
         </div>
       </div>
+      
 
       <div id="headers-view">
       <table class="table table-striped table-bordered">
@@ -77,7 +71,6 @@
             <th order="country">Country<i class="icon-order"></i></th>
             <th order="region">Region<i class="icon-order"></i></th>
             <th order="year">Year<i class="icon-order"></i></th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -87,9 +80,15 @@
 
       <div class="row" id="pages-view"></div>
 
-      <a class="btn btn-primary btn-success btn-small add" href="#wines/new">
-        <i class="icon-plus icon-white"></i>add
-      </a>
+
+      <div class="row">
+        <div class="span6 btns">         
+           <a class="btn add" href="#wines/new">
+             <i class="icon-plus icon-black"></i>Add
+           </a>
+        </div> 
+      </div> 
+
 
     </section>
 
@@ -111,6 +110,16 @@
             <li class="dropdown"><a data-toggle="dropdown"
               class="dropdown-toggle active" href="#">Option 1<b class="caret"></b></a>
               <ul class="dropdown-menu">
+                <li class="dropdown-submenu">
+                  <a tabindex="-1" href="#">More options</a>
+                  <ul class="dropdown-menu">
+                    <li><a tabindex="-1" href="#">Second level link</a></li>
+                    <li><a tabindex="-1" href="#">Second level link</a></li>
+                    <li><a tabindex="-1" href="#">Second level link</a></li>
+                    <li><a tabindex="-1" href="#">Second level link</a></li>
+                    <li><a tabindex="-1" href="#">Second level link</a></li>
+                  </ul>
+                </li>
                 <li class="dropdown submenu"><a href="#"
                   class="dropdown-toggle" data-toggle="dropdown">Sub option 1.1</a>
                   <ul class="dropdown-menu submenu-show submenu-hide">
@@ -166,18 +175,6 @@
       </div>
 </script>
 
-<script type="text/template" id="action-bar-template">
-    <div class="subnav">
-      <ul class="nav nav-pills">
-        <li><a href="#typography" data-title="Browse"><i class="icon-search"></i></a></li>
-        <li><a href="#add"        data-title="Add"><i class="icon-plus"></i></a></li>
-        <li><a href="#edit"       data-title="Edit"><i class="icon-pencil"></i></a></li>
-        <li><a href="#delete"     data-title="Delete"><i class="icon-trash"></i></a></li>
-        <li><a href="#export"     data-title="Export"><i  class="icon-list-alt"></i></a></li>
-        <li><a href="#print"      data-title="Print"><i class="icon-print"></i></a></li>
-      </ul>
-    </div>
-</script>
 
 <script type="text/template" id="accessibility-bar-template">
   <div class="navbar-inner-info">
@@ -283,10 +280,34 @@
         </div>
       </div>
 
-      <div class="form-actions">
-        <div class="btn btn-primary save">Save changes</div>
-        <div class="btn cancel">Cancel</div>
+       <div class="row">
+        <div class="span6 btns">
+
+        <div class="btn btn-primary save">Save</div>
+        <a href="#wines/del/<%=id%>" class="btn delete">Delete</a>
+
+        
+        </div>  
+        <div class="span6 btns">
+          
+          <div class="btn-toolbar" >
+            <div class="btn cancel">Cancel</div>
+            <div class="btn-group open">
+              <button class="btn dropdown-toggle" data-toggle="dropdown">Other Actions<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="#"><i class="icon-list-alt"></i>Export</a></li>
+                <li><a href="#"><i class="icon-print"></i>Print</a></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>  
+
       </div>
+
+    
+      
+      
 </script>
 
 </html>
@@ -303,6 +324,9 @@
 <script src="js/src/utils/http.js"></script>
 <script src="js/src/utils/crud.js"></script>
 <script src="js/src/utils/errorManager.js"></script>
+<script src="js/src/utils/accessibility.js"></script>
+
+
 
 <!-- app -->
 <script src="js/app/config.js"></script>

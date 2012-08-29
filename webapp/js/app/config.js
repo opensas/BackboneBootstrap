@@ -14,7 +14,7 @@ var app = app || {};
       return location.origin + '/api/wines';
     // running locally
     } else {   // if (location.protocol === "file:") {
-      return 'http://localhost:9000/api/wines';
+      return 'http://bb-jugar.rhcloud.com/api/wines';
     }
   };
 

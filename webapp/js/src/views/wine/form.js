@@ -50,7 +50,7 @@ src.views.wine.FormView = Backbone.View.extend({
       });
     }
   },
-
+  
   success: function() {
     console.log(arguments);
     this.close(true);

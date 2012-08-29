@@ -35,9 +35,12 @@ src.views.crud.FilterView = Backbone.View.extend({
   },
 
   template: _.template(' \
-    <input type="text" id="filter_text"> \
-    <div class="btn btn-info btn-small filter" id="filter"> \
-      <i class="icon-search icon-white"></i>filter</div> \
+      <div class="input-prepend" id="filter"> \
+        <span class="add-on">  \
+          <i class="icon-search"></i> \
+        </span> \
+        <input id="filter_text" type="search" class="span3" placeholder="Search" name="search" id="search"/> \
+      </div>   \
   ')
 
 });
