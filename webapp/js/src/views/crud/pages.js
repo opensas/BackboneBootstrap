@@ -1,11 +1,11 @@
-/*globals $,_,Backbone,utils,src:true*/
-
+/*globals define*/
 'use strict';
-var src = src || {};
-src.views = src.views || {};
-src.views.crud = src.views.crud || {};
 
-src.views.crud.PagesView = Backbone.View.extend({
+define(
+  ['jquery', 'lodash', 'backbone', 'src/utils/crud'],
+  function( $, _, Backbone, crud) {
+
+var PagesView = Backbone.View.extend({
 
   paginate: undefined,
 
@@ -15,7 +15,7 @@ src.views.crud.PagesView = Backbone.View.extend({
   },
 
   render: function() {
-    this.paginate = utils.crud.paginate(this.collection);
+    this.paginate = crud.paginate(this.collection);
     this.$el.html(this.template(this.paginate));
     this.addAll();
     return this;
@@ -28,7 +28,7 @@ src.views.crud.PagesView = Backbone.View.extend({
   },
 
   addOne: function(page) {
-    var view = new src.views.crud.PageView({
+    var view = new PageView({
       model: page
     });
     this.$('ul').append(view.render().el);
@@ -47,7 +47,7 @@ src.views.crud.PagesView = Backbone.View.extend({
   ')
 });
 
-src.views.crud.PageView = Backbone.View.extend({
+var PageView = Backbone.View.extend({
   tagName: 'li',
   render: function() {
     this.$el.html(this.template(this.model));
@@ -79,4 +79,7 @@ src.views.crud.PageView = Backbone.View.extend({
         </li> \
   ')
 
+});
+
+  return PagesView;
 });

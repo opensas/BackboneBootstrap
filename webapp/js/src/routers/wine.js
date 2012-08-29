@@ -1,10 +1,21 @@
-/*globals $,_,Backbone,src:true,utils,confirm,alert*/
+/*globals define, alert, confirm*/
+
+define( [
+    'jquery', 'lodash', 'backbone',
+    'app/config',
+    'src/models/wineModel', 'src/models/wineCollection',
+    'src/views/crud/table', 
+    'src/views/wine/rows', 'src/views/wine/form',
+    'src/utils/http', 'src/utils/errorManager'
+  ], function( $, _, Backbone,
+    config,
+    WineModel, WineCollection,
+    TableView, RowsView, FormView,
+    http, ErrorManager ) {
 
 'use strict';
-var src = src || {};
-src.routers = src.routers || {};
 
-src.routers.wine = Backbone.Router.extend({
+var Router = Backbone.Router.extend({
 
   routes: {
     '':                         'list',
@@ -17,59 +28,67 @@ src.routers.wine = Backbone.Router.extend({
   },
 
   initialize: function() {
-    _.bindAll(this, 'test');
+
+    this.config = config;
+
+    _.bindAll(this, 'del', 'test');
     //new src.views.widgets.MainMenuView({el: '#main-menu'}).render();
     $('#main-menu-view').replaceWith($('#main-menu-template').html());
     $('#accessibility-view').replaceWith($('#accessibility-bar-template').html());
     $('#tabs-view').replaceWith($('#tabs-bar-template').html());
     $('#messages-view').replaceWith($('#messages-template').html());
 
-    this.collection = new src.models.Wines();
+    this.collection = new WineCollection( {
+      url: config.endpoint
+    });
     this.model = undefined;
 
-    new src.views.crud.TableView({
+    this.formView = undefined;
+
+    new TableView({
       el: '#table-view', collection: this.collection
     }).render();
 
-    new src.views.wine.RowsView({
+    new RowsView({
       el: '#table-view tbody', collection: this.collection
     });
-
-    //this.collection.fetch();
 
     Backbone.history.start();
   },
 
   list: function(query) {
-    this.collection.setParams(utils.http.parseQuery(query));
+    this.collection.setParams(http.parseQuery(query));
 
     this.collection.fetch();
     $('#form-view').show();
   },
 
   edit: function(id) {
-    this.model = id ? this.collection.get(id) : new src.models.Wine();
+    this.model = id ? this.collection.get(id) : new WineModel();
     
-    new src.views.wine.FormView({
+    this.formView = new FormView({
       el: '#form-view', model: this.model, collection: this.collection
-    }).render();
+    });
+    this.formView.render();
   },
 
   del: function(id) {
     this.model = this.collection.get(id);
     if (!this.model) {
       alert('Item not found');
-      this.navigate('wines', {trigger: true});
+      // this.navigate('wines', {trigger: true});
+      this.formView.close({trigger: true});
       return;
     }
     if (confirm('are you sure you want to delete the current record?')) {
       var that = this;
       this.model.destroy({success: function() {
-        that.navigate('wines', {trigger: true});
+        // that.navigate('wines', {trigger: true});
+        that.formView.close({trigger: true});
       }});
       return;
     } else {
-      this.navigate('wines', {trigger: false});
+      window.history.back();  // back to edit form
     }
   },
 
@@ -82,7 +101,7 @@ src.routers.wine = Backbone.Router.extend({
   test: function() {
     this.model = this.collection.at(1);
     
-    new src.views.wine.FormView({
+    new FormView({
       el: '#form-view', model: this.model, collection: this.collection
     }).render();
 
@@ -104,11 +123,14 @@ src.routers.wine = Backbone.Router.extend({
   },
 
   routeWith: function(params) {
-    return utils.http.addParams(Backbone.history.getHash(), params);
+    return http.addParams(Backbone.history.getHash(), params);
   },
 
   navigateWith: function(params, options) {
     this.navigate(this.routeWith(params), options);
   }
 
+});
+
+  return Router;
 });

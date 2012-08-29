@@ -1,11 +1,11 @@
-/*globals $,_,Backbone,utils,src:true*/
+/*globals define*/
+
+define(
+  ['jquery', 'lodash', 'backbone', 'src/utils/crud'],
+  function( $, _, Backbone, crud) {
 
 'use strict';
-var src =  src || {}; 
-src.views =  src.views || {};
-src.views.wine = src.views.wine || {};
-
-src.views.wine.RowsView = Backbone.View.extend({
+var RowsView = Backbone.View.extend({
 
   template: _.template($('#table-template').html()),
 
@@ -18,14 +18,14 @@ src.views.wine.RowsView = Backbone.View.extend({
     this.$el.empty();
 
     _.each(this.collection.models, function (wine) {
-      var view = new src.views.wine.RowView({
+      var view = new RowView({
         model: wine, collection: this.collection
       });
       this.$el.append(view.render().el);
     }, this);
 
     if (this.collection.filter) {
-      utils.crud.highlightItems(this.$('td:not([class])'), this.collection.filter);
+      crud.highlightItems(this.$('td:not([class])'), this.collection.filter);
     }
 
     return this;
@@ -33,7 +33,7 @@ src.views.wine.RowsView = Backbone.View.extend({
 
 });
 
-src.views.wine.RowView = Backbone.View.extend({
+var RowView = Backbone.View.extend({
   tagName: 'tr',
 
   render: function() {
@@ -46,7 +46,7 @@ src.views.wine.RowView = Backbone.View.extend({
   },
 
   edit: function() {
-    app.navigate('wines/' + this.model.id, true);
+    window.app.navigate('wines/' + this.model.id, true);
   },
 
   initialize: function() {
@@ -63,4 +63,7 @@ src.views.wine.RowView = Backbone.View.extend({
       <td><%= year %></td> \
     ')
 
+});
+
+  return RowsView;
 });

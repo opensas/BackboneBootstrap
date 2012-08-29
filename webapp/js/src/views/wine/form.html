@@ -1,0 +1,96 @@
+      <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>Error!</strong>&nbsp;<span class="title"></span>
+        <ul></ul>
+      </div>
+
+      <div class="panel">
+
+        <div class="panel-header">Wines</div>
+        <div class="panel-content">
+
+          <div class="row">
+        
+            <div class="span2">
+              <label class="control-label" for="id">Id</label> 
+              <input type="text" class="span2" id="id" value="<%= id || "new" %>">
+              <p class="help-block">The id is automatically assigned</p>
+            </div>
+
+            <div class="span7 control-group">
+              <label class="control-label" for="name">name</label> 
+              <input type="text" class="span7" id="name" value="<%= name %>">
+              <p class="help-block">Enter the name of the wine</p>
+              <ul></ul>
+            </div>
+
+            <div class="span2 control-group">
+              <label class="control-label" for="grapes">Grapes</label> 
+              <input type="text" class="span2" id="grapes" value="<%= grapes %>">
+              <p class="help-block">Enter the name of the wines grapes</p>
+              <ul></ul>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="span2 control-group">
+              <label class="control-label" for="country">Country</label> 
+              <input type="text" class="span2" id="country" value="<%= country %>">
+              <p class="help-block">Enter the wines country</p>
+              <ul></ul>
+            </div>
+
+            <div class="span4 control-group">
+              <label class="control-label" for="region">Region</label> 
+              <input type="text" class="span4" id="region" value="<%= region %>">
+              <p class="help-block">Enter the wines region</p>
+              <ul></ul>
+            </div>
+
+            <div class="span2 control-group">
+              <label class="control-label" for="year">Year</label> 
+              <input type="text" class="span2" id="year" value="<%= year %>">
+              <p class="help-block">Enter the wines year</p>
+              <ul></ul>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="span11 control-group">
+              <label class="control-label" for="description">Description</label> 
+              <input type="text" class="span11" id="description" value="<%= description %>">
+              <p class="help-block">Enter the description of the wine</p>
+              <ul></ul>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+       <div class="row">
+        <div class="span6 btns">
+
+        <div class="btn btn-primary save">Save</div>
+        <a href="#wines/del/<%=id%>" class="btn delete">Delete</a>
+
+        </div>  
+        <div class="span6 btns">
+          
+          <div class="btn-toolbar" >
+            <div class="btn cancel">Cancel</div>
+            <div class="btn-group open">
+              <button class="btn dropdown-toggle" data-toggle="dropdown">Other Actions<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="#"><i class="icon-list-alt"></i>Export</a></li>
+                <li><a href="#"><i class="icon-print"></i>Print</a></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>  
+
+      </div>

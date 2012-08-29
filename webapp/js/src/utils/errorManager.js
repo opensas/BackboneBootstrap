@@ -1,8 +1,11 @@
+/*globals define*/
 'use strict';
-var src = src || {};
-src.crud = src.crud || {};
 
-var ErrorManager = src.crud.ErrorManager = function(options) {
+define(
+  ['jquery', 'lodash'],
+  function( $, _ ) {
+
+var ErrorManager = function(options) {
   this.initialize(options);
 }
 
@@ -166,4 +169,7 @@ _.extend(ErrorManager.prototype, {
     }
   }
 
+});
+
+  return ErrorManager;
 });

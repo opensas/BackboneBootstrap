@@ -1,26 +1,14 @@
-/*globals $,_,Backbone,src:true,utils,confirm,alert*/
-
+/*globals define*/
 'use strict';
-var src = src || {};
-src.models = src.models || {};
 
-src.models.Wine = Backbone.Model.extend({
-  defaults: {
-    'id': null,
-    'name': 'new wine',
-    'grapes': '',
-    'country': '',
-    'region': '',
-    'description': 'enter the wine\'s description',
-    'year': 2000
-  }
-});
+define(
+  ['jquery', 'lodash', 'backbone',
+  'src/models/wineModel'],
+  function( $, _, Backbone, WineModel) {
 
-src.models.Wines = Backbone.Collection.extend({
+var Wines = Backbone.Collection.extend({
 
-  model: src.models.Wine,
-
-  url: app.config.endpoint,
+  model: WineModel,
 
   page:   1,
   len:    10,
@@ -58,6 +46,9 @@ src.models.Wines = Backbone.Collection.extend({
 
   initialize: function (options) {
     if (!options) { options = {}; }
+
+    if (options.url) { this.url = options.url; }
+
     if (options.params) { this.setParams(options.params); }
 
     _.bindAll(this, 'fetch', 'fetch_total');
@@ -111,3 +102,6 @@ src.models.Wines = Backbone.Collection.extend({
   }
 
 });
+
+  return Wines;
+})

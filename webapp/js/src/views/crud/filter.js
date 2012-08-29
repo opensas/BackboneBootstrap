@@ -1,11 +1,12 @@
-/*globals $,_,Backbone,utils,src:true*/
-
+/*globals define*/
 'use strict';
-var src = src || {};
-src.views = src.views || {};
-src.views.crud = src.views.crud || {};
 
-src.views.crud.FilterView = Backbone.View.extend({
+define(
+  ['jquery', 'lodash', 'backbone',
+  'text!src/views/crud/filter.html'],
+  function( $, _, Backbone, filterTemplate) {
+
+var FilterView = Backbone.View.extend({
 
   initialize: function() {
     this.collection.bind('reset', this.update, this);
@@ -34,13 +35,9 @@ src.views.crud.FilterView = Backbone.View.extend({
     this.$('#filter_text').val(this.collection.filter);
   },
 
-  template: _.template(' \
-      <div class="input-prepend" id="filter"> \
-        <span class="add-on">  \
-          <i class="icon-search"></i> \
-        </span> \
-        <input id="filter_text" type="search" class="span3" placeholder="Search" name="search" id="search"/> \
-      </div>   \
-  ')
+  template: _.template(filterTemplate)
 
 });
+
+  return FilterView
+})

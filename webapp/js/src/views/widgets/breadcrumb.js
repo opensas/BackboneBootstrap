@@ -1,11 +1,11 @@
-/*globals $,_,Backbone,utils,src:true*/
-
+/*globals define*/
 'use strict';
-var src = src || {};
-src.views = src.views || {};
-src.views.widgets = src.views.widgets || {};
 
-src.views.widgets.BreadCrumbView = Backbone.View.extend({
+define(
+  ['jquery', 'lodash', 'backbone'],
+  function( $, _, Backbone) {
+
+var BreadCrumbView = Backbone.View.extend({
 
   render: function() {
     this.$el.html(this.template());
@@ -24,4 +24,7 @@ src.views.widgets.BreadCrumbView = Backbone.View.extend({
 </ul> \
   ')
 
+});
+
+  return BreadCrumbView;
 });

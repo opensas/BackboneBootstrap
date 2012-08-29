@@ -1,11 +1,11 @@
-/*globals $,_,Backbone,utils,src:true*/
-
+/*globals define*/
 'use strict';
-var src = src || {};
-src.views = src.views || {};
-src.views.crud = src.views.crud || {};
 
-src.views.crud.PageLenView = Backbone.View.extend({
+define(
+  ['jquery', 'lodash', 'backbone'],
+  function( $, _, Backbone) {
+
+var PageLenView = Backbone.View.extend({
 
   initialize: function() {
     this.collection.bind('reset', this.update, this);
@@ -44,4 +44,7 @@ src.views.crud.PageLenView = Backbone.View.extend({
     </select> records per page  </label> \
   ')
 
+});
+
+  return PageLenView;
 });

@@ -1,11 +1,15 @@
-/*globals $,_,Backbone,utils,src:true*/
-
+/*globals define*/
 'use strict';
-var src = src || {};
-src.views = src.views || {};
-src.views.crud = src.views.crud || {};
 
-src.views.crud.TableView = Backbone.View.extend({
+define(
+  [
+    'jquery', 'lodash', 'backbone',
+    'src/views/crud/pageLen', 'src/views/crud/pages', 'src/views/crud/filter'
+  ],
+  function( $, _, Backbone,
+    PageLenView, PagesView, FilterView) {
+
+var TableView = Backbone.View.extend({
 
   template: _.template($('#table-template').html()),
 
@@ -14,15 +18,15 @@ src.views.crud.TableView = Backbone.View.extend({
 
     this.$('#messages-view').html($('#messages-template').html());
 
-    new src.views.crud.PageLenView({
+    new PageLenView({
        el: this.$('#page-len-view'), collection: this.collection
     }).render();
 
-    new src.views.crud.PagesView({
+    new PagesView({
       el: this.$('#pages-view'), collection: this.collection
     }).render();
 
-    new src.views.crud.FilterView({
+    new FilterView({
       el: this.$('#filter-view'), collection: this.collection
     }).render();
 
@@ -32,7 +36,6 @@ src.views.crud.TableView = Backbone.View.extend({
   events: {
     'click th[order]':    'order'
   },
-  
 
   order: function(e) {
     var th = $(e.target);
@@ -48,7 +51,10 @@ src.views.crud.TableView = Backbone.View.extend({
     });
 
     th.addClass(direction === 'asc' ? 'order-asc' : 'order-desc');
-    app.navigateWith({order: order+' '+direction}, {trigger: true});
+    app.navigateWith({order: order +' '+direction}, {trigger: true});
   }
 
+});
+
+  return TableView;
 });

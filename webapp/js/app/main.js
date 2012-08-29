@@ -1,14 +1,17 @@
-/*globals $,_,Backbone,utils,confirm,alert*/
+/*globals require*/
+require(
+  ['jquery', 'src/routers/wine'],
+  function( $, Router ) {
 
-var src = src || {};
-var app = app || {};
+'use strict';
+window.app = window.app || {};
 
 $(function() {
-  'use strict';
 
-  app = new src.routers.wine();
+  app = new Router();
+
   app.navigate('wines');
-  // app.navigate('errors');
 
 });
 
+});

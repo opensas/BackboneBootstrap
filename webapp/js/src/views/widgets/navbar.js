@@ -1,11 +1,11 @@
-/*globals $,_,Backbone,utils,src:true*/
-
+/*globals define*/
 'use strict';
-var src = src || {};
-src.views = src.views || {};
-src.views.widgets = src.views.widgets || {};
 
-src.views.widgets.NavBarView = Backbone.View.extend({
+define(
+  ['jquery', 'lodash', 'backbone'],
+  function($, _, Backbone) {
+
+var NavBarView = Backbone.View.extend({
 
   render: function() {
     this.$el.html(this.template());
@@ -34,4 +34,7 @@ src.views.widgets.NavBarView = Backbone.View.extend({
 </div> \
   ')
 
+});
+
+  return NavBarView;
 });

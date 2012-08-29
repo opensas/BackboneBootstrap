@@ -1,10 +1,13 @@
-/*globals $*/
-
+/*globals define*/
 'use strict';
-var utils = utils || {};
-utils.crud = utils.crud || {};
 
-utils.crud.paginate = function(collection) {
+define(
+  ['jquery'],
+  function( $ ) {
+
+var crud = {};
+
+crud.paginate = function(collection) {
 
   var pagesToShow = 3; // show 3 pages before the current one, the current one, and 3 pages after: 7 pages
 
@@ -63,7 +66,7 @@ utils.crud.paginate = function(collection) {
   };
 };
 
-utils.crud.highlight = function(text, search, before, after) {
+crud.highlight = function(text, search, before, after) {
   if (!search) return text;
   if (!text) return text;
 
@@ -83,8 +86,8 @@ utils.crud.highlight = function(text, search, before, after) {
   
 };
 
-utils.crud.highlightItems = function(items, search, before, after) {
-  var highlight = utils.crud.highlight;
+crud.highlightItems = function(items, search, before, after) {
+  var highlight = crud.highlight;
   search = search.toLowerCase();
   items.each(function() {
     var item = $(this);
@@ -93,3 +96,6 @@ utils.crud.highlightItems = function(items, search, before, after) {
     }
   });
 };
+
+  return crud;
+})

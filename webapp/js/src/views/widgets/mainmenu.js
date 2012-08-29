@@ -1,11 +1,11 @@
-/*globals $,_,Backbone,utils,src:true*/
-
+/*globals define*/
 'use strict';
-var src = src || {};
-src.views = src.views || {};
-src.views.widgets = src.views.widgets || {};
 
-src.views.widgets.MainMenuView = Backbone.View.extend({
+define(
+  ['jquery', 'lodash', 'backbone'],
+  function( $, _, Backbone) {
+
+var MainMenuView = Backbone.View.extend({
 
   render: function() {
     this.$el.html(this.template());
@@ -14,4 +14,7 @@ src.views.widgets.MainMenuView = Backbone.View.extend({
 
   template: _.template($('#main-menu-template').html())
 
+});
+
+  return MainMenuView;
 });

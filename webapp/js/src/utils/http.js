@@ -1,9 +1,12 @@
+/*globals define*/
 'use strict';
 
-var utils = utils || {};
-utils.http = utils.http || {};
+define(
+  function() {
 
-utils.http.parseParams = function(url) {
+var http = {};
+
+http.parseParams = function(url) {
 
   url = url || '';
   var match,
@@ -18,7 +21,7 @@ utils.http.parseParams = function(url) {
   return params;
 };
 
-utils.http.buildParams = function(params) {
+http.buildParams = function(params) {
   params = params || {};
   var url = '';
   var prop;
@@ -31,7 +34,7 @@ utils.http.buildParams = function(params) {
   return url.slice(0,-1); // remove last char
 };
 
-utils.http.addParams = function(source, add) {
+http.addParams = function(source, add) {
 
   var base = '';
   var pos = source.indexOf('?');
@@ -47,21 +50,21 @@ utils.http.addParams = function(source, add) {
     }
   }
 
-  if (typeof source === 'string') {source = utils.http.parseQuery(source);}
-  if (typeof add === 'string')    {add = utils.http.parseQuery(add);}
+  if (typeof source === 'string') {source = http.parseQuery(source);}
+  if (typeof add === 'string')    {add = http.parseQuery(add);}
 
   for (prop in add) {
     if (add.hasOwnProperty(prop)) {
       source[prop] = add[prop];
     }
   }
-  var params = utils.http.buildParams(source);
+  var params = http.buildParams(source);
 
   return base + (params !== '' ? '?' + params : '');
 };
 
-utils.http.parseQuery = function(url) {
-  var query = utils.http.parseParams(url);
+http.parseQuery = function(url) {
+  var query = http.parseParams(url);
 
   var parsed = {};
 
@@ -73,3 +76,5 @@ utils.http.parseQuery = function(url) {
   return parsed;
 };
 
+  return http;
+});
