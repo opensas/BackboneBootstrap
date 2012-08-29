@@ -6,11 +6,16 @@ define( [
     'src/models/wineModel', 'src/models/wineCollection',
     'src/views/crud/table', 
     'src/views/wine/rows', 'src/views/wine/form',
+    'text!src/routers/main-menu.html',
+    'text!src/routers/accessibility-bar.html',
+    'text!src/routers/tabs-bar.html',
+    'text!src/routers/messages.html',
     'src/utils/http', 'src/utils/errorManager'
   ], function( $, _, Backbone,
     config,
     WineModel, WineCollection,
     TableView, RowsView, FormView,
+    mainMenuTemplate, accessibilityBarTemplate, tabsBarTemplate, messagesTemplate,
     http, ErrorManager ) {
 
 'use strict';
@@ -33,10 +38,12 @@ var Router = Backbone.Router.extend({
 
     _.bindAll(this, 'del', 'test');
     //new src.views.widgets.MainMenuView({el: '#main-menu'}).render();
-    $('#main-menu-view').replaceWith($('#main-menu-template').html());
-    $('#accessibility-view').replaceWith($('#accessibility-bar-template').html());
-    $('#tabs-view').replaceWith($('#tabs-bar-template').html());
-    $('#messages-view').replaceWith($('#messages-template').html());
+    
+    console.log(accessibilityBarTemplate);
+    $('#main-menu-view').replaceWith(mainMenuTemplate);
+    $('#accessibility-view').replaceWith(accessibilityBarTemplate);
+    $('#tabs-view').replaceWith(tabsBarTemplate);
+    $('#messages-view').replaceWith(messagesTemplate);
 
     this.collection = new WineCollection( {
       url: config.endpoint

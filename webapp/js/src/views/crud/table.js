@@ -4,14 +4,16 @@
 define(
   [
     'jquery', 'lodash', 'backbone',
+    'text!src/views/crud/table.html',
     'src/views/crud/pageLen', 'src/views/crud/pages', 'src/views/crud/filter'
   ],
   function( $, _, Backbone,
+    tableTemplate,
     PageLenView, PagesView, FilterView) {
 
 var TableView = Backbone.View.extend({
 
-  template: _.template($('#table-template').html()),
+  template: _.template(tableTemplate),
 
   render: function() {
     this.$el.html(this.template());
