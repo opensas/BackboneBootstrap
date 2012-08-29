@@ -318,9 +318,6 @@
                         // TODO 3.0 - replace query.page with query so users have access to term, page, etc.
                         var results = options.results(data, query.page);
                         query.callback(results);
-                        // options.results(data, query.page, function(results) {
-                        //   query.callback(results);
-                        // });
                     }
                 });
             }, quietMillis);
@@ -1693,8 +1690,6 @@
                 if (!val) {
                     this.clear();
                     return;
-                } else {
-                  this.opts.element.val(val);
                 }
                 this.opts.initSelection(this.opts.element, function(data){
                     self.opts.element.val(!data ? "" : self.id(data));
