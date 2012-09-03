@@ -26,3 +26,5 @@ openshift
 
 # Ignore demo folder
 webapp/versions
+# ignore reuiqreJs demos
+webapp/js/tmp/require*
