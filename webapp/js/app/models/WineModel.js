@@ -2,10 +2,10 @@
 'use strict';
 
 define(
-  ['backbone'],
-  function( Backbone) {
+  ['backbone', 'src/models/BaseModel'],
+  function(Backbone, BaseModel) {
 
-var Wine = Backbone.Model.extend({
+var WineModel = BaseModel.extend({
   defaults: {
     'id': null,
     'name': 'new wine',
@@ -17,5 +17,5 @@ var Wine = Backbone.Model.extend({
   }
 });
 
-  return Wine;
+  return WineModel;
 });

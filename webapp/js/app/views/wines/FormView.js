@@ -3,7 +3,7 @@
 
 define( [
   'jquery', 'lodash', 'backbone', 
-  'text!src/views/wine/form.html', 'src/utils/errorManager'],
+  'text!app/views/wines/form.html', 'src/utils/errorManager'],
   function( $, _, Backbone, 
     formTemplate, ErrorManager) {
 

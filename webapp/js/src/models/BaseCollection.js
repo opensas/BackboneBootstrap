@@ -2,13 +2,12 @@
 'use strict';
 
 define(
-  ['jquery', 'lodash', 'backbone',
-  'src/models/wineModel'],
-  function( $, _, Backbone, WineModel) {
+  ['jquery', 'lodash', 'backbone', 'src/models/BaseModel'],
+  function( $, _, Backbone, BaseModel) {
 
-var Wines = Backbone.Collection.extend({
+var BaseCollection = Backbone.Collection.extend({
 
-  model: WineModel,
+  model: BaseModel,
 
   page:   1,
   len:    10,
@@ -103,5 +102,5 @@ var Wines = Backbone.Collection.extend({
 
 });
 
-  return Wines;
+  return BaseCollection;
 })

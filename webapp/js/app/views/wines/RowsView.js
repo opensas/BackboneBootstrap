@@ -17,15 +17,15 @@ var RowsView = Backbone.View.extend({
   render: function() {
     this.$el.empty();
 
-    _.each(this.collection.models, function (wine) {
+    _.each(this.collection.models, function (model) {
       var view = new RowView({
-        model: wine, collection: this.collection
+        model: model, collection: this.collection
       });
       this.$el.append(view.render().el);
     }, this);
 
     if (this.collection.filter) {
-      crud.highlightItems(this.$('td:not([class])'), this.collection.filter);
+      crud.highlightItems(this.$('td'), this.collection.filter);
     }
 
     return this;
@@ -42,7 +42,7 @@ var RowView = Backbone.View.extend({
   },
 
   events: {
-    'click td:not(.action)':  'edit'
+    'click':  'edit'
   },
 
   edit: function() {
