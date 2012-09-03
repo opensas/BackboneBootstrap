@@ -1,5 +1,8 @@
 /*globals describe,beforeEach,it,expect*/
-/*globals utils*/
+
+define(
+  ['src/utils/crud', 'spec/stringHelper'],
+  function(crud) {
 
 'use strict';
 
@@ -8,7 +11,7 @@ describe("utils.crud.highlight helper", function() {
   var highlight, search, text, expected;
 
   beforeEach(function() {
-     highlight = utils.crud.highlight;    // namespace shorcut
+     highlight = crud.highlight;    // namespace shorcut
      search = text = expected = '';
   });
 
@@ -97,7 +100,7 @@ describe("utils.crud.highlightItems helper", function() {
   var highlightItems, originalHtml, originalDom, items, search, expected;
 
   beforeEach(function() {
-    highlightItems = utils.crud.highlightItems;
+    highlightItems = crud.highlightItems;
     search = '';
     expected = '';
     originalHtml = '\
@@ -181,5 +184,7 @@ describe("utils.crud.highlightItems helper", function() {
     });
 
   });
+
+});
 
 });
