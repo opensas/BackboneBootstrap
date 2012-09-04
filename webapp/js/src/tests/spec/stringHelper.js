@@ -1,6 +1,10 @@
 /*globals beforeEach*/
 'use strict';
 
+define(
+  ['jasmine'],
+  function(jasmine) {
+
 beforeEach(function() {
   this.addMatchers({
     toStartWith: function(text) {
@@ -17,4 +21,6 @@ beforeEach(function() {
       return endsWith(this.actual, text);
     }
   });
+});
+
 });
