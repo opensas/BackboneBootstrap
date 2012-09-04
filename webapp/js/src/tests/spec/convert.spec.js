@@ -1,8 +1,8 @@
 /*globals describe,beforeEach,it,expect*/
 
 define(
-  ['src/utils/convert'],
-  function(convert) {
+  ['jasmine', 'src/utils/convert', 'jasmine'],
+  function(jasmine, convert) {
 
 'use strict';
 

@@ -1,8 +1,8 @@
 /*globals describe,beforeEach,it,expect*/
 
 define(
-  ['src/utils/crud', 'spec/stringHelper'],
-  function(crud) {
+  ['jasmine', 'src/utils/crud', 'spec/stringHelper'],
+  function(jasmine, crud) {
 
 'use strict';
 
