@@ -6,6 +6,8 @@ require.config({
 
   baseUrl: '.',
 
+  deps: ['main'],
+
   paths: {
     'src': '..',
     'jasmine':      'lib/jasmine-1.2.0/jasmine.min',
