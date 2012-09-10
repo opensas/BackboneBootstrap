@@ -4,7 +4,6 @@ import play.Logger;
 
 import exceptions.InvalidQueryConditionException
 
-
 import java.sql.ResultSetMetaData
 
 import utils.Conversion.isNumeric
@@ -12,7 +11,20 @@ import utils.Sql.sanitize
 import utils.Sql.formatValue
 import utils.sql.FieldType
 
+import utils.query
+import utils.query.ConditionParser
+
 object ConditionBuilder {
+
+  def build(conditions: String)(implicit meta:ResultSetMetaData): String = {
+    val conds: List[query.Condition] = ConditionParser.parse(conditions)
+
+    val sqlConditions: List[String] = conds.map { condition =>
+      buildSingleCondition(condition)
+    }
+
+    sqlConditions.map { "(" + _ + ")"}.mkString(" and ")
+  }
 
   def buildSingleCondition(condition: Condition)(implicit meta:ResultSetMetaData): String = {
 

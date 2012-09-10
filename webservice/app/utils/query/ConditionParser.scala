@@ -52,6 +52,12 @@ object ConditionParser {
 
   import ConditionOperator._
 
+  def parse(conditions: String): List[Condition] = {
+    conditions.split(",").map{ condition =>
+      parseSingleCondition(condition)
+    }.toList
+  }
+
   def parseSingleCondition(condition: String): Condition = {
 
     val conditionRegExp = """^([\w-]*)(!?)(=|:|<=|>=|<>|<|>|){1}+(.*)$""".r
@@ -73,14 +79,13 @@ object ConditionParser {
         "Error parsing query condition '%s' No value specified.".format(condition))
     }
 
-    val (operator, negated) = {
+    val negated = (parsedNegated == "!")
+    val operator = {
       val operator = ConditionOperator.toConditionOperator(parsedOperator)
-      val negated = parsedNegated == "!"
-      // field!value => field notEqual value
       if (negated && operator == Missing) {
-        (NotEqual, false)
+        Equal
       } else {
-        (operator, negated)
+        operator
       }
     }
 
@@ -133,7 +138,7 @@ object ConditionParser {
 
     }
 
-  return Condition(condition, parsedField, negated, operator, parsedValue)
+    return Condition(condition, parsedField, negated, operator, parsedValue)
 
   }
 }

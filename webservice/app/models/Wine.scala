@@ -10,6 +10,8 @@ import play.api.Play
 import utils.Http
 import utils.Validate
 
+import java.sql.ResultSetMetaData
+
 case class Wine (
 
   val id: Pk[Long] = NotAssigned,
@@ -29,7 +31,18 @@ case class Wine (
 
 object Wine {
 
+  val tableName = "wine"
+
   val filterFields = List("name", "grapes", "country", "region", "year")
+
+  lazy val metaData: ResultSetMetaData = {
+    val sql = "select * from %s where false".format(tableName)
+    implicit val conn = DB.getConnection()
+    val resultSet = SQL(sql).resultSet
+    val meta = resultSet.getMetaData
+    resultSet.close
+    meta
+  }
 
   val simpleParser = {
     get[Pk[Long]]("id") ~

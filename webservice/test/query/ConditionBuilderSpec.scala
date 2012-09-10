@@ -1,4 +1,5 @@
-package test
+// test with play "test-only test.ConditionBuilder.*"
+package test.query
 
 import org.specs2.mutable._
 
