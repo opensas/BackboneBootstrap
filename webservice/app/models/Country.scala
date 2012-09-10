@@ -10,6 +10,8 @@ import play.api.Play
 import utils.Http
 import utils.Validate
 
+import utils.Sql.sanitize
+
 case class Country (
 
   val id: Pk[Long] = NotAssigned,

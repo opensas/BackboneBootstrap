@@ -2,6 +2,8 @@ package utils
 
 import scala.collection.immutable.Map
 
+import play.Logger;
+
 object Http {
 
   val DEFAULT_PAGE_LEN = 10

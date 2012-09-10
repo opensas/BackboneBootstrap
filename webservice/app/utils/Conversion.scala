@@ -24,4 +24,8 @@ object Conversion {
 
   }
 
+  def isNumeric(v: String): Boolean = v.matches("""[+-]?\d+\.?\d+""")
+
+  def isInteger(v: String): Boolean = v.matches("""[+-]?\d+""")
+
 }
