@@ -60,7 +60,7 @@ object ConditionParser {
 
   def parseSingleCondition(condition: String): Condition = {
 
-    val conditionRegExp = """^([\w-]*)(!?)(=|:|<=|>=|<>|<|>|){1}+(.*)$""".r
+    val conditionRegExp = """^([\w-]*)(!?)(=|:|\$|<=|>=|<>|<|>|){1}+(.*)$""".r
 
     if (!conditionRegExp.pattern.matcher(condition).matches) {
       throw new InvalidQueryConditionException(

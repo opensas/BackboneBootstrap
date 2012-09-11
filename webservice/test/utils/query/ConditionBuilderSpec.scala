@@ -1,5 +1,5 @@
 // test with play "test-only test.ConditionBuilder.*"
-package test.query
+package test.utils.query
 
 import org.specs2.mutable._
 
@@ -31,36 +31,40 @@ class ConditionBuilderSpec extends Specification {
 
     "build the sql condition when dealing with string operations" in {
       buildSingleCondition(Condition("field=10", "field", false, Equal, List("10")), String
-      ) must equalTo("field like '10%'")
+      ) must equalTo("lower(field) like '10%'")
 
       buildSingleCondition(Condition("field=10*", "field", false, StartsWith, List("10")), String
-      ) must equalTo("field like '10%'")
+      ) must equalTo("lower(field) like '10%'")
 
       buildSingleCondition(Condition("field=*10", "field", false, EndsWith, List("10")), String
-      ) must equalTo("field like '%10'")
+      ) must equalTo("lower(field) like '%10'")
 
       buildSingleCondition(Condition("field=*10", "field", false, Contains, List("10")), String
-      ) must equalTo("field like '%10%'")
+      ) must equalTo("lower(field) like '%10%'")
+    }
+
+    "build the sql condition when dealing with string operations, with case unsensitive" in {
+      buildSingleCondition(Condition("field$Hi Fellows!", "field", false, Contains, List("Hi Fellows!")), String
+      ) must equalTo("lower(field) like '%hi fellows!%'")
     }
 
     "build the sql negated condition when dealing with string operations" in {
       buildSingleCondition(Condition("field=10", "field", true, Equal, List("10")), String
-      ) must equalTo("field not like '10%'")
+      ) must equalTo("lower(field) not like '10%'")
     }
 
     "build the sql condition escaping single quotes when dealing with string operations" in {
       buildSingleCondition(Condition("field=Paul's home", "field", false, Equal, List("Paul's home")), String
-      ) must equalTo("field like 'Paul''s home%'")
+      ) must equalTo("lower(field) like 'paul''s home%'")
     }
 
-    "build the sql condition leacing double quotes and slashes untouched" in {
+    "build the sql condition leaving double quotes and slashes untouched, case unsensitive" in {
       buildSingleCondition(Condition("""field=Paul"s home""", "field", false, Equal, List("""Paul"s home""")), String
-      ) must equalTo("""field like 'Paul"s home%'""")
+      ) must equalTo("""lower(field) like 'paul"s home%'""")
 
       buildSingleCondition(Condition("""field=Paul\s home""", "field", false, Equal, List("""Paul\s home""")), String
-      ) must equalTo("""field like 'Paul\s home%'""")
+      ) must equalTo("""lower(field) like 'paul\s home%'""")
     }
-
 
     "build the sql condition when dealing with boolean operations" in {
       List("1", "yes", "on", "true", "TrUE", "anything").foreach { value =>

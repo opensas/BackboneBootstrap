@@ -10,36 +10,32 @@ import utils.Conversion.isNumeric
 import utils.Sql.sanitize
 import utils.Sql.formatValue
 import utils.sql.FieldType
+import utils.sql.ColumnInfo
 
 import utils.query
-import utils.query.ConditionParser
 
 object ConditionBuilder {
 
-  def build(conditions: String)(implicit meta:ResultSetMetaData): String = {
-    val conds: List[query.Condition] = ConditionParser.parse(conditions)
+  val CASE_SENSITIVE = false
+
+  def build(conditions: String, columnsInfo: List[ColumnInfo]): String = {
+    val conds: List[query.Condition] = query.ConditionParser.parse(conditions)
 
     val sqlConditions: List[String] = conds.map { condition =>
-      buildSingleCondition(condition)
+      buildSingleCondition(condition, columnsInfo)
     }
 
-    sqlConditions.map { "(" + _ + ")"}.mkString(" and ")
+    // sqlConditions.map { "(" + _ + ")"}.mkString(" and ")
+    sqlConditions.mkString(" and ")
   }
 
-  def buildSingleCondition(condition: Condition)(implicit meta:ResultSetMetaData): String = {
-
-    def getFieldType(fieldName: String)(implicit meta: ResultSetMetaData): Option[FieldType.Value] = {
-      Range(1, meta.getColumnCount).find {
-        meta.getColumnName(_) == fieldName
-      }.map { index =>
-        val metaFieldType = meta.getColumnType(index)
-        Option(FieldType.toFieldType(metaFieldType))
-      }.getOrElse {
-        None
-      }
-    }
-    getFieldType(condition.field).map { fieldType =>
-      buildSingleCondition(condition, fieldType)
+  def buildSingleCondition(
+    condition: Condition, columnsInfo: List[ColumnInfo]
+  ): String = {
+    columnsInfo.find(_.name.toLowerCase == condition.field.toLowerCase).map { columnInfo =>
+      buildSingleCondition(
+        condition, FieldType.toFieldType(columnInfo.fieldType)
+      )
     }.getOrElse {
       throw new InvalidQueryConditionException(
         "Error parsing query condition '%s'. Field '%s' not found."
@@ -48,7 +44,9 @@ object ConditionBuilder {
     }
   }
 
-  def buildSingleCondition(condition: Condition, fieldType: FieldType.Value): String = {
+  def buildSingleCondition(
+    condition: Condition, fieldType: FieldType.Value
+  ): String = {
 
     import ConditionOperator._
     import FieldType._
@@ -108,7 +106,11 @@ object ConditionBuilder {
           case EndsWith       => "%" + value
           case Contains       => "%" + value + "%"
         }
-        return "%s %slike %s".format(condition.field, neg, formatValue(likeValue))
+        if (CASE_SENSITIVE) {
+          return "%s %slike %s".format(condition.field, neg, formatValue(likeValue))
+        } else {
+          return "lower(%s) %slike %s".format(condition.field, neg, formatValue(likeValue).toLowerCase)
+        }
       }
       case _ => {
         throw new InvalidQueryConditionException(
