@@ -10,8 +10,8 @@ require.config({
   baseUrl: 'js',
 
   deps: ['app/main'],
-
   out: 'main.min.js',
+
 
   paths: {
     // Embed require in main.min

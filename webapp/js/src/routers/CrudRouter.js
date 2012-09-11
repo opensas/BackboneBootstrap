@@ -7,13 +7,16 @@ define( [
     'src/views/crud/table', 
     'app/views/wines/RowsView', 'app/views/wines/FormView',
     'src/views/widgets/WidgetsView',
-    'src/utils/http', 'src/utils/convert', 'src/utils/errorManager'
+    'src/utils/http', 'src/utils/convert', 'src/utils/errorManager',
+    'src/utils/ToastMessage'
+    // ,'src/utils/accessibility'
   ], function( $, _, Backbone,
     config,
     BaseModel, BaseCollection,
     TableView, RowsView, FormView,
     WidgetsView,
-    http, convert, ErrorManager ) {
+    http, convert, ErrorManager, ToastMessage){
+    // , accessibility ) {
 
 'use strict';
 
@@ -45,6 +48,12 @@ var Router = Backbone.Router.extend({
         Messages:           '#messages-view'
       }
     }).render();
+    
+    // The toast component is load.
+    ToastMessage.init({ container: '.loading'});
+
+    
+    
 
     this.Model = this.Model || options.Model || BaseModel;
     this.Collection = this.Collection || options.Collection || BaseCollection;
@@ -85,10 +94,14 @@ var Router = Backbone.Router.extend({
   },
 
   list: function(query) {
+
+    
     this.collection.setParams(http.parseQuery(query));
 
     this.collection.fetch();
     $('#form-view').show();
+    
+
   },
 
   edit: function(id) {
@@ -97,6 +110,7 @@ var Router = Backbone.Router.extend({
     this.formView = new this.FormView({
       el: '#form-view', model: this.model, collection: this.collection
     });
+    
     this.formView.render();
   },
 

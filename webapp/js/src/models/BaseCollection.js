@@ -2,8 +2,9 @@
 'use strict';
 
 define(
-  ['jquery', 'lodash', 'backbone', 'src/models/BaseModel'],
-  function( $, _, Backbone, BaseModel) {
+  ['jquery', 'lodash', 'backbone', 'src/models/BaseModel',
+  'src/utils/ToastMessage'],
+  function( $, _, Backbone, BaseModel,ToastMessage) {
 
 var BaseCollection = Backbone.Collection.extend({
 
@@ -71,6 +72,10 @@ var BaseCollection = Backbone.Collection.extend({
   },
 
   fetch: function (options) {
+    // Add process to show
+    ToastMessage.addProcess(1);
+    
+    
     options = options || {};
     var that = this;
     var success = options.success;
@@ -79,6 +84,9 @@ var BaseCollection = Backbone.Collection.extend({
       data: this.getParams(),
       success: function (collection, resp) {
         that.fetch_total();
+        
+        // Remove process to show
+        ToastMessage.addProcess(-1);
         if (success) success(collection, resp);
       }
     };
