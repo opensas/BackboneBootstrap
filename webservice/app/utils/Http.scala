@@ -2,6 +2,8 @@ package utils
 
 import scala.collection.immutable.Map
 
+import play.Logger;
+
 object Http {
 
   val DEFAULT_PAGE_LEN = 10
@@ -11,7 +13,7 @@ object Http {
   }
 
     // page, len, order, filter
-  def parseQuery(query: Map[String, Seq[String]]): (Int, Int, String, String) = {
+  def parseQuery(query: Map[String, Seq[String]]): (Int, Int, String, String, String) = {
     //val map: Map[String, String] = Http.flatQueryString(query)
 
     val map: Map[String, String] = query          // Http.toFlatQueryString
@@ -20,7 +22,8 @@ object Http {
     val len: Int = map.getOrElse("len", DEFAULT_PAGE_LEN.toString).toInt
     val order = map.getOrElse("order", "name")
     val filter = map.getOrElse("filter", "")
+    val q = map.getOrElse("q", "")
 
-    (page, len, order, filter)
+    (page, len, order, filter, q)
   }
 }

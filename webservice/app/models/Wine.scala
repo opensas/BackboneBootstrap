@@ -5,9 +5,7 @@ import play.api.Play.current
 
 import anorm._
 import anorm.SqlParser._
-import play.api.Play
 
-import utils.Http
 import utils.Validate
 
 case class Wine (
@@ -21,17 +19,23 @@ case class Wine (
   val region: String = "",
   val description: String = "",
   val picture: String = ""
-) {
+)
+  extends Entity
+{
   def update()  = Wine.update(this)
   def save()    = Wine.save(this)
   def delete()  = Wine.delete(this)
 }
 
-object Wine {
+object Wine extends EntityCompanion[Wine] {
+
+  val tableName = "wine"
+
+  val defaultOrder = "country"
 
   val filterFields = List("name", "grapes", "country", "region", "year")
 
-  val simpleParser = {
+  val simpleParser: RowParser[Wine] = {
     get[Pk[Long]]("id") ~
     get[String]("name") ~
     get[String]("year") ~
@@ -44,78 +48,6 @@ object Wine {
         id, name, year, grapes, country, region, description, picture
       )
     }
-  }
-
-  def findById(id: Long): Option[Wine] = {
-    DB.withConnection { implicit connection =>
-      SQL(
-        "select * from wine where id = {id}"
-      ).on(
-        'id   -> id
-      ).as(Wine.simpleParser.singleOpt)
-    }
-  }
-
-  def find(query: Map[String, Seq[String]]): List[Wine] = {
-    val (page, len, order, filter) = Http.parseQuery(query)
-    find(page, len, order, filter)
-  }
-
-  def count(query: Map[String, Seq[String]]): Long = {
-    val (page, len, order, filter) = Http.parseQuery(query)
-    count(filter)
-  }
-
-  def find(
-    page: Int = 1, len: Int = Http.DEFAULT_PAGE_LEN, 
-    order: String = "name", filter: String = "", condition: String = ""
-  ): List[Wine] = {
-    findWithParser(fields="*", page=page, len=len, order=order, 
-      filter=filter, condition=condition, parser=Wine.simpleParser *
-    )
-  }
-
-  def count(filter: String = "", condition: String = ""): Long = {
-    findWithParser(fields="count(*)", page=1, len=1, order = "", 
-      filter=filter, condition=condition, parser=scalar[Long].single
-    )
-  }
-
-  private def findWithParser[T](
-    page: Int = 1, len: Int = Http.DEFAULT_PAGE_LEN,
-    order: String = "name", filter: String = "", condition: String = "", fields: String = "*",
-    parser: ResultSetParser[T]
-  ): T = {
-    DB.withConnection { implicit connection =>
-
-      val where = {
-        var conditions: List[String] = List()
-        if (filter != "") {
-          conditions ::=
-            this.filterFields
-            .map( field => "lower(%s) like lower({filter})".format(field) )
-            .mkString(" or ")
-        }
-        if (condition != "") conditions ::= condition
-        if (conditions.length > 0) {
-          "where (" + conditions.mkString(") and (") + ")"
-        } else {
-          ""
-        }
-      }
-
-      val orderBy = if (order == "") "" else "order by " + order
-      val sql = "select %s from wine %s %s limit {offset}, {len}"
-
-      SQL(
-        sql.format(fields, where, orderBy)
-      ).on(
-        'offset     -> (page-1) * len,
-        'len        -> len,
-        'filter     -> ("%"+filter.toLowerCase()+"%")
-      ).as(parser)
-    }
-
   }
 
   def validate(wine: Wine): List[Error] = {
@@ -196,10 +128,6 @@ object Wine {
         }.getOrElse {
           Left(List(ValidationError("Could not create wine")))
         }
-
-        // .map { id =>
-        //   findById(id)
-        // }.getOrElse(None)
       }
     }
   }
@@ -246,20 +174,6 @@ object Wine {
         }
 
       }
-    }
-  }
-
-  def delete(wine: Wine): Unit = {
-    delete(wine.id)
-  }
-
-  def delete(id: Pk[Long]): Unit = {
-    id.map { id => delete(id) }
-  }
-
-  def delete(id: Long): Unit = {
-    DB.withConnection { implicit connection =>
-      SQL("delete from wine where id = {id}").on('id -> id).executeUpdate()
     }
   }
 
