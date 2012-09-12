@@ -13,6 +13,8 @@ require.config({
 
   out: 'main.min.js',
 
+  preserveLicenseComments: false,
+
   paths: {
     // Embed require in main.min
     'requireLib':   'lib/require.min',

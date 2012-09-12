@@ -1,0 +1,60 @@
+functions in javascript
+
+var num = 4
+function duplicate(value) {
+  return value * 2;
+}
+duplicate(num);
+var duplicate = function(value) {
+  return value * 2;
+}
+
+var map = function(elements, func) {
+  var res = new Array();
+  for(var i = 0; i<elements.length; i++) {
+    res.push(func(elements[i]));
+  }
+  return res;
+}
+
+map([7,8,9], function(value) { return value*value } )
+
+conclusion: las funciones SIEMPRE son variables
+pueden ser asignadas a variables y pasadas como parametros
+tambien pueden ejecutarse con () (y otras maneras mas)
+
+--
+las funciones como métodos
+
+o.name
+o.edad
+o.salute
+
+var upperSalute = ...
+
+--
+
+mostrar window - contexto general
+
+mostrar this
+
+1. method invocation pattern
+
+o.salute
+
+3. constructor invocation pattern
+
+var MyPersonConstructor = function() {
+  this.name = 'new person';
+  this.age = undefined;
+};
+
+explain methods
+prototype
+
+
+2. function invocation pattern
+
+callback example...
+
+3. apply invocation pattern
