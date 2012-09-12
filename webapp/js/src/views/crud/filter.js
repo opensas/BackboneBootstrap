@@ -20,7 +20,9 @@ var FilterView = Backbone.View.extend({
 
   events: {
     'keyup #filter_text':   'filter_debounced',
-    'click div.filter':     'filter'
+    'click div.filter':     'filter',
+
+    'keypress #query_text':    'query'
   },
 
   filter: function() {
@@ -31,8 +33,19 @@ var FilterView = Backbone.View.extend({
     this.filter();
   }, 500),
 
+  query: function(e) {
+    if (e.keyCode === 13) {
+      app.navigateWith({q: this.$("#query_text").val()}, {trigger: true});
+    }
+  },
+
+  query_debounced: _.debounce(function() {
+    this.query();
+  }, 500),
+
   update: function() {
     this.$('#filter_text').val(this.collection.filter);
+    this.$('#query_text').val(this.collection.query);
   },
 
   template: _.template(filterTemplate)

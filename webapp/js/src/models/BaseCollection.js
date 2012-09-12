@@ -68,7 +68,7 @@ var BaseCollection = Backbone.Collection.extend({
     this.setLen(params.len);
     this.setOrder(params.order);
     this.setFilter(params.filter);
-    this.setQuery(params.query);
+    this.setQuery(params.q);
   },
 
   getParams: function () {

@@ -72,6 +72,7 @@ http.parseQuery = function(url) {
   if (query.len     !== undefined)  {parsed.len    = query.len;}
   if (query.order   !== undefined)  {parsed.order  = query.order;}
   if (query.filter  !== undefined)  {parsed.filter = query.filter;}
+  if (query.q       !== undefined)  {parsed.q      = query.q;}
 
   return parsed;
 };
