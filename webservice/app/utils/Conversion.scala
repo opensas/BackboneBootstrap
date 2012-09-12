@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat
 
 import play.Logger
 
+import anorm.Pk
+
 object Conversion {
 
   def toBoolean(v: Long): Boolean = if (v==0) false else true
@@ -24,8 +26,20 @@ object Conversion {
 
   }
 
+  def toUpperFirst(value: String): String = {
+    if (value.length == 0) {
+      ""
+    } else {
+      value.head.toUpper + value.tail
+    }
+  }
+
   def isNumeric(v: String): Boolean = v.matches("""[+-]?\d+(\.?\d)?""")
 
   def isInteger(v: String): Boolean = v.matches("""[+-]?\d+""")
+
+  def pkToLong(pk: Pk[Long]) = {
+    pk.map(id=>id).getOrElse(0L)
+  }
 
 }

@@ -12,20 +12,32 @@ import utils.Validate
 import utils.query.ConditionBuilder
 import utils.sql.ColumnInfo
 
+import utils.Conversion.toUpperFirst
+import utils.Conversion.pkToLong
+
 import java.sql.ResultSetMetaData
+
+import exceptions.ValidationException
 
 import play.Logger
 
 trait Entity {
   val id: Pk[Long]
+
+  def asSeq(): Seq[(String, Any)]
 }
 
 trait EntityCompanion[A<:Entity] {
+
   val tableName: String
+
+  def entityName: String = toUpperFirst(tableName)
 
   val defaultOrder: String
 
-  // val filterFields: List[String] = List[String]()
+  val saveCommand: String
+  val updateCommand: String
+
   val filterFields: List[String]
 
   lazy val columnsInfo: List[ColumnInfo] = {
@@ -38,7 +50,30 @@ trait EntityCompanion[A<:Entity] {
 
   def validate(entity: A): List[Error]
 
+  def isDuplicate(entity: A, field: String): Boolean = {
+    val fields = entity.asSeq.toMap
+    if (!fields.contains(field)) {
+      throw new ValidationException(
+        "Cannot check for duplicate record. There's no field '%s' in table '%s'.".
+        format(field, tableName)
+      )
+    }
+    val value = fields(field).toString
+    val exists = {
+      // it's a new record
+      if (entity.id == NotAssigned) {
+        count(condition = "%s = '%s'".format(field, value))
+      } else {
+        count(condition = "id <> %s and %s = '%s'".
+          format(pkToLong(entity.id), field, value)
+        )
+      }
+    }
+    (exists > 0)
+  }
+
   def findById(id: Long): Option[A] = {
+    Logger.info(entityName)
     DB.withConnection { implicit connection =>
       SQL(
         "select * from %s where id = {id}".format(tableName)
@@ -100,11 +135,6 @@ trait EntityCompanion[A<:Entity] {
         }
       }
 
-      Logger.info("filter: " + filter)
-      Logger.info("q: " + q)
-      Logger.info("condition: " + condition)
-      Logger.info("where: " + where)
-
       val orderBy = if (order == "") "" else "order by " + order
       val sql = "select %s from %s %s %s limit {offset}, {len}"
 
@@ -117,6 +147,64 @@ trait EntityCompanion[A<:Entity] {
       ).as(parser)
     }
 
+  }
+
+  def save(entity: A): Either[List[Error],A] = {
+
+    import utils.sql.AnormHelper.toParamsValue
+
+    val errors = validate(entity)
+    if (errors.length > 0) {
+      Left(errors)
+    } else {
+
+      DB.withConnection { implicit connection =>
+        val newId = SQL(saveCommand)
+          .on(toParamsValue(entity.asSeq): _*)
+          .executeInsert()
+        
+        val savedEntity = for (
+          id <- newId;
+          entity <- findById(id)
+        ) yield entity
+
+        savedEntity.map { entity =>
+          Right(entity)
+        }.getOrElse {
+          Left(List(ValidationError("Could not create %s".format(entityName))))
+        }
+
+      }
+    }
+  }
+
+  def update(entity: A): Either[List[Error],A] = {
+
+    import utils.sql.AnormHelper.toParamsValue
+
+    val errors = validate(entity)
+    if (errors.length > 0) {
+      Left(errors)
+    } else {
+
+      DB.withConnection { implicit connection =>
+        SQL(updateCommand)
+          .on(toParamsValue(entity.asSeq): _*)
+          .executeUpdate()
+        
+        val updatedEntity = for (
+          id <- entity.id;
+          entity <- findById(id)
+        ) yield entity
+
+        updatedEntity.map { entity =>
+          Right(entity)
+        }.getOrElse {
+          Left(List(ValidationError("Could not update %s".format(entityName))))
+        }
+
+      }
+    }
   }
 
   def delete(entity: A): Unit = {
