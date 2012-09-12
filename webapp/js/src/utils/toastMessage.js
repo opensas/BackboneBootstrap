@@ -7,20 +7,31 @@ define(
 
 var toastMessage = {
 
-  inprocess = 0,
+  inprocess: 0,
 
-  init = function(options){
+  init: function(options){
     this.container = options.container;
   },
 
-  addProcess = function(value){
-    this.inprocess += value;
-
+  update: function() {
     if (this.inprocess > 0) {
       $(this.container).show();
     } else {
       $(this.container).css('display','none');
     }
+  },
+
+  addProcess: function(){
+    this.inprocess ++;
+    this.update()
+  },
+
+  removeProcess: function(){
+    this.inprocess --;
+    if (this.inprocess < 0) {
+      console.log('Error! toastMessage.inprocess < 0')
+    }
+    this.update()
   }
 
 };

@@ -8,7 +8,7 @@ define( [
     'app/views/wines/RowsView', 'app/views/wines/FormView',
     'src/views/widgets/WidgetsView',
     'src/utils/http', 'src/utils/convert', 'src/utils/errorManager',
-    'src/utils/ToastMessage'
+    'src/utils/toastMessage'
     // ,'src/utils/accessibility'
   ], function( $, _, Backbone,
     config,
