@@ -10,7 +10,6 @@ require.config({
   baseUrl: 'js',
 
   deps: ['app/main'],
-
   out: 'main.min.js',
 
   preserveLicenseComments: false,

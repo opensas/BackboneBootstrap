@@ -23,9 +23,36 @@ textarea {
   line-height: 12px;
   font-weight: normal;
 }
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+  overflow: hidden;
+}
+.span6 a,
+button,
+.btn {
+  margin: 10px 2px;
+}
 /*==========================================================
 *	Layout
 */
+.loading {
+  display: none;
+  text-align: center;
+  margin: -20px;
+}
+.loading span {
+  display: inline-block;
+  vertical-align: middle;
+}
 .navbar-inner-header {
   background: #feffff;
   /* Mozilla Firefox */
@@ -230,6 +257,7 @@ textarea {
   overflow: hidden;
   padding: 9px 15px;
   position: relative;
+  background-color: #F7F7F7;
 }
 /*========================================================== 
 *	Panel (FontSize) 

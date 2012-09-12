@@ -7,7 +7,7 @@
 @error-color:	#F96060;
 
 @gradient-first:  #FFFFFF;
-@gradient-second: #FCEFDF;
+@gradient-second: #FCEFDF; //#FCEFDF #DDD
 @border-color:	  #DDDDDD;
 
 @panel-background: #F7F7F7;
@@ -92,15 +92,33 @@ body{
 	padding: 0px;
 }
 
-
 body,label, input, button, select, textarea {
   .font-default;
 }
 
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
+    display: block;
+    overflow: hidden;
+}
+
+.span6 a, button, .btn {
+	margin: 10px 2px;
+}
 
 /*==========================================================
 *	Layout
 */
+
+.loading{
+	display:none;
+	text-align:center;
+	margin: -20px;
+}
+
+.loading span{
+	display:inline-block;
+	vertical-align:middle;
+}
 
 .navbar-inner-header {
 	background: rgb(254,255,255);
@@ -285,6 +303,7 @@ body,label, input, button, select, textarea {
     overflow: hidden;
     padding: 9px 15px;
     position: relative;
+    background-color:#F7F7F7;
 }
 
 /*========================================================== 
