@@ -4,28 +4,26 @@
 define(
   ['jquery'],
   function( $ ) {
-  	
 
-var toastMessage = {};  
+var toastMessage = {
 
+  inprocess = 0,
 
-toastMessage.inprocess = 0;
+  init = function(options){
+    this.container = options.container;
+  },
 
-toastMessage.init = function(config){
-	this.container = config.container;
+  addProcess = function(value){
+    this.inprocess += value;
+
+    if (this.inprocess > 0) {
+      $(this.container).show();
+    } else {
+      $(this.container).css('display','none');
+    }
+  }
+
 };
-
-toastMessage.addProcess = function(value){
-	this.inprocess += value ;
-	
-	if (this.inprocess > 0)
-		$(this.container).show();
-	else
-		$(this.container).css('display','none'); 	
-	 
-};
-
 
 return toastMessage;
-
 });

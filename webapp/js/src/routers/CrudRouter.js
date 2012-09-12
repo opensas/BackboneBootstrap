@@ -48,12 +48,8 @@ var Router = Backbone.Router.extend({
         Messages:           '#messages-view'
       }
     }).render();
-    
-    // The toast component is load.
-    ToastMessage.init({ container: '.loading'});
 
-    
-    
+    ToastMessage.init({container: '.loading'});
 
     this.Model = this.Model || options.Model || BaseModel;
     this.Collection = this.Collection || options.Collection || BaseCollection;
@@ -62,7 +58,7 @@ var Router = Backbone.Router.extend({
     this.RowsView = this.RowsView || options.RowsView || RowsView;
     this.FormView = this.FormView || options.FormView || FormView;
 
-    this.collection = new this.Collection( {
+    this.collection = new this.Collection({
       url: this.config.endpoint
     });
     this.model = undefined;
@@ -94,14 +90,10 @@ var Router = Backbone.Router.extend({
   },
 
   list: function(query) {
-
-    
     this.collection.setParams(http.parseQuery(query));
 
     this.collection.fetch();
     $('#form-view').show();
-    
-
   },
 
   edit: function(id) {
