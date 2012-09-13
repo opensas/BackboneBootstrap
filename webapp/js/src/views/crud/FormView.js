@@ -3,15 +3,34 @@
 
 define( [
   'jquery', 'lodash', 'backbone', 
-  'text!app/views/wines/form.html', 'src/utils/errorManager'],
+  'text!src/views/crud/form.html', 
+  'src/utils/errorManager', 'src/utils/crud', 'src/utils/views'],
   function( $, _, Backbone, 
-    formTemplate, ErrorManager) {
+    formTemplate, ErrorManager, crud, views ) {
 
 var FormView = Backbone.View.extend({
 
-  initialize: function() {
+  initialize: function(options) {
+    options = options || {};
     _.bindAll(this, 'save', 'success', 'error', 'cancel', 'close');
     this.previous = this.model.toJSON();
+
+    this.initTemplate(options);
+  },
+
+  initTemplate: function(options) {
+
+    var template;
+
+    if (options.template) {
+      template = options.template;
+    } else {
+      template = formTemplate.replace(
+        '%controls%', crud.generateFormTemplate(this.model.formFields)
+      );
+    }
+
+    this.template = views.compileTemplate(template);
   },
 
   render: function() {
@@ -31,14 +50,8 @@ var FormView = Backbone.View.extend({
   },
 
   save: function() {
-    var attrs = {
-      name: this.$('#name').val(),
-      grapes: this.$('#grapes').val(),
-      country: this.$('#country').val(),
-      region: this.$('#region').val(),
-      description: this.$('#description').val(),
-      year: this.$('#year').val()
-    };
+
+    var attrs = crud.getAttrs(this.model.defaults, this.$el);
 
     if (this.model.isNew()) {
       this.collection.create(attrs, {
@@ -76,7 +89,7 @@ var FormView = Backbone.View.extend({
     $('#table-view').show();
     this.$el.unbind();
     this.$el.empty();
-    app.navigate('wines', options);
+    app.navigateToList(options);
   },
 
   template: _.template(formTemplate),

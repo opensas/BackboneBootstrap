@@ -13,7 +13,7 @@
         
             <div class="span2">
               <label class="control-label" for="id">Id</label> 
-              <input type="text" class="span2" id="id" value="<%= id || "new" %>">
+              <span class="span2 uneditable-input"><%= id || "new" %></span>
               <p class="help-block">The id is automatically assigned</p>
             </div>
 
@@ -60,8 +60,8 @@
           <div class="row">
 
             <div class="span11 control-group">
-              <label class="control-label" for="description">Description</label> 
-              <input type="text" class="span11" id="description" value="<%= description %>">
+              <label class="control-label" for="description">Description</label>
+              <textarea class="span11" id="description" rows="3"><%= description %></textarea>
               <p class="help-block">Enter the description of the wine</p>
               <ul></ul>
             </div>

@@ -4,8 +4,8 @@ define( [
     'jquery', 'lodash', 'backbone',
     'app/config',
     'src/models/BaseModel', 'src/models/BaseCollection',
-    'src/views/crud/table', 
-    'app/views/wines/RowsView', 'app/views/wines/FormView',
+    'src/views/crud/TableView', 
+    'src/views/crud/RowsView', 'src/views/crud/FormView',
     'src/views/widgets/WidgetsView',
     'src/utils/http', 'src/utils/convert', 'src/utils/errorManager',
     'src/utils/toastMessage'
@@ -58,6 +58,8 @@ var Router = Backbone.Router.extend({
     this.RowsView = this.RowsView || options.RowsView || RowsView;
     this.FormView = this.FormView || options.FormView || FormView;
 
+    this.formTemplate = options.formTemplate || this.formTemplate || undefined;
+
     this.collection = new this.Collection({
       url: this.config.endpoint
     });
@@ -100,7 +102,10 @@ var Router = Backbone.Router.extend({
     this.model = id ? this.collection.get(id) : new this.Model();
 
     this.formView = new this.FormView({
-      el: '#form-view', model: this.model, collection: this.collection
+      el: '#form-view', 
+      template: this.formTemplate,
+      model: this.model, 
+      collection: this.collection
     });
     
     this.formView.render();
@@ -132,6 +137,14 @@ var Router = Backbone.Router.extend({
 
   navigateWith: function(params, options) {
     this.navigate(this.routeWith(params), options);
+  },
+
+  navigateToId: function(id, options) {
+    this.navigate(this.baseUrl + '/' + id.toString(), options);
+  },
+
+  navigateToList: function(options) {
+    this.navigate(this.baseUrl, options);
   }
 
 });

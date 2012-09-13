@@ -1,24 +1,41 @@
 /*globals define*/
 
 define(
-  ['jquery', 'lodash', 'backbone', 'src/utils/crud'],
-  function( $, _, Backbone, crud) {
+  ['jquery', 'lodash', 'backbone', 'src/utils/crud', 'src/utils/views'],
+  function( $, _, Backbone, crud, views ) {
 
 'use strict';
+
 var RowsView = Backbone.View.extend({
 
-  template: _.template($('#table-template').html()),
+  rowView: undefined,
 
-  initialize: function() {
+  initialize: function(options) {
+    options = options || {};
     this.collection.bind('reset', this.render, this);
     this.collection.bind('change', this.render, this);
+
+    this.initRowView(options);
+  },
+
+  // allow to define another view or template for rendering the rows
+  // dynamically generate default template from model's tableFields definition
+  // if no template is specified
+  initRowView: function(options) {
+
+    this.rowView = options.rowView || this.rowView || RowView;
+
+    var rowTemplate = options.rowTemplate || 
+      crud.generateTableRowTemplate(this.collection.tableFields);
+
+    this.rowView.prototype.template = views.compileTemplate(rowTemplate);
   },
 
   render: function() {
     this.$el.empty();
 
     _.each(this.collection.models, function (model) {
-      var view = new RowView({
+      var view = new this.rowView({
         model: model, collection: this.collection
       });
       this.$el.append(view.render().el);
@@ -46,7 +63,7 @@ var RowView = Backbone.View.extend({
   },
 
   edit: function() {
-    window.app.navigate('wines/' + this.model.id, true);
+    app.navigateToId(this.model.id, true);
   },
 
   initialize: function() {
@@ -54,14 +71,8 @@ var RowView = Backbone.View.extend({
     this.model.bind('change', this.render, this);
   },
 
-  template: _.template( ' \
-      <td><%= id %></td> \
-      <td><%= name %></td> \
-      <td><%= grapes %></td> \
-      <td><%= country %></td> \
-      <td><%= region %></td> \
-      <td><%= year %></td> \
-    ')
+// to be specified when using it, or automatically generated from collection.tableFields
+  template: undefined
 
 });
 

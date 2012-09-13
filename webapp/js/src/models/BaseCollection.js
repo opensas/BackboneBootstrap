@@ -10,12 +10,21 @@ var BaseCollection = Backbone.Collection.extend({
 
   model: BaseModel,
 
-  page:   1,
-  len:    10,
-  order:  '',
-  filter: '',
-  query: '',
-  total:  -1,
+  // array of columns to be rendered by RowsView view and TableView
+  // it should have the form:
+  // [
+  //   { field: 'fieldname1', label: 'field1 label', order: 'fieldname1' }
+  // ]
+  // Order is the expression to order by, if not specified it assumes it to be the field
+  // Specify false to stop that column to be ordered
+  tableFields: undefined,
+
+  page   : 1,
+  len    : 10,
+  order  : '',
+  filter : '',
+  query  : '',
+  total  : -1,
 
   setPage: function (value) {
     if (value !== undefined && value !== this.page) {
