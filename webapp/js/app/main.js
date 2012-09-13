@@ -1,14 +1,15 @@
 /*globals require*/
 require(
-  ['jquery', 'bootstrap', 'app/routers/WineRouter'],
-  function( $, bootstrap, Router ) {
+  ['jquery', 'bootstrap', 'app/routers/WineRouter', 'app/routers/CountryRouter'],
+  function( $, bootstrap, WineRouter, CountryRouter ) {
 
 'use strict';
 window.app = window.app || {};
 
 $(function() {
-  app = new Router();
-  app.navigate('wines');
+  // app = new WineRouter();
+  app = new CountryRouter();
+  app.navigateToList();
 });
 
 });

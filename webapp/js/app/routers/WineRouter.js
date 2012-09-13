@@ -16,7 +16,7 @@ var Router = CrudRouter.extend({
   config: config,
   Model: WineModel,
   Collection: WineCollection,
-  formTemplate: wineFormTemplate,
+  // formTemplate: wineFormTemplate, // uncomment to see the custom form template in action
   baseUrl: 'wines'
 });
 

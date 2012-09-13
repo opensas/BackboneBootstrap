@@ -11,10 +11,10 @@ var inferEndpoint = function() {
   var loc = window.location;
   // running on openshift
   if (loc.hostname.indexOf('rhcloud')!==-1) {
-    return loc.protocol + '//' + loc.host + '/api/wines';
+    return loc.protocol + '//' + loc.host + '/api';
   // running locally
   } else {   // if (location.protocol === "file:") {
-    return 'http://bb-jugar.rhcloud.com/api/wines';
+    return 'http://bb-jugar.rhcloud.com/api';
     //return 'http://bb-jugar.rhcloud.com/api/wines';
   }
 };

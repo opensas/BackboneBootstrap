@@ -61,7 +61,7 @@ var Router = Backbone.Router.extend({
     this.formTemplate = options.formTemplate || this.formTemplate || undefined;
 
     this.collection = new this.Collection({
-      url: this.config.endpoint
+      url: this.config.endpoint + '/' + this.baseUrl
     });
     this.model = undefined;
     this.formView = undefined;
