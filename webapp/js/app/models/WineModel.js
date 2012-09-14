@@ -18,6 +18,7 @@ var WineModel = BaseModel.extend({
     'description' : 'enter the wine\'s description',
     'year'        : 2000
   },
+
   formFields: [
     { field: 'id', readOnly: true, label: 'Id', help: 'Automatically generated', control: 'id' },
     { field: 'name',        span: 6, label: 'Name',         help: 'Enter your name' },
@@ -26,7 +27,15 @@ var WineModel = BaseModel.extend({
     { field: 'region',      span: 8, label: 'Region',       help: 'Enter the wines region' },
     { field: 'year',        span: 8, label: 'Year',         help: 'Enter the wines year' },
     { field: 'description', span: 8, label: 'Description',  help: 'Enter the wines description', control: 'textarea', rows: 4 }
+  ],
+
+  queryFields: [
+    { field: 'id',          span: 2, label: 'Id',           help: 'Automatically generated' },
+    { field: 'name',        span: 6, label: 'Name',         help: 'Enter your name' },
+    { field: 'country',     span: 8, label: 'Country',      help: 'Enter the wines country' },
+    { field: 'year',        span: 8, label: 'Year',         help: 'Enter the wines year' }
   ]
+
 });
 
   return WineModel;

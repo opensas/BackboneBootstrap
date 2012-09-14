@@ -4,8 +4,8 @@ define( [
     'jquery', 'lodash', 'backbone',
     'app/config',
     'src/models/BaseModel', 'src/models/BaseCollection',
-    'src/views/crud/TableView', 
-    'src/views/crud/RowsView', 'src/views/crud/FormView',
+    'src/views/crud/TableView', 'src/views/crud/RowsView',
+    'src/views/crud/FormView', 'src/views/crud/QueryView',
     'src/views/widgets/WidgetsView',
     'src/utils/http', 'src/utils/convert', 'src/utils/errorManager',
     'src/utils/toastMessage'
@@ -14,7 +14,8 @@ define( [
     $, _, Backbone,
     config,
     BaseModel, BaseCollection,
-    TableView, RowsView, FormView,
+    TableView, RowsView,
+    FormView, QueryView,
     WidgetsView,
     http, convert, ErrorManager, 
     toastMessage
@@ -66,8 +67,10 @@ var Router = Backbone.Router.extend({
     this.TableView = options.TableView || this.TableView || TableView;
     this.RowsView  = options.RowsView || this.RowsView || RowsView;
     this.FormView  = options.FormView || this.FormView || FormView;
+    this.QueryView = options.QueryView || this.QueryView || QueryView;
 
-    this.formTemplate = options.formTemplate || this.formTemplate || undefined;
+    this.formTemplate  = options.formTemplate || this.formTemplate || undefined;
+    this.queryTemplate = options.queryTemplate || this.queryTemplate || undefined;
 
     this.collection = new this.Collection({
       url: this.config.endpoint + '/' + this.baseUrl
@@ -76,6 +79,7 @@ var Router = Backbone.Router.extend({
 
     this.formView = new this.FormView({
       el         : '#form-view',
+      template   : this.formTemplate,
       collection : this.collection
     });
 
@@ -86,6 +90,12 @@ var Router = Backbone.Router.extend({
     new this.RowsView({
       el: '#table-view tbody', collection: this.collection
     });
+
+    new this.QueryView({
+      el         : 'div#query-view',
+      template   : this.queryTemplate,
+      collection : this.collection
+    }).render();
 
     Backbone.history.start();
   },
