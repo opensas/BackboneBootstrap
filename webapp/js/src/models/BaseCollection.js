@@ -1,9 +1,12 @@
 /*globals define*/
 
-define(
-  ['jquery', 'lodash', 'backbone', 'src/models/BaseModel',
-  'src/utils/toastMessage'],
-  function( $, _, Backbone, BaseModel, ToastMessage) {
+define( [
+    'jquery', 'lodash', 'backbone',
+    'src/models/BaseModel', 'src/utils/toastMessage'
+  ], function(
+    $, _, Backbone, 
+    BaseModel, toastMessage
+  ) {
 
 'use strict';
 
@@ -93,7 +96,7 @@ var BaseCollection = Backbone.Collection.extend({
 
   fetch: function (options) {
     // Add process to show
-    ToastMessage.addProcess();
+    toastMessage.addProcess();
 
     // TODO: check what happens with options variable, we are missing it
     options = options || {};
@@ -106,11 +109,11 @@ var BaseCollection = Backbone.Collection.extend({
         that.fetch_total();
         
         // Remove process to show
-        ToastMessage.removeProcess();
+        toastMessage.removeProcess();
         if (success) { success(collection, resp); }
       },
       error: function() {
-        ToastMessage.removeProcess();
+        toastMessage.removeProcess();
       }
     };
     return Backbone.Collection.prototype.fetch.call(this, options);
@@ -125,14 +128,14 @@ var BaseCollection = Backbone.Collection.extend({
       success: function (resp, status, xhr) {
         that.total = parseInt(resp, 10);
         that.trigger('reset', that);    // manually trigger reset event after fetching total
-        ToastMessage.removeProcess();
+        toastMessage.removeProcess();
         return true;
       },
       error: function() {
-        ToastMessage.removeProcess();
+        toastMessage.removeProcess();
       }
     };
-    ToastMessage.addProcess();
+    toastMessage.addProcess();
     return $.ajax(options);
   }
 

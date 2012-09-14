@@ -33,12 +33,12 @@ var simpleView = function(htmlTemplate) {
 };
 
 var widgets = {
-  AccessibilityBar: accessibilityBarTemplate,
-  BreadCrumb:       breadCrumbTemplate,
-  MainMenu:         mainMenuTemplate,
-  Messages:         messagesTemplate,
-  NavBar:           navBarTemplate,
-  TabsBar:          tabsBarTemplate
+  accessibilityBar: accessibilityBarTemplate,
+  breadCrumb:       breadCrumbTemplate,
+  mainMenu:         mainMenuTemplate,
+  messages:         messagesTemplate,
+  navBar:           navBarTemplate,
+  tabsBar:          tabsBarTemplate
 };
 
 var WidgetsView = Backbone.View.extend({

@@ -10,12 +10,15 @@ define( [
     'src/utils/http', 'src/utils/convert', 'src/utils/errorManager',
     'src/utils/toastMessage'
     // ,'src/utils/accessibility'
-  ], function( $, _, Backbone,
+  ], function(
+    $, _, Backbone,
     config,
     BaseModel, BaseCollection,
     TableView, RowsView, FormView,
     WidgetsView,
-    http, convert, ErrorManager, ToastMessage){
+    http, convert, ErrorManager, 
+    toastMessage
+  ){
     // , accessibility ) {
 
 'use strict';
@@ -30,10 +33,10 @@ var Router = Backbone.Router.extend({
 
     options = options || {};
 
-    this.config = this.config || options.config || {};
+    this.config = options.config || this.config || {};
     if (!this.config.endpoint) { throw new Error('Endpoint not specified!'); }
 
-    this.baseUrl = this.baseUrl || options.baseUrl || '';
+    this.baseUrl = options.baseUrl || this.baseUrl || '';
     if (!this.baseUrl) { throw new Error('baseUrl not specified!'); }
 
     this.addRoutes(this.baseUrl);
@@ -41,22 +44,28 @@ var Router = Backbone.Router.extend({
     _.bindAll(this, 'list', 'edit', 'del');
 
     new WidgetsView({ 
-      el : {
-        MainMenu:           '#main-menu-view',
-        AccessibilityBar:   '#accessibility-view',
-        TabsBar:            '#tabs-view',
-        Messages:           '#messages-view'
+      el: {
+        mainMenu:           '#main-menu-view',
+        accessibilityBar:   '#accessibility-view',
+        tabsBar:            '#tabs-view',
+        messages:           '#messages-view'
       }
     }).render();
 
-    ToastMessage.init({container: '.loading'});
+    toastMessage.initialize( {
+      el        : '.loading',
+      elMessage : '.loading span'
+    });
 
-    this.Model = this.Model || options.Model || BaseModel;
-    this.Collection = this.Collection || options.Collection || BaseCollection;
+    this.Model      = options.Model || this.Model || undefined;
+    if (!this.Model) { throw new Error('Model not specified!'); }
 
-    this.TableView = this.TableView || options.TableView || TableView;
-    this.RowsView = this.RowsView || options.RowsView || RowsView;
-    this.FormView = this.FormView || options.FormView || FormView;
+    this.Collection = options.Collection || this.Collection || undefined;
+    if (!this.Collection) { throw new Error('Collection not specified!'); }
+
+    this.TableView = options.TableView || this.TableView || TableView;
+    this.RowsView  = options.RowsView || this.RowsView || RowsView;
+    this.FormView  = options.FormView || this.FormView || FormView;
 
     this.formTemplate = options.formTemplate || this.formTemplate || undefined;
 
@@ -64,7 +73,11 @@ var Router = Backbone.Router.extend({
       url: this.config.endpoint + '/' + this.baseUrl
     });
     this.model = undefined;
-    this.formView = undefined;
+
+    this.formView = new this.FormView({
+      el         : '#form-view',
+      collection : this.collection
+    });
 
     new this.TableView({
       el: '#table-view', collection: this.collection
@@ -95,19 +108,12 @@ var Router = Backbone.Router.extend({
     this.collection.setParams(http.parseQuery(query));
 
     this.collection.fetch();
-    $('#form-view').show();
   },
 
   edit: function(id) {
     this.model = id ? this.collection.get(id) : new this.Model();
 
-    this.formView = new this.FormView({
-      el: '#form-view', 
-      template: this.formTemplate,
-      model: this.model, 
-      collection: this.collection
-    });
-    
+    this.formView.setModel(this.model);
     this.formView.render();
   },
 

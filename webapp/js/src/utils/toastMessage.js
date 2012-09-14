@@ -10,21 +10,31 @@ var toastMessage = {
 
   inprocess: 0,
 
-  init: function(options){
-    this.container = options.container;
+  initialize: function(options){
+    this.el = options.el;
+    if (!this.el) { throw new Error('toastMessage.el not defined'); }
+
+    this.$el = $(this.el);
+
+    this.elMessage = options.elMessage;
+    if (this.elMessage) this.$elMessage = $(this.elMessage);
+
+    this.message = options.message || 'Cargando...';
   },
 
-  update: function() {
+  update: function(message) {
+    message = message || this.message;
     if (this.inprocess > 0) {
-      $(this.container).show();
+      if (this.$elMessage) { this.$elMessage.text(message); }
+      this.$el.show();
     } else {
-      $(this.container).css('display','none');
+      this.$el.hide();
     }
   },
 
-  addProcess: function(){
+  addProcess: function(message){
     this.inprocess ++;
-    this.update();
+    this.update(message);
   },
 
   removeProcess: function(){
@@ -37,5 +47,5 @@ var toastMessage = {
 
 };
 
-return toastMessage;
+  return toastMessage;
 });

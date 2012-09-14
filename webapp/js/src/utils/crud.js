@@ -1,8 +1,10 @@
 /*globals define*/
 
-define(
-  ['jquery', 'lodash', 'src/utils/string'],
-  function( $, _, string ) {
+define( [
+    'jquery', 'lodash', 'src/utils/string', 'src/utils/toastMessage'
+  ], function(
+    $, _, string, toastMessage
+  ) {
 
 'use strict';
 
@@ -254,6 +256,31 @@ crud.getAttrs = function(defaults, el) {
   });
   return editedModel;
 };
+
+crud.saveModel = function(attrs, model, collection, success, error, message) {
+
+  message = message || 'Grabando cambios...';
+
+  toastMessage.addProcess(message);
+
+  var callbacks = {
+    success: function(model, response) {
+      toastMessage.removeProcess();
+      if (success) { return success(model, response); }
+    },
+    error: function(model, response) {
+      toastMessage.removeProcess();
+      if (error) { return error(model, response); }
+    }
+  }
+
+  if (model.isNew()) {
+    collection.create(attrs, callbacks);
+  } else {
+    model.save(attrs, callbacks);
+  }
+
+}
 
   return crud;
 });

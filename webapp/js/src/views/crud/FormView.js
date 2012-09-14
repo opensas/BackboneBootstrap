@@ -1,11 +1,13 @@
 /*globals define,app,console*/
 
 define( [
-  'jquery', 'lodash', 'backbone', 
-  'text!src/views/crud/form.html', 
-  'src/utils/errorManager', 'src/utils/crud', 'src/utils/views'],
-  function( $, _, Backbone, 
-    formTemplate, ErrorManager, crud, views ) {
+    'jquery', 'lodash', 'backbone',
+    'text!src/views/crud/form.html',
+    'src/utils/errorManager', 'src/utils/crud', 'src/utils/views'
+  ], function(
+    $, _, Backbone,
+    formTemplate, ErrorManager, crud, views
+  ) {
 
 'use strict';
 
@@ -14,65 +16,72 @@ var FormView = Backbone.View.extend({
   initialize: function(options) {
     options = options || {};
     _.bindAll(this, 'save', 'success', 'error', 'cancel', 'close');
-    this.previous = this.model.toJSON();
 
-    this.initTemplate(options);
+    this.setModel(this.model);
+
+    if (options.template) { this.template = views.compileTemplate(options.template); }
   },
 
-  initTemplate: function(options) {
+  setModel: function(model) {
+    this.model = model;
+    if (this.model) { this.previous = this.model.toJSON(); }
+  },
 
-    var template;
+  // check that we have a valid function template
+  _ensureTemplate: function() {
+    var template = this.template;
+    if (_.isFunction(template)) { return; }
 
-    if (options.template) {
-      template = options.template;
-    } else {
-      template = formTemplate.replace(
-        '%controls%', crud.generateFormTemplate(this.model.formFields)
-      );
-    }
+    if (!template) { template = this.getDefaultTemplate(); }
 
     this.template = views.compileTemplate(template);
   },
 
+  // automatically generate a default template from the data in this.model.formFields
+  getDefaultTemplate: function() {
+    var controlsTemplate = crud.generateFormTemplate(this.model.formFields);
+    var template = formTemplate.replace('%controls%', controlsTemplate);
+    return template;
+  },
+
   render: function() {
+    this._ensureTemplate();
     this.$el.html(this.template(this.model.toJSON()));
     this.$el.show();
     $('#table-view').hide();
     return this;
   },
 
-  previous: {},
+  // used to revert changes in the model when the user cancels the edition
+  previous: undefined,
 
   errorManager: undefined,
 
+  template: undefined,
+
   events: {
-    'click div.save': 'save',
-    'click div.cancel': 'cancel'
+    'click div.save'   : 'save',
+    'click div.cancel' : 'cancel'
   },
 
   save: function() {
 
     var attrs = crud.getAttrs(this.model.defaults, this.$el);
 
-    if (this.model.isNew()) {
-      this.collection.create(attrs, {
-        success: this.success,
-        error: this.error
-      });
-    } else {
-      this.model.save(attrs, {
-        success: this.success,
-        error: this.error
-      });
-    }
+    crud.saveModel(
+      attrs, this.model, this.collection,
+      this.success, this.error
+    );
+
   },
-  
+
   success: function() {
-    console.log(arguments);
+    // toastMessage.removeProcess();
     this.close(true);
   },
 
   error: function(model, resp) {
+    // toastMessage.removeProcess();
     this.errorManager = new ErrorManager({
       el: this.$el,
       response: resp
@@ -88,12 +97,9 @@ var FormView = Backbone.View.extend({
 
   close: function(options) {
     $('#table-view').show();
-    this.$el.unbind();
-    this.$el.empty();
+    this.$el.hide();
     app.navigateToList(options);
-  },
-
-  template: _.template(formTemplate)
+  }
 
 });
 
