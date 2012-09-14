@@ -1,12 +1,16 @@
 /*globals define,app,RowView*/
 
-define(
-  ['jquery', 'lodash', 'backbone', 'src/utils/crud', 'src/utils/views'],
-  function( $, _, Backbone, crud, views ) {
+define( [
+    'jquery', 'lodash', 'backbone',
+    'src/views/BaseView', 'src/utils/crud', 'src/utils/views'
+  ], function(
+    $, _, Backbone,
+    BaseView, crud, views
+  ) {
 
 'use strict';
 
-var RowsView = Backbone.View.extend({
+var RowsView = BaseView.extend({
 
   rowView: undefined,
 
@@ -33,12 +37,14 @@ var RowsView = Backbone.View.extend({
 
   render: function() {
     this.$el.empty();
+    this.destroyViews();
 
     _.each(this.collection.models, function (model) {
       var view = new this.rowView({
         model: model, collection: this.collection
       });
       this.$el.append(view.render().el);
+      this.views.push(view);
     }, this);
 
     if (this.collection.filter) {
@@ -50,7 +56,7 @@ var RowsView = Backbone.View.extend({
 
 });
 
-var RowView = Backbone.View.extend({
+var RowView = BaseView.extend({
   tagName: 'tr',
 
   render: function() {

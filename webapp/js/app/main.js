@@ -10,8 +10,8 @@ require( [
 window.app = window.app || {};
 
 $(function() {
-  // app = new WineRouter();
-  app = new CountryRouter();
+  app = new WineRouter();
+  // app = new CountryRouter();
   app.navigateToList();
 });
 
