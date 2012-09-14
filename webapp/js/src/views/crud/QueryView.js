@@ -13,9 +13,14 @@ define( [
 
 var QueryView = Backbone.View.extend({
 
+  // empty copy of the model to 
+  queryFields: undefined,
+
   initialize: function(options) {
     options = options || {};
     _.bindAll(this, 'query');
+
+    this.queryFields = new this.collection.model().queryFields;
 
     if (options.template) { this.template = views.compileTemplate(options.template); }
   },
@@ -34,8 +39,7 @@ var QueryView = Backbone.View.extend({
   // automatically generate a default template from the data in this.model.queryFields
   getDefaultTemplate: function() {
     // create a temp model just to get the queryFields
-    var model = new this.collection.model();
-    var controlsTemplate = crud.generateFormTemplate(model.queryFields);
+    var controlsTemplate = crud.generateFormTemplate(this.queryFields);
     var template = queryTemplate.replace('%controls%', controlsTemplate);
     return template;
   },
@@ -58,8 +62,7 @@ var QueryView = Backbone.View.extend({
   query: function() {
 
     // TODO: find another way to get attrs
-    var model = new this.collection.model();
-    var attrs = crud.getAttrs(model.queryFields, this.$el);
+    var attrs = crud.getAttrsFromFields(this.queryFields, this.$el);
 
     var q = query.jsonToQuery(attrs);
 
