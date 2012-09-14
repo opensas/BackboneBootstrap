@@ -1,5 +1,4 @@
-/*globals define*/
-'use strict';
+/*globals define,app*/
 
 define(
   [
@@ -12,6 +11,8 @@ define(
     tableTemplate,
     PageLenView, PagesView, FilterView,
     crud ) {
+
+'use strict';
 
 var TableView = Backbone.View.extend({
 
@@ -73,10 +74,6 @@ var TableView = Backbone.View.extend({
   }
 
 });
-
-var TableTitlesView = Backbone.View.extend({
-
-})
 
   return TableView;
 });

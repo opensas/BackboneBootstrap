@@ -1,10 +1,10 @@
 /*globals define*/
-'use strict';
 
 define(
   ['lodash'],
   function( _ ) {
 
+'use strict';
 var string = {};
 
 string.replaceAll = function(text, search, replace, caseSensitive) {
@@ -12,7 +12,7 @@ string.replaceAll = function(text, search, replace, caseSensitive) {
   var options = 'g' + (caseSensitive ? '' : 'i');
   var r = new RegExp(search, options);
   return text.replace(r, replace);
-}
+};
 
 // Usage example: 
 //   repl( '<input type="text" class="span%s">', ' class="span%s"', '8') =>
@@ -28,7 +28,7 @@ string.repl = function(template, placeHolder, value, emptyTemplate) {
   } else {
     return string.replaceAll(template, placeHolder, emptyTemplate, true);
   }
-}
+};
 
   return string;
 });

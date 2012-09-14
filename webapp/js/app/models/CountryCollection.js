@@ -1,9 +1,12 @@
 /*globals define*/
-'use strict';
 
-define(
-  ['backbone', 'src/models/BaseCollection', 'app/models/CountryModel'],
-  function(Backbone, BaseCollection, CountryModel) {
+define( [
+    'backbone', 'src/models/BaseCollection', 'app/models/CountryModel'
+  ], function(
+    Backbone, BaseCollection, CountryModel
+  ) {
+
+'use strict';
 
 var CountryCollection = BaseCollection.extend({
   
@@ -17,4 +20,4 @@ var CountryCollection = BaseCollection.extend({
 });
 
   return CountryCollection;
-})
+});

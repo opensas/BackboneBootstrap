@@ -1,10 +1,13 @@
-/*globals define*/
-'use strict';
+/*globals define,app*/
 
-define(
-  ['jquery', 'lodash', 'backbone',
-  'text!src/views/crud/filter.html'],
-  function( $, _, Backbone, filterTemplate) {
+define( [
+    'jquery', 'lodash', 'backbone',
+    'text!src/views/crud/filter.html'
+  ], function( 
+    $, _, Backbone, filterTemplate
+  ) {
+
+'use strict';
 
 var FilterView = Backbone.View.extend({
 
@@ -52,5 +55,5 @@ var FilterView = Backbone.View.extend({
 
 });
 
-  return FilterView
-})
+  return FilterView;
+});

@@ -1,5 +1,4 @@
-/*globals define*/
-'use strict';
+/*globals define,app,console*/
 
 define( [
   'jquery', 'lodash', 'backbone', 
@@ -7,6 +6,8 @@ define( [
   'src/utils/errorManager', 'src/utils/crud', 'src/utils/views'],
   function( $, _, Backbone, 
     formTemplate, ErrorManager, crud, views ) {
+
+'use strict';
 
 var FormView = Backbone.View.extend({
 
@@ -92,7 +93,7 @@ var FormView = Backbone.View.extend({
     app.navigateToList(options);
   },
 
-  template: _.template(formTemplate),
+  template: _.template(formTemplate)
 
 });
 

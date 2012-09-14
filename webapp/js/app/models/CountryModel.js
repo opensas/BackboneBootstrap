@@ -1,9 +1,12 @@
 /*globals define*/
-'use strict';
 
-define(
-  ['backbone', 'src/models/BaseModel'],
-  function(Backbone, BaseModel) {
+define( [
+    'backbone', 'src/models/BaseModel'
+  ], function(
+    Backbone, BaseModel
+  ) {
+
+'use strict';
 
 var CountryModel = BaseModel.extend({
   defaults: {

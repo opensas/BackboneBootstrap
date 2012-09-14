@@ -1,9 +1,12 @@
-/*globals require*/
-require(
-  ['jquery', 'bootstrap', 'app/routers/WineRouter', 'app/routers/CountryRouter'],
-  function( $, bootstrap, WineRouter, CountryRouter ) {
+/*globals require, app*/
+require( [
+    'jquery', 'bootstrap', 'app/routers/WineRouter', 'app/routers/CountryRouter'
+  ], function(
+    $, bootstrap, WineRouter, CountryRouter
+  ) {
 
 'use strict';
+
 window.app = window.app || {};
 
 $(function() {

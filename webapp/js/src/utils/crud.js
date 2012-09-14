@@ -1,9 +1,10 @@
 /*globals define*/
-'use strict';
 
 define(
   ['jquery', 'lodash', 'src/utils/string'],
   function( $, _, string ) {
+
+'use strict';
 
 var crud = {};
 
@@ -158,7 +159,7 @@ crud.generateFormTemplate = function(formFields) {
   });
 
   return template;
-}
+};
 
 crud.generateInputTemplate = function(formField) {
 
@@ -208,7 +209,7 @@ crud.generateInputTemplate = function(formField) {
 
   return groupTemplate;
 
-}
+};
 
 
 /**
@@ -252,7 +253,7 @@ crud.getAttrs = function(defaults, el) {
     } 
   });
   return editedModel;
-}
+};
 
   return crud;
 });

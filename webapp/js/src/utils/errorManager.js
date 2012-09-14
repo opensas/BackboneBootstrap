@@ -1,13 +1,14 @@
 /*globals define*/
-'use strict';
 
 define(
   ['jquery', 'lodash'],
   function( $, _ ) {
 
+'use strict';
+
 var ErrorManager = function(options) {
   this.initialize(options);
-}
+};
 
 _.extend(ErrorManager.prototype, {
 
@@ -74,7 +75,7 @@ _.extend(ErrorManager.prototype, {
   // removes all alert message
   clearAlerts: function() {
     var alerts = this.selectAllAlerts();
-    alerts && alerts.removeClass('active');
+    if (alerts) { alerts.removeClass('active'); }
   },
 
   selectAllAlerts: function() {

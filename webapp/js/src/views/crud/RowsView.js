@@ -1,4 +1,4 @@
-/*globals define*/
+/*globals define,app,RowView*/
 
 define(
   ['jquery', 'lodash', 'backbone', 'src/utils/crud', 'src/utils/views'],

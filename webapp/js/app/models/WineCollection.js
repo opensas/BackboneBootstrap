@@ -1,9 +1,12 @@
 /*globals define*/
-'use strict';
 
-define(
-  ['backbone', 'src/models/BaseCollection', 'app/models/WineModel'],
-  function(Backbone, BaseCollection, WineModel) {
+define( [
+    'backbone', 'src/models/BaseCollection', 'app/models/WineModel'
+  ], function(
+    Backbone, BaseCollection, WineModel
+  ) {
+
+'use strict';
 
 var WineCollection = BaseCollection.extend({
   
@@ -20,4 +23,4 @@ var WineCollection = BaseCollection.extend({
 });
 
   return WineCollection;
-})
+});

@@ -1,10 +1,11 @@
 /*globals define*/
-'use strict';
 
 define(
   ['jquery', 'lodash', 'backbone', 'src/models/BaseModel',
   'src/utils/toastMessage'],
   function( $, _, Backbone, BaseModel, ToastMessage) {
+
+'use strict';
 
 var BaseCollection = Backbone.Collection.extend({
 
@@ -28,7 +29,7 @@ var BaseCollection = Backbone.Collection.extend({
 
   setPage: function (value) {
     if (value !== undefined && value !== this.page) {
-      if (value < 1) { value = 1 };
+      if (value < 1) { value = 1; }
       this.page = value;
     }
   },
@@ -94,10 +95,11 @@ var BaseCollection = Backbone.Collection.extend({
     // Add process to show
     ToastMessage.addProcess();
 
+    // TODO: check what happens with options variable, we are missing it
     options = options || {};
     var that = this;
     var success = options.success;
-    var options = {
+    options = {
       silent: true,       // will manually trigger reset event after fetching the total
       data: this.getParams(),
       success: function (collection, resp) {
@@ -105,7 +107,7 @@ var BaseCollection = Backbone.Collection.extend({
         
         // Remove process to show
         ToastMessage.removeProcess();
-        if (success) success(collection, resp);
+        if (success) { success(collection, resp); }
       },
       error: function() {
         ToastMessage.removeProcess();
@@ -137,4 +139,4 @@ var BaseCollection = Backbone.Collection.extend({
 });
 
   return BaseCollection;
-})
+});

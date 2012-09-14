@@ -1,9 +1,10 @@
 /*globals define*/
-'use strict';
 
 define(
   ['backbone'],
   function(Backbone) {
+
+'use strict';
 
 var BaseModel = Backbone.Model.extend({
 

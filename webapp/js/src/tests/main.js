@@ -1,3 +1,5 @@
+/*globals require, jasmine*/
+
 require(
   [
     'jasmine-html', 
@@ -5,6 +7,8 @@ require(
     'spec/crud.spec'
   ],
 function() {
+  'use strict';
+
   jasmine.getEnv().addReporter(new jasmine.HtmlReporter());
   jasmine.getEnv().execute();
 });

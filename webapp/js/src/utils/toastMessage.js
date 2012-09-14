@@ -1,9 +1,10 @@
-/*globals define*/
-'use strict';
+/*globals define, console*/
 
 define(
   ['jquery'],
   function( $ ) {
+
+'use strict';
 
 var toastMessage = {
 
@@ -23,15 +24,15 @@ var toastMessage = {
 
   addProcess: function(){
     this.inprocess ++;
-    this.update()
+    this.update();
   },
 
   removeProcess: function(){
     this.inprocess --;
     if (this.inprocess < 0) {
-      console.log('Error! toastMessage.inprocess < 0')
+      console.log('Error! toastMessage.inprocess < 0');
     }
-    this.update()
+    this.update();
   }
 
 };

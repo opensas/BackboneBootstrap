@@ -1,8 +1,9 @@
 /*globals define*/
-'use strict';
 
 define(
   function() {
+
+'use strict';
 
 var http = {};
 

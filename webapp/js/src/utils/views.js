@@ -1,9 +1,10 @@
 /*globals define*/
-'use strict';
 
 define(
   ['lodash'],
   function( _ ) {
+
+'use strict';
 
 var views = {};
 
@@ -18,7 +19,7 @@ views.compileTemplate = function(template) {
   } else {
     throw new Error('Invalid template specified. Should be a function or a string.');
   }
-}
+};
 
   return views;
 });

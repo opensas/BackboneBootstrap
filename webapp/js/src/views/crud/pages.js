@@ -1,9 +1,12 @@
-/*globals define*/
-'use strict';
+/*globals define,app,PageView*/
 
-define(
-  ['jquery', 'lodash', 'backbone', 'src/utils/crud'],
-  function( $, _, Backbone, crud) {
+define( [
+    'jquery', 'lodash', 'backbone', 'src/utils/crud'
+  ], function(
+    $, _, Backbone, crud
+  ) {
+
+'use strict';
 
 var PagesView = Backbone.View.extend({
 

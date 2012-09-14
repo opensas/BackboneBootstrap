@@ -1,8 +1,6 @@
 /*globals define*/
-'use strict';
 
-define(
-  [
+define( [
     'jquery', 'lodash', 'backbone', 
     'text!src/views/widgets/accessibility-bar.html',
     'text!src/views/widgets/bread-crumb.html',
@@ -10,15 +8,17 @@ define(
     'text!src/views/widgets/messages.html',
     'text!src/views/widgets/nav-bar.html',
     'text!src/views/widgets/tabs-bar.html'
-  ],
-  function( $, _, Backbone, 
+  ], function(
+    $, _, Backbone, 
     accessibilityBarTemplate,
     breadCrumbTemplate,
     mainMenuTemplate,
     messagesTemplate,
     navBarTemplate,
     tabsBarTemplate
-    ) {
+  ) {
+
+'use strict';
 
 // helper function to create simple views
 var simpleView = function(htmlTemplate) {
@@ -29,8 +29,8 @@ var simpleView = function(htmlTemplate) {
     },
     template: _.template(htmlTemplate)
   });
-  return new View;
-}
+  return new View();
+};
 
 var widgets = {
   AccessibilityBar: accessibilityBarTemplate,
@@ -52,13 +52,14 @@ var WidgetsView = Backbone.View.extend({
 
   render: function() {
     var currentTemplate, currentView;
-
     for (var key in this.el) {
-      currentTemplate = widgets[key];
-      if (currentTemplate) {
-        currentView = simpleView(currentTemplate);
-        currentView.setElement(this.el[key]);
-        currentView.render();
+      if (this.el.hasOwnProperty(key)) {
+        currentTemplate = widgets[key];
+        if (currentTemplate) {
+          currentView = simpleView(currentTemplate);
+          currentView.setElement(this.el[key]);
+          currentView.render();
+        }
       }
     }
     return this;

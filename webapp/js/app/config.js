@@ -1,9 +1,10 @@
-/*globals console*/
-'use strict';
+/*globals define,console*/
 
 define(
   [],
   function() {
+
+'use strict';
 
 // returns a string identifying the environment in which the app is running
 // possible values: local, openshift
@@ -27,4 +28,4 @@ var config = {
 
 return config;
 
-})
+});

@@ -1,9 +1,10 @@
 /*globals define*/
-'use strict';
 
 define(
   ['jquery'],
   function( $ ) {
+
+'use strict';
 
 var accessibility = {};
 
