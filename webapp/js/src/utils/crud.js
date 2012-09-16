@@ -213,7 +213,6 @@ crud.generateInputTemplate = function(formField) {
 
 };
 
-
 /**
  * Dynamically generates and object with the values of each input, select or textarea
  * by inspecting the defaults from the model
@@ -253,6 +252,52 @@ crud.getAttrs = function(defaults, el) {
     if (input.length) {
       editedModel[key] = $el.find('#'+key).val();
     } 
+  });
+  return editedModel;
+};
+
+/**
+ * Dynamically generates and object with the values of each input, select or textarea
+ * by inspecting the array fields
+ * Works just like crud.getAttrs
+ * @param  {Object} model [description]
+ * @return {Object}       json object representing the edited object
+ *
+ * Example: with the following fields:
+ * [
+ *   { field: 'id',     label: 'Id' },
+ *   { field: 'name',   label: 'Name' },
+ *   { field: 'age',    label: 'Age' },
+ * ]
+ *
+ * getAttrsFromFields will search in (el) for #id, #name and #age
+ * and will return an object with it's values, like this:
+ *
+ * {
+ *   id:   $(el).find('#id'),
+ *   name: $(el).find('#name'),
+ *   age:  $(el).find('#age'),
+ * }
+ *
+ * This function is primarily used to fetch the values enterd in the queryView
+ * in order to pass it as a parameter to 
+ * collection.query
+ * 
+ */
+
+crud.getAttrsFromFields = function(fields, el) {
+  var editedModel = {};
+  var $el = $(el);
+  var input = undefined;
+  var fieldName = '';
+  var i;
+
+  $.each(fields, function(i, field) {
+    fieldName = field.field;
+    input = $el.find('#'+fieldName);
+    if (input.length) {
+      editedModel[fieldName] = $el.find('#'+fieldName).val();
+    }
   });
   return editedModel;
 };

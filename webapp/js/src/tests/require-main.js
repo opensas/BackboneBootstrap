@@ -13,7 +13,8 @@ require.config({
     'jasmine':      'lib/jasmine-1.2.0/jasmine.min',
     'jasmine-html': 'lib/jasmine-1.2.0/jasmine-html.min',
     'lib':          '../../lib',
-    'jquery':       '../../lib/jquery-1.8.1.min'
+    'jquery':       '../../lib/jquery-1.8.1.min',
+    'lodash':       '../../lib/lodash-0.6.0.min'
   },
 
   shim: {
