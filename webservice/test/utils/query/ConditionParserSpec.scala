@@ -15,6 +15,7 @@ class ConditionParserSpec extends Specification {
   "ConditionParser.parseSingleCondition" should {
 
     import utils.query.ConditionParser.parseSingleCondition
+    import utils.query.ConditionOperator._
 
     "retrieve the field, negated value, operator and values" in {
       parseSingleCondition("field=value").description must equalTo("field should be equal to value")
@@ -26,23 +27,9 @@ class ConditionParserSpec extends Specification {
         .description must equalTo("field should be not equal to value")
     }
 
-    "correctly assume equal when no operator is specified and the condition is negated" in {
+    "return Missing operator when no operator is specified and the condition is negated" in {
       parseSingleCondition("field!value")
-        .description must equalTo("field should not be equal to value")
-    }
-
-    "treat : and = as synonyms" in {
-      parseSingleCondition("field=value")
-        .description must equalTo("field should be equal to value")
-
-      parseSingleCondition("field:value")
-        .description must equalTo("field should be equal to value")
-
-      parseSingleCondition("field!=value")
-        .description must equalTo("field should not be equal to value")
-
-      parseSingleCondition("field!:value")
-        .description must equalTo("field should not be equal to value")
+        .description must equalTo("field should not (missing operator!) value")
     }
 
     "handle missing parameters in 'between' operator as greater and less than" in {
@@ -54,6 +41,11 @@ class ConditionParserSpec extends Specification {
 
       parseSingleCondition("field=value1..")
         .description must equalTo("field should be greater than or equal to value1")
+
+      parseSingleCondition("field=..") must throwA[InvalidQueryConditionException].like {
+        case e => e.getMessage must contain("You have to specify value 'from' or 'to' when using between operator.")
+      }
+
     }
 
     "handle in operator with multiples values" in {

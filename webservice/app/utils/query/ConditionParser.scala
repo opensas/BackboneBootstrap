@@ -29,6 +29,7 @@ case class Condition(
       case StartsWith      => "%s should%s start with %s".format(field, neg, value)
       case EndsWith        => "%s should%s end with %s".format(field, neg, value)
       case Contains        => "%s should%s contain %s".format(field, neg, value)
+      case Missing         => "%s should%s (missing operator!) %s".format(field, neg, value)
       case Unknown         => "%s should%s have something to do with %s".format(field, neg, value)
     }
   }
@@ -66,7 +67,7 @@ object ConditionParser {
         "Error parsing query condition. Condition is empty.")
     }
 
-    val conditionRegExp = """^([\w-]*)(!?)[:]?(=|:|\$|<=|>=|<>|<|>|){1}+(.*)$""".r
+    val conditionRegExp = """^([\w-]*)[:]?(!?)(=|:|\$|<=|>=|<>|<|>|){1}+(.*)$""".r
 
     if (!conditionRegExp.pattern.matcher(condition).matches) {
       throw new InvalidQueryConditionException(
@@ -88,45 +89,57 @@ object ConditionParser {
     val negated = (parsedNegated == "!")
     val operator = ConditionOperator.toConditionOperator(parsedOperator)
 
-    // check between, in, startswith, contains
-    if (List(Equal, Missing, Unknown).contains(operator)) {
+    operator match {
+      case Equal | Missing | Unknown => {
 
-      //between
-      val betweenRegExp = """^(\w*)\.\.(\w*)$""".r
-      if (betweenRegExp.pattern.matcher(parsedValue).matches) {
-        val betweenRegExp(from, to) = parsedValue
-        if (!from.isEmpty || !to.isEmpty) {
-          if (from.isEmpty) {
-            return Condition(condition, parsedField, negated, LessOrEqual, to)
-          } else if (to.isEmpty) {
-            return Condition(condition, parsedField, negated, GreaterOrEqual, from)
-          } else {
-            return Condition(condition, parsedField, negated, Between, from, to)
+        val betweenRegExp    = """^(\w*)\.\.(\w*)$""".r
+        val inRegExp         = """^(.*;.*)$""".r
+        val containsRegExp   = """^\*(.*)\*$""".r
+        val startsWithRegExp = """^(.*)\*$""".r
+        val endsWithRegExp   = """^\*(.*)$""".r
+
+        parsedValue match {
+
+          case betweenRegExp(from, to) => {
+            if (from.isEmpty && to.isEmpty) {
+              throw new InvalidQueryConditionException(
+                "Error parsing query condition '%s' You have to specify value 'from' or 'to' when using between operator.".format(condition))
+            }
+            if (from.isEmpty) {
+              Condition(condition, parsedField, negated, LessOrEqual, to)
+            } else if (to.isEmpty) {
+              Condition(condition, parsedField, negated, GreaterOrEqual, from)
+            } else {
+              Condition(condition, parsedField, negated, Between, from, to)
+            }
+          }
+
+          case inRegExp(value) => {
+            Condition(condition, parsedField, negated, In, value.split(";").toList)
+          }
+
+          case containsRegExp(value) => {
+            Condition(condition, parsedField, negated, Contains, value)
+          }
+
+          case startsWithRegExp(value) => {
+            Condition(condition, parsedField, negated, StartsWith, value)
+          }
+
+          case endsWithRegExp(value) => {
+            Condition(condition, parsedField, negated, EndsWith, value)
+          }
+
+          case _ => {
+            Condition(condition, parsedField, negated, operator, parsedValue)
           }
         }
-      // in
-      } else if (parsedValue.contains(";")) {
-        return Condition(condition, parsedField, negated, In, parsedValue.split(";").toList)
-      
-      // contains
-      } else if (parsedValue.startsWith("*") && parsedValue.endsWith("*")) {
-        return Condition(condition, parsedField, negated, Contains, 
-          parsedValue.substring(1,parsedValue.length-1))
-
-      // startsWith
-      } else if (parsedValue.endsWith("*")) {
-        return Condition(condition, parsedField, negated, StartsWith, 
-          parsedValue.substring(0,parsedValue.length-1))
-
-      // endsWith
-      } else if (parsedValue.startsWith("*")) {
-        return Condition(condition, parsedField, negated, EndsWith, 
-          parsedValue.substring(1))
       }
-
+      
+      case _ => {   // case Equal | Missing | Unknown
+        Condition(condition, parsedField, negated, operator, parsedValue)
+      }
     }
-
-    return Condition(condition, parsedField, negated, operator, parsedValue)
 
   }
 }

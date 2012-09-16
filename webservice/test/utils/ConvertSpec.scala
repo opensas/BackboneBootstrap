@@ -55,46 +55,7 @@ class ConvertSpec extends Specification {
 
     }
 
-    "accept ':' char as separator" in {
-      parseSingleCondition("field:value").description must equalTo(
-      parseSingleCondition("field=value").description)
-
-      parseSingleCondition("field:<>value").description must equalTo(
-      parseSingleCondition("field<>value").description)
-
-      parseSingleCondition("field:>=value").description must equalTo(
-      parseSingleCondition("field>=value").description)
-
-      parseSingleCondition("field:>value").description must equalTo(
-      parseSingleCondition("field>value").description)
-
-      parseSingleCondition("field:<=value").description must equalTo(
-      parseSingleCondition("field<=value").description)
-
-      parseSingleCondition("field:<value").description must equalTo(
-      parseSingleCondition("field<value").description)
-
-      parseSingleCondition("field:=value1..value2").description must equalTo(
-      parseSingleCondition("field=value1..value2").description)
-
-      parseSingleCondition("field:=value1;value2;value3").description must equalTo(
-      parseSingleCondition("field=value1;value2;value3").description)
-
-      parseSingleCondition("field:=value*").description must equalTo(
-      parseSingleCondition("field=value*").description)
-
-      parseSingleCondition("field:=*value").description must equalTo(
-      parseSingleCondition("field=*value").description)
-
-      parseSingleCondition("field:=*value*").description must equalTo(
-      parseSingleCondition("field=*value*").description)
-
-      parseSingleCondition("field$value").description must equalTo(
-      parseSingleCondition("field:$value").description)
-
-    }
-
-    "retrieve the field, negated value, operator and values" in {
+     "retrieve the field, negated value, operator and values" in {
       parseSingleCondition("field=value").description must equalTo("field should be equal to value")
 
       parseSingleCondition("field!=value")
@@ -102,25 +63,6 @@ class ConvertSpec extends Specification {
 
       parseSingleCondition("field<>value")
         .description must equalTo("field should be not equal to value")
-    }
-
-    "correctly assume equal when no operator is specified and the condition is negated" in {
-      parseSingleCondition("field!value")
-        .description must equalTo("field should not be equal to value")
-    }
-
-    "treat : and = as synonyms" in {
-      parseSingleCondition("field=value")
-        .description must equalTo("field should be equal to value")
-
-      parseSingleCondition("field:value")
-        .description must equalTo("field should be equal to value")
-
-      parseSingleCondition("field!=value")
-        .description must equalTo("field should not be equal to value")
-
-      parseSingleCondition("field!:value")
-        .description must equalTo("field should not be equal to value")
     }
 
     "handle missing parameters in 'between' operator as greater and less than" in {
@@ -158,6 +100,14 @@ class ConvertSpec extends Specification {
         .description must equalTo("field should not contain value1")
     }
 
+    "handle : as separator and report Missing operator" in {
+      parseSingleCondition("field:value1")
+        .description must equalTo("field should (missing operator!) value1")
+
+      parseSingleCondition("field:!value1")
+        .description must equalTo("field should not (missing operator!) value1")
+
+    }
 
     "handle negated conditions, infering the correct operator" in {
       parseSingleCondition("field!value1..value2")

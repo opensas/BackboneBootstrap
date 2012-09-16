@@ -90,10 +90,66 @@ class ConditionBuilderSpec extends Specification {
 
     "build the sql condition when dealing with string in" in {
 
-      build("fstring=TexT", columnsInfo) must equalTo("lower(fstring) = 'text'")
-      build("fstring:=TexT", columnsInfo) must equalTo("lower(fstring) = 'text'")
-      build("fstring:TexT", columnsInfo) must equalTo("lower(fstring) like '%text%'")
+      build("fstring=text", columnsInfo) must equalTo("lower(fstring) = 'text'")
+      build("fstring:=text", columnsInfo) must equalTo("lower(fstring) = 'text'")
+      build("fstring:text", columnsInfo) must equalTo("lower(fstring) like '%text%'")
     }
+
+    "accept ':' char as separator" in {
+
+      build("fstring<>value", columnsInfo) must equalTo(
+      build("fstring:<>value", columnsInfo))
+
+      build("fstring>=value", columnsInfo) must equalTo(
+      build("fstring:>=value", columnsInfo))
+
+      build("fstring>value", columnsInfo) must equalTo(
+      build("fstring:>value", columnsInfo))
+
+      build("fstring<=value", columnsInfo) must equalTo(
+      build("fstring:<=value", columnsInfo))
+
+      build("fstring<value", columnsInfo) must equalTo(
+      build("fstring:<value", columnsInfo))
+
+      build("fstring=value1..value2", columnsInfo) must equalTo(
+      build("fstring:=value1..value2", columnsInfo))
+
+      build("fstring=value1;value2;value3", columnsInfo) must equalTo(
+      build("fstring:=value1;value2;value3", columnsInfo))
+
+      build("fstring=value*", columnsInfo) must equalTo(
+      build("fstring:=value*", columnsInfo))
+
+      build("fstring=*value", columnsInfo) must equalTo(
+      build("fstring:=*value", columnsInfo))
+
+      build("fstring=*value*", columnsInfo) must equalTo(
+      build("fstring:=*value*", columnsInfo))
+
+      build("fstring$value", columnsInfo) must equalTo(
+      build("fstring$value", columnsInfo))
+    }
+
+    "assume contains as operator when no operator is passed and field is a string" in {
+
+      build("fstring=text", columnsInfo) must equalTo("lower(fstring) = 'text'")
+      build("fstring:text", columnsInfo) must equalTo("lower(fstring) like '%text%'")
+
+      build("fstring!=text", columnsInfo) must equalTo("(not lower(fstring) = 'text')")
+      build("fstring!text", columnsInfo) must equalTo("lower(fstring) not like '%text%'")
+      build("fstring:!text", columnsInfo) must equalTo("lower(fstring) not like '%text%'")
+    }
+
+    "assume Equal as operator when no operator is passed and field is not a string" in {
+      build("finteger=10", columnsInfo) must equalTo("finteger = 10")
+      build("finteger:10", columnsInfo) must equalTo("finteger = 10")
+
+      build("finteger!=10", columnsInfo) must equalTo("(not finteger = 10)")
+      build("finteger!10", columnsInfo) must equalTo("(not finteger = 10)")
+      build("finteger:!10", columnsInfo) must equalTo("(not finteger = 10)")
+    }
+
   }
 
   "ConditionBuilder.buildSingleCondition" should {
