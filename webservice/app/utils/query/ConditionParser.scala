@@ -5,11 +5,11 @@ import play.Logger
 import exceptions.InvalidQueryConditionException
 
 case class Condition(
-  original:String, 
-  field: String, 
-  negated: Boolean, 
-  operator: ConditionOperator.Value, 
-  values: List[String]) {
+  original : String, 
+  field    : String, 
+  negated  : Boolean, 
+  operator : ConditionOperator.Value, 
+  values   : List[String]) {
 
   def description: String = {
 
@@ -61,6 +61,7 @@ object ConditionParser {
   def parseSingleCondition(condition: String): Condition = {
 
     if (condition == "") {
+      return Condition("", "", false, Missing, List[String]())
       throw new InvalidQueryConditionException(
         "Error parsing query condition. Condition is empty.")
     }
@@ -85,25 +86,10 @@ object ConditionParser {
     }
 
     val negated = (parsedNegated == "!")
-
-    val operator = {
-      val operator = ConditionOperator.toConditionOperator(parsedOperator)
-      if (operator == Missing) Equal else operator
-    }
-
-    if (operator == Missing) {
-      throw new InvalidQueryConditionException(
-        "Error parsing query condition '%s' No operator specified.".format(condition))
-    }
-
-    if (operator == Unknown) {
-      throw new InvalidQueryConditionException(
-        "Error parsing query condition '%s' The '%s' operator is unknown."
-        .format(condition, parsedOperator))
-    }
+    val operator = ConditionOperator.toConditionOperator(parsedOperator)
 
     // check between, in, startswith, contains
-    if (operator == Equal) {
+    if (List(Equal, Missing, Unknown).contains(operator)) {
 
       //between
       val betweenRegExp = """^(\w*)\.\.(\w*)$""".r

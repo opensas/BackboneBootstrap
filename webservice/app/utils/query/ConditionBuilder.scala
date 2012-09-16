@@ -22,8 +22,8 @@ object ConditionBuilder {
     val conds: List[query.Condition] = query.ConditionParser.parse(conditions)
 
     val sqlConditions: List[String] = conds.map { condition =>
-      buildSingleCondition(condition, columnsInfo)
-    }
+      buildSingleCondition(condition, columnsInfo).trim
+    }.filter( _ != "" )
 
     // sqlConditions.map { "(" + _ + ")"}.mkString(" and ")
     sqlConditions.mkString(" and ")
@@ -38,7 +38,7 @@ object ConditionBuilder {
       )
     }.getOrElse {
       throw new InvalidQueryConditionException(
-        "Error parsing query condition '%s'. Field '%s' not found."
+        "Error building query condition '%s'. Field '%s' not found."
         .format(condition.original, condition.field)
       )
     }
@@ -50,6 +50,17 @@ object ConditionBuilder {
 
     import ConditionOperator._
     import FieldType._
+
+    // validations
+    if (condition.field == "") {
+      throw new InvalidQueryConditionException(
+        "Error building query condition '%s' No field specified.".format(condition.original))
+    }
+
+    if (condition.values.length == 0) {
+      throw new InvalidQueryConditionException(
+        "Error building query condition '%s' No value specified.".format(condition.original))
+    }
 
     //validate numeric values
     if (fieldType == Numeric) {
@@ -74,42 +85,56 @@ object ConditionBuilder {
     }
 
     val operator = {
-      // if field is string, and operator is equal, operator is startsWith
-      if (fieldType == String && condition.operator == Equal) {
-        StartsWith
+      if (condition.operator == Missing || condition.operator == ConditionOperator.Unknown) {
+        if (fieldType == String) Contains else Equal
       } else {
         condition.operator
       }
     }
 
     implicit val implicitFieldType = fieldType
-    val value = condition.values(0)
+
+    // turn every value to lowerCase if dealing with strings and not case sensitive
+    val values = condition.values.map { value =>
+      if (fieldType == String && !CASE_SENSITIVE) value.toLowerCase else value
+    }
+
+    val field = (if (fieldType == String && !CASE_SENSITIVE)
+      "lower(%s)".format(condition.field) else condition.field
+    )
+
+    val formattedValues = values.map { formatValue(_) }
+    val formattedValue = formattedValues(0)
     val neg = if (condition.negated) "not " else ""
 
     operator match {
       case Equal | NotEqual | GreaterOrEqual | Greater | LessOrEqual | Less => {
-        val op = toSqlOperator(condition.operator)
-        val cond = "%s %s %s".format(condition.field, op, formatValue(value))
+        val op = toSqlOperator(operator)
+        val cond = "%s %s %s".format(field, op, formattedValue)
         return if (condition.negated) "(not " + cond + ")" else cond
       }
       case Between => {
         return "%s %sbetween %s and %s".format(
-          condition.field, 
-          neg,
-          formatValue(condition.values(0)), 
-          formatValue(condition.values(1))
+          field, neg, formattedValues(0), formattedValues(1)
         )
       }
       case StartsWith | EndsWith | Contains => {
+        val value = values(0)
         val likeValue = operator match {
           case StartsWith     => value + "%"
           case EndsWith       => "%" + value
           case Contains       => "%" + value + "%"
         }
-        if (CASE_SENSITIVE) {
-          return "%s %slike %s".format(condition.field, neg, formatValue(likeValue))
+       return "%s %slike %s".format(field, neg, formatValue(likeValue))
+      }
+      case In => {
+        if (fieldType == Numeric || fieldType == Boolean) {
+          return ("%s %sin (" + formattedValues.mkString(", ") + ")").format(field, neg)
         } else {
-          return "lower(%s) %slike %s".format(condition.field, neg, formatValue(likeValue).toLowerCase)
+          val operator = if (fieldType == String) Contains else Equal
+          return "( " + values.map( value =>
+            buildSingleCondition( Condition(condition.original, condition.field, condition.negated, operator, value), fieldType)
+          ).mkString(if (condition.negated) " and " else " or ") + " )"
         }
       }
       case _ => {

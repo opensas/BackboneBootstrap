@@ -125,6 +125,8 @@ trait EntityCompanion[A<:Entity] {
         }
         if (q != "") {
           val query = ConditionBuilder.build(q, columnsInfo)
+          Logger.info("q: %s".format(q))
+          Logger.info("query: %s".format(query))
           if (query != "") conditions ::= query
         }
         if (condition != "") conditions ::= condition

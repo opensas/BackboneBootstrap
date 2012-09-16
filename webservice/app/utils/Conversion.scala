@@ -16,14 +16,12 @@ object Conversion {
   def toLong(v: Boolean): Long = if (v==true) 1 else 0
 
   def toDate(date: String, format: String = "yyyy-MM-dd hh:mm:ss"): Option[Date] = {
-
     val dateFormat = new SimpleDateFormat(format)
     try {
       Some(dateFormat.parse(date))
     } catch {
       case e => None
     }
-
   }
 
   def toUpperFirst(value: String): String = {
@@ -37,6 +35,13 @@ object Conversion {
   def isNumeric(v: String): Boolean = v.matches("""[+-]?\d+(\.?\d)?""")
 
   def isInteger(v: String): Boolean = v.matches("""[+-]?\d+""")
+
+  def isBoolean(v: String): Boolean = {
+    List(
+      "on", "1", "-1", "true", "yes",
+      "off", "0", "false", "no"
+    ).contains(v.toLowerCase)
+  }
 
   def pkToLong(pk: Pk[Long]) = {
     pk.map(id=>id).getOrElse(0L)
