@@ -71,7 +71,7 @@ object Country extends EntityCompanion[Country] {
   def validate(country: Country): List[Error] = {
 
     var errors = List[Error]()
-
+    
     // code
     if (Validate.isEmptyWord(country.code)) {
       errors ::= ValidationError("code", "Code not specified")

@@ -16,6 +16,84 @@ class ConvertSpec extends Specification {
 
     import utils.query.ConditionParser.parseSingleCondition
 
+    "handle the basic operators" in {
+      parseSingleCondition("field=value")
+        .description must equalTo("field should be equal to value")
+
+      parseSingleCondition("field<>value")
+        .description must equalTo("field should be not equal to value")
+
+      parseSingleCondition("field>=value")
+        .description must equalTo("field should be greater than or equal to value")
+
+      parseSingleCondition("field>value")
+        .description must equalTo("field should be greater than value")
+
+      parseSingleCondition("field<=value")
+        .description must equalTo("field should be less than or equal to value")
+
+      parseSingleCondition("field<value")
+        .description must equalTo("field should be less than value")
+
+      parseSingleCondition("field=value1..value2")
+        .description must equalTo("field should be between value1 and value2")
+
+      parseSingleCondition("field=value1;value2;value3")
+        .description must equalTo("field should be one of value1, value2, value3")
+
+      parseSingleCondition("field=value*")
+        .description must equalTo("field should start with value")
+
+      parseSingleCondition("field=*value")
+        .description must equalTo("field should end with value")
+
+      parseSingleCondition("field=*value*")
+        .description must equalTo("field should contain value")
+
+      parseSingleCondition("field$value")
+        .description must equalTo("field should contain value")
+
+    }
+
+    "accept ':' char as separator" in {
+      parseSingleCondition("field:value").description must equalTo(
+      parseSingleCondition("field=value").description)
+
+      parseSingleCondition("field:<>value").description must equalTo(
+      parseSingleCondition("field<>value").description)
+
+      parseSingleCondition("field:>=value").description must equalTo(
+      parseSingleCondition("field>=value").description)
+
+      parseSingleCondition("field:>value").description must equalTo(
+      parseSingleCondition("field>value").description)
+
+      parseSingleCondition("field:<=value").description must equalTo(
+      parseSingleCondition("field<=value").description)
+
+      parseSingleCondition("field:<value").description must equalTo(
+      parseSingleCondition("field<value").description)
+
+      parseSingleCondition("field:=value1..value2").description must equalTo(
+      parseSingleCondition("field=value1..value2").description)
+
+      parseSingleCondition("field:=value1;value2;value3").description must equalTo(
+      parseSingleCondition("field=value1;value2;value3").description)
+
+      parseSingleCondition("field:=value*").description must equalTo(
+      parseSingleCondition("field=value*").description)
+
+      parseSingleCondition("field:=*value").description must equalTo(
+      parseSingleCondition("field=*value").description)
+
+      parseSingleCondition("field:=*value*").description must equalTo(
+      parseSingleCondition("field=*value*").description)
+
+      parseSingleCondition("field$value").description must equalTo(
+      parseSingleCondition("field:$value").description)
+
+    }
+
     "retrieve the field, negated value, operator and values" in {
       parseSingleCondition("field=value").description must equalTo("field should be equal to value")
 

@@ -21,7 +21,7 @@ case class Condition(
       case Equal           => "%s should%s be equal to %s".format(field, neg, value)
       case NotEqual        => "%s should%s be not equal to %s".format(field, neg, value)
       case GreaterOrEqual  => "%s should%s be greater than or equal to %s".format(field, neg, value)
-      case Greater         => "%s should%s be greater than to %s".format(field, neg, value)
+      case Greater         => "%s should%s be greater than %s".format(field, neg, value)
       case LessOrEqual     => "%s should%s be less than or equal to %s".format(field, neg, value)
       case Less            => "%s should%s be less than %s".format(field, neg, value)
       case Between         => "%s should%s be between %s and %s".format(field, neg, this.values(0), this.values(1))
@@ -60,7 +60,12 @@ object ConditionParser {
 
   def parseSingleCondition(condition: String): Condition = {
 
-    val conditionRegExp = """^([\w-]*)(!?)(=|:|\$|<=|>=|<>|<|>|){1}+(.*)$""".r
+    if (condition == "") {
+      throw new InvalidQueryConditionException(
+        "Error parsing query condition. Condition is empty.")
+    }
+
+    val conditionRegExp = """^([\w-]*)(!?)[:]?(=|:|\$|<=|>=|<>|<|>|){1}+(.*)$""".r
 
     if (!conditionRegExp.pattern.matcher(condition).matches) {
       throw new InvalidQueryConditionException(
@@ -80,13 +85,10 @@ object ConditionParser {
     }
 
     val negated = (parsedNegated == "!")
+
     val operator = {
       val operator = ConditionOperator.toConditionOperator(parsedOperator)
-      if (negated && operator == Missing) {
-        Equal
-      } else {
-        operator
-      }
+      if (operator == Missing) Equal else operator
     }
 
     if (operator == Missing) {
