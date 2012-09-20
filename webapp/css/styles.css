@@ -1,3 +1,12 @@
+@import url('bootstrap.css');
+
+@import url('bootstrap-responsive.css');
+
+@import url('docs.css');
+
+@import url('jquery-ui-1.8.23.custom.css');
+
+@import url('moderntheme.css');
 .font-default {
   font-size: 12px;
   color: #333333;
@@ -36,10 +45,38 @@ section {
   display: block;
   overflow: hidden;
 }
+label {
+  display: block;
+  margin-bottom: 0px;
+}
+.row .btn.mainbutton,
+.row button.mainbutton {
+  float: right;
+  clear: both;
+}
 .span6 a,
 button,
 .btn {
   margin: 10px 2px;
+}
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  font-size: 12px;
 }
 /*==========================================================
 *	Layout
@@ -169,6 +206,9 @@ button,
 .dropdown-menu i {
   padding-left: 5px;
 }
+.open > .dropdown-menu {
+  margin: -8px 0px;
+}
 /*========================================================== 
 *	Tabs 
 */
@@ -202,9 +242,228 @@ button,
 .table tr:hover {
   cursor: pointer;
 }
+table {
+  border-collapse: collapse;
+}
+table.dataTable {
+  margin: 0 auto;
+  clear: both;
+  width: 100%;
+}
+table.dataTable thead tr:first-child {
+  margin: 0;
+  padding: 0;
+  border-top: none;
+}
+table.dataTable tr {
+  border-top: 1px solid #DFDFDF;
+}
+table.dataTable tbody tr td:first-child,
+table.dataTable thead tr th:first-child {
+  border-left: none;
+}
+table.dataTable tbody tr td,
+table.dataTable thead tr th {
+  border-left: 1px solid #DFDFDF;
+}
+table.dataTable thead th {
+  padding: 3px 18px 2px 10px;
+  font-weight: normal;
+  color: #909090;
+  cursor: pointer;
+  font-size: 11px;
+  box-shadow: 0 1px 0px white inset;
+  -webkit-box-shadow: 0 1px 0px white inset;
+  -moz-box-shadow: 0 1px 0px #fff inset;
+}
+.tDefault tbody tr:first-child {
+  box-shadow: 0 1px 0px white inset;
+  -webkit-box-shadow: 0 1px 0px white inset;
+  -moz-box-shadow: 0 1px 0px #fff inset;
+}
+.tDefault tbody tr {
+  border-top: 1px solid #DFDFDF;
+}
+.thisRow {
+  background: #F3F3E8!important;
+}
+.sorting {
+  background: #eeeeee url('../img/sort_both.png') no-repeat center right;
+}
+.sorting_asc {
+  background: #eeeeee url('../img/sort_asc.png') no-repeat center right;
+}
+.sorting_desc {
+  background: #eeeeee url('../img/sort_desc.png') no-repeat center right;
+}
+.page-len-view {
+  float: left;
+}
+.filter-view {
+  float: right;
+}
+.tablePars {
+  border-bottom: 1px solid #D5D5D5;
+  box-shadow: 0 1px 0 white inset;
+  -webkit-box-shadow: 0 1px 0 white inset;
+  -moz-box-shadow: 0 1px 0 #fff inset;
+  clear: both;
+  padding: 8px 10px 0px 10px;
+  background: url(../img/alt.png);
+  overflow: hidden;
+}
+.tablePars.advance {
+  display: none;
+}
+.tablePars.advance label {
+  float: left;
+  padding: 0px 5px;
+}
+.widget {
+  background: #F7F7F7;
+  border: 1px solid #CDCDCD;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  box-shadow: 0 2px 2px -2px #cccccc;
+  margin-top: 35px;
+  position: relative;
+}
+.widget > [class*="whead"] {
+  border-bottom: 1px solid #CDCDCD;
+  box-shadow: 0 1px 0 white;
+  -webkit-box-shadow: 0 1px 0 white;
+  -moz-box-shadow: 0 1px 0 #fff;
+  text-shadow: 0 1px white;
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-top-left-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-topleft: 3px;
+  position: relative;
+}
+.widget > [class*="whead"] h6 {
+  padding: 0px 15px;
+}
+.clear {
+  clear: both;
+  display: block;
+}
+.widget .tOptions {
+  float: right;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 11px 12px 10px 12px;
+  border-left: 1px solid #CDCDCD;
+}
+.widget .tOptions:active,
+.act {
+  background: whiteSmoke;
+}
+table.dataTable {
+  margin: 0 auto;
+  clear: both;
+  width: 100%;
+}
+.tableFooter {
+  clear: both;
+  padding: 8px 12px;
+  height: 36px;
+  font-size: 11px;
+  color: #636363;
+  border-top: 1px solid #CDCDCD;
+  -webkit-border-bottom-right-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  background: #F8F8F8;
+  /* IE10 Consumer Preview */
+  background-image: -ms-linear-gradient(top, #f8f8f8 0%, #efefef 100%);
+  /* Mozilla Firefox */
+  background-image: -moz-linear-gradient(top, #f8f8f8 0%, #efefef 100%);
+  /* Opera */
+  background-image: -o-linear-gradient(top, #f8f8f8 0%, #efefef 100%);
+  /* Webkit (Safari/Chrome 10) */
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f8f8f8), to(#efefef));
+  /* Webkit (Chrome 11+) */
+  background-image: -webkit-linear-gradient(top, #f8f8f8 0%, #efefef 100%);
+  /* W3C Markup, IE10 Release Preview */
+  background-image: linear-gradient(to top, #f8f8f8 0%, #efefef 100%);
+  /* IE+6 */
+
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr=#f8f8f8, endColorstr=#efefef);
+}
+.dataTables_info {
+  clear: both;
+  float: left;
+  padding: 6px 0;
+}
+.dataTables_filter {
+  float: left;
+  font-size: 11px;
+  text-align: left;
+  margin: 18px 0;
+  position: relative;
+}
+.dataTables_paginate {
+  float: right;
+  margin-top: 7px;
+}
+.dataTables_length {
+  float: right;
+  margin-top: 15px;
+}
+.showentries {
+  float: left;
+  margin: 4px 15px 0 0;
+}
+.paging_full_numbers a.paginate_button {
+  background: #F9F9F9;
+  /* IE10 Consumer Preview */
+  background-image: -ms-linear-gradient(top, #f9f9f9 0%, #eeeeee 100%);
+  /* Mozilla Firefox */
+  background-image: -moz-linear-gradient(top, #f9f9f9 0%, #eeeeee 100%);
+  /* Opera */
+  background-image: -o-linear-gradient(top, #f9f9f9 0%, #eeeeee 100%);
+  /* Webkit (Safari/Chrome 10) */
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f9f9f9), to(#eeeeee));
+  /* Webkit (Chrome 11+) */
+  background-image: -webkit-linear-gradient(top, #f9f9f9 0%, #eeeeee 100%);
+  /* W3C Markup, IE10 Release Preview */
+  background-image: linear-gradient(to top, #f9f9f9 0%, #eeeeee 100%);
+  /* IE+6 */
+
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr=#f8f8f8, endColorstr=#efefef);
+}
+.paging_full_numbers a.paginate_button,
+.paging_full_numbers a.paginate_active {
+  border: 1px solid lightGrey;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  padding: 4px 7px;
+  margin: 0 3px;
+  cursor: pointer;
+  color: #919191;
+  font-size: 11px;
+  box-shadow: 0 1px 0 white inset, 0 1px 0px #DFDFDF;
+  -webkit-box-shadow: 0 1px 0 white inset, 0 1px 0px #DFDFDF;
+  -moz-box-shadow: 0 1px 0 #fff inset, 0 1px 0px #dfdfdf;
+}
+.paginate_button_disabled,
+.paginate_button_disabled:active {
+  background: #EAEAEA!important;
+  color: #C5C5C5!important;
+  box-shadow: none!important;
+  font-weight: normal!important;
+}
 /*========================================================== 
 *	Paginator 
 */
+.pagination ul {
+  display: inline;
+}
 .pagination {
   height: 40px;
   margin: -5px 0;
@@ -213,6 +472,14 @@ button,
 .pagination span {
   line-height: 20px;
   padding: 0 10px;
+}
+.pagination li:last-child a,
+.pagination li:last-child span {
+  border: 1px solid lightGrey;
+  padding: 1px 7px;
+  margin: 3px;
+  cursor: pointer;
+  color: #919191;
 }
 /*========================================================== 
 *	Panel 
@@ -349,7 +616,7 @@ button,
   background-image: linear-gradient(to top, #ffffff 0%, #fcefdf 100%);
   /* IE+6 */
 
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff, endColorstr=#fcefdf);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr=#f8f8f8, endColorstr=#efefef);
 }
 .box-widget-head {
   height: 28px;
@@ -376,7 +643,7 @@ button,
   background-image: linear-gradient(to top, #ffffff 0%, #fcefdf 100%);
   /* IE+6 */
 
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff, endColorstr=#fcefdf);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr=#f8f8f8, endColorstr=#efefef);
 }
 .box-widget-hide .box-widget-head {
   /* IE10 Consumer Preview */
@@ -393,7 +660,7 @@ button,
   background-image: linear-gradient(to top, #ffffff 0%, #fcefdf 100%);
   /* IE+6 */
 
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff, endColorstr=#fcefdf);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr=#f8f8f8, endColorstr=#efefef);
 }
 .box-widget-head i {
   opacity: 0.6;

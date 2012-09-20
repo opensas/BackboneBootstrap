@@ -1,39 +1,51 @@
-    <section id="tables">
 
-      <h5>Wines</h5>
 
-      <div id="query-view">
+  <div id="advanceTable" class="widget">
+      <div class="whead"><h6>Table name</h6>
+          <div class="clear"></div>
       </div>
+      <div class="hiddenpars" id="dyn">
+          <a class="tOptions act" title="Options"><img alt="" src="img/options.png"></a>
+          <div class="dataTables_wrapper" id="dynamic_wrapper" role="grid">
+              
+              <div class="tablePars advance" >
+                  <!-- Search fields -->
+              </div>
+              
+              <div class="tablePars" >
+                
+                  <div id="page-len-view" class="page-len-view">
+                    <!-- Pagelen View -->
+                  </div>
 
-      <div class="row">
-        <div class="span6">
-          <div id="page-len-view"></div>
-        </div>
-        <div class="span6">
-          <div id="filter-view"></div>
-        </div>
+                  <div id="filter-view" class="filter-view">     
+                    <!-- Filter View -->
+                  </div>
+                  
+                  
+              </div>
+              <div id="headers-view">
+              <table cellpadding="0" cellspacing="0" width="100%" class="tDefault table table-striped table-bordered" >
+                <thead>
+                  <tr>
+                    <th order="id">N.<i class="icon-order"></i></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>    
+              </div>
+              <div class="tableFooter" id="pages-view"></div>
+          </div>
       </div>
-
-      <div id="headers-view">
-      <table class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th order="id">N.<i class="icon-order"></i></th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-      </div>
-
-      <div class="row" id="pages-view"></div>
-
-      <div class="row">
-        <div class="span6 btns">
-           <a class="btn add" href="#wines/new">
-             <i class="icon-plus icon-black"></i>Add
-           </a>
-        </div>
-      </div>
-
-    </section>
+      <div class="clear"></div>
+  </div>
+  
+  
+  <div class="row">
+    <div class="span6 btns">
+       <a class="btn add" href="#wines/new">
+         <i class="icon-plus icon-black"></i>Add
+       </a>
+    </div>
+  </div>

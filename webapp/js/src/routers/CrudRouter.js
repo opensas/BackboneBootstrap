@@ -92,7 +92,7 @@ var Router = Backbone.Router.extend({
     });
 
     new this.QueryView({
-      el         : 'div#query-view',
+      el         : '.tablePars.advance',
       template   : this.queryTemplate,
       collection : this.collection
     }).render();

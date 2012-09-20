@@ -1,44 +1,32 @@
-      <div class="alert alert-error">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>Error!</strong>&nbsp;<span class="title"></span>
-        <ul></ul>
-      </div>
 
-      <div class="panel">
+  <div class="row">
 
-        <div class="panel-header">Wines</div>
-        <div class="panel-content query">
+    <div class="span2">
+      <label class="control-label" for="id">Id</label> 
+      <input type="text" class="span2" id="id" value="<%= data.id || '' %>">
+      <p class="help-block">The id is automatically assigned</p>
+    </div>
 
-          <div class="row">
-        
-            <div class="span2">
-              <label class="control-label" for="id">Id</label> 
-              <input type="text" class="span2" id="id" value="<%= data.id || '' %>">
-              <p class="help-block">The id is automatically assigned</p>
-            </div>
+    <div class="span3 control-group">
+      <label class="control-label" for="name">name</label> 
+      <input type="text" class="span3" id="name" value="<%= data.name || '' %>">
+      <p class="help-block">Enter the name of the wine</p>
+      <ul></ul>
+    </div>
 
-            <div class="span3 control-group">
-              <label class="control-label" for="name">name</label> 
-              <input type="text" class="span3" id="name" value="<%= data.name || '' %>">
-              <p class="help-block">Enter the name of the wine</p>
-              <ul></ul>
-            </div>
+    <div class="span2 control-group">
+      <label class="control-label" for="country">Country</label> 
+      <input type="text" class="span2" id="country" value="<%= data.country || '' %>">
+      <p class="help-block">Enter the wines country</p>
+      <ul></ul>
+    </div>
 
-            <div class="span2 control-group">
-              <label class="control-label" for="country">Country</label> 
-              <input type="text" class="span2" id="country" value="<%= data.country || '' %>">
-              <p class="help-block">Enter the wines country</p>
-              <ul></ul>
-            </div>
+    <div class="span2 control-group">
+      <label class="control-label" for="year">Year</label> 
+      <input type="text" class="span2" id="year" value="<%= data.year || '' %>">
+      <p class="help-block">Enter the wines year</p>
+      <ul></ul>
+    </div>
 
-            <div class="span2 control-group">
-              <label class="control-label" for="year">Year</label> 
-              <input type="text" class="span2" id="year" value="<%= data.year || '' %>">
-              <p class="help-block">Enter the wines year</p>
-              <ul></ul>
-            </div>
-
-            <div id="query-button" class="btn btn-primary query">Search</div>
-          </div>
-        </div>
-      </div>
+    <div id="query-button" class="btn btn-primary query mainbutton">Search</div>
+  </div>

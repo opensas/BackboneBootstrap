@@ -4,7 +4,9 @@ define(
   [
     'jquery', 'lodash', 'backbone',
     'text!src/views/crud/table.html',
-    'src/views/crud/pageLen', 'src/views/crud/pages', 'src/views/crud/filter',
+    'src/views/crud/pageLen',
+    'src/views/crud/pages',
+    'src/views/crud/filter',
     'src/utils/crud'
   ],
   function( $, _, Backbone,

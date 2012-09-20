@@ -19,7 +19,8 @@ var WineCollection = BaseCollection.extend({
     {field: 'country',  label: 'Country'},
     {field: 'region',   label: 'Region'},
     {field: 'year',     label: 'Year'}
-  ]
+  ]  
+    
 });
 
   return WineCollection;

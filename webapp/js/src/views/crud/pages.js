@@ -36,16 +36,15 @@ var PagesView = Backbone.View.extend({
     });
     this.$('ul').append(view.render().el);
   },
+  
 
   template: _.template(' \
-      <div class="span6"> \
+      <div id="dynamic_info" class="dataTables_info"> \
         <div><%= from %>-<%= to %> de <%= total %></div> \
       </div> \
-      <div class="span6"> \
-        <div class="pagination page"> \
+      <div class="pagination page"> \
           <ul> \
           </ul> \
-        </div> \
       </div> \
   ')
 });
@@ -75,6 +74,21 @@ var PageView = Backbone.View.extend({
       trigger: true
     });
   },
+
+
+// <div class="dataTables_paginate paging_full_numbers" id="dynamic_paginate">
+//    <a tabindex="0" class="first paginate_button paginate_button_disabled" id="dynamic_first">First</a>
+//    <a tabindex="0" class="previous paginate_button paginate_button_disabled" id="dynamic_previous">Previous</a>
+//    <span>
+//       <a tabindex="0" class="paginate_active">1</a>
+//       <a tabindex="0" class="paginate_button">2</a>
+//       <a tabindex="0" class="paginate_button">3</a>
+//       <a tabindex="0" class="paginate_button">4</a>
+//       <a tabindex="0" class="paginate_button">5</a>
+//     </span>
+//     <a tabindex="0" class="next paginate_button" id="dynamic_next">Next</a>
+//     <a tabindex="0" class="last paginate_button" id="dynamic_last">Last</a>
+// </div>
 
   template: _.template(' \
         <li class="<%= enabled ? "" : "disabled"%> <%= active ? "active" : ""%>"> \
