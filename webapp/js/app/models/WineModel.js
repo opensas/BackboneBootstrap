@@ -20,20 +20,20 @@ var WineModel = BaseModel.extend({
   },
 
   formFields: [
-    { field: 'id', readOnly: true, label: 'Id', help: 'Automatically generated', control: 'id' },
-    { field: 'name',        span: 6, label: 'Name',         help: 'Enter your name' },
-    { field: 'grapes',      span: 8, label: 'Grapes',       help: 'Enter the wines grapes' },
-    { field: 'country',     span: 8, label: 'Country',      help: 'Enter the wines country' },
-    { field: 'region',      span: 8, label: 'Region',       help: 'Enter the wines region' },
-    { field: 'year',        span: 8, label: 'Year',         help: 'Enter the wines year' },
-    { field: 'description', span: 8, label: 'Description',  help: 'Enter the wines description', control: 'textarea', rows: 4 }
+    { field: 'id', readOnly: true, span: 1, label: 'Id', help: 'Automatically generated', control: 'id' },
+    { field: 'name',        span: 3, label: 'Name',         help: 'Enter your name' },
+    { field: 'grapes',      span: 3, label: 'Grapes',       help: 'Enter the wines grapes' },
+    { field: 'country',     span: 3, label: 'Country',      help: 'Enter the wines country' },
+    { field: 'region',      span: 3, label: 'Region',       help: 'Enter the wines region' },
+    { field: 'year',        span: 2, label: 'Year',         help: 'Enter the wines year' },
+    { field: 'description', span: 6, label: 'Description',  help: 'Enter the wines description', control: 'textarea', rows: 4 }
   ],
 
   queryFields: [
-    { field: 'id',          span: 2, label: 'Id',           help: 'Automatically generated' },
-    { field: 'name',        span: 6, label: 'Name',         help: 'Enter your name' },
-    { field: 'country',     span: 8, label: 'Country',      help: 'Enter the wines country' },
-    { field: 'year',        span: 8, label: 'Year',         help: 'Enter the wines year' }
+    { field: 'id',          span: 1, label: 'Id',           help: 'Automatically generated' },
+    { field: 'name',        span: 2, label: 'Name',         help: 'Enter your name' },
+    { field: 'country',     span: 2, label: 'Country',      help: 'Enter the wines country' },
+    { field: 'year',        span: 2, label: 'Year',         help: 'Enter the wines year' }
   ]
 
 });

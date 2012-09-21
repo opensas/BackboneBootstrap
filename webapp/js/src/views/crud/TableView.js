@@ -29,6 +29,7 @@ var TableView = Backbone.View.extend({
     this.titlesHtml = 
       options.titlesHtml ||
       crud.generateTableTitlesHtml(this.collection.tableFields);
+      
 
   },
 
@@ -55,7 +56,8 @@ var TableView = Backbone.View.extend({
   },
 
   events: {
-    'click th[order]':    'order'
+    'click th[order]':    'order',
+    'click .tOptions': 'configAdvance'
   },
 
   order: function(e) {
@@ -73,7 +75,11 @@ var TableView = Backbone.View.extend({
 
     th.addClass(direction === 'asc' ? 'order-asc' : 'order-desc');
     app.navigateWith({order: order +' '+direction}, {trigger: true});
+  },
+  configAdvance: function(){
+    this.$('.tablePars.advance').slideToggle(200);
   }
+
 
 });
 

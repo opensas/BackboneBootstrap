@@ -1,41 +1,40 @@
-      <div class="alert alert-error">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>Error!</strong>&nbsp;<span class="title"></span>
-        <ul></ul>
+
+<div class="widget">
+   <div class="whead">
+      <h6>Wines</h6>
+      <div class="clear"></div>
+  </div>
+  <div class="panel-content">
+
+    <div class="row">
+      
+        %controls%
+
+    </div>
+
+  </div>
+</div>
+
+ <div class="row">
+  <div class="span6 btns">
+
+  <div class="btn btn-primary save">Save</div>
+  <a href="#wines/del/<%=id%>" class="btn delete">Delete</a>
+
+  </div>  
+  <div class="span6 btns">
+    
+    <div class="btn-toolbar" >
+      <div class="btn cancel">Cancel</div>
+      <div class="btn-group open">
+        <button class="btn dropdown-toggle" data-toggle="dropdown">Other Actions<span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#"><i class="icon-list-alt"></i>Export</a></li>
+          <li><a href="#"><i class="icon-print"></i>Print</a></li>
+        </ul>
       </div>
+    </div>
 
-      <div class="panel">
+  </div>  
 
-        <div class="panel-header">Wines</div>
-        <div class="panel-content">
-
-          <div class="form-horizontal controls">
-            %controls%
-          </div>
-
-        </div>
-      </div>
-
-       <div class="row">
-        <div class="span6 btns">
-
-        <div class="btn btn-primary save">Save</div>
-        <a href="#wines/del/<%=id%>" class="btn delete">Delete</a>
-
-        </div>  
-        <div class="span6 btns">
-          
-          <div class="btn-toolbar" >
-            <div class="btn cancel">Cancel</div>
-            <div class="btn-group open">
-              <button class="btn dropdown-toggle" data-toggle="dropdown">Other Actions<span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><a href="#"><i class="icon-list-alt"></i>Export</a></li>
-                <li><a href="#"><i class="icon-print"></i>Print</a></li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
+</div>

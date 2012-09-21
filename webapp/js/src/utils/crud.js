@@ -177,15 +177,15 @@ crud.generateInputTemplate = function(formField) {
   var rows     = formField.rows || 3;
   var span     = formField.span || '';
 
+
   var groupTemplate = 
-'  <div class="control-group"> ' + '\n' +
-'    <label class="control-label" for="%field%">%label%</label>' + '\n' +
-'    <div class="controls">' + '\n' +
-'      %control%' + '\n' +
-'      <p class="help-inline">%help%</p>' + '\n' +
-'      <ul></ul>' + '\n' +
-'    </div>' + '\n' +
-'  </div>';
+'   <div class="span%#span"> ' + '\n' +
+'  <label class="control-label" for="%field%">%label%</label>  ' + '\n' +
+ '   %control%' + '\n' +
+'  <p class="help-block">%help%</p> ' + '\n' +
+'  <ul></ul> ' + '\n' +
+'</div>';
+
   
   var inputTemplate    = '<input type="text" class="span%s" id="%field%" value="<%= %field% %>">';
   var idTemplate       = '<span class="span%s uneditable-input"><%= id || "new" %></span>';
@@ -204,6 +204,7 @@ crud.generateInputTemplate = function(formField) {
 
   groupTemplate = string.replaceAll(groupTemplate, '%control%', controlTemplate);
   
+  groupTemplate = string.replaceAll(groupTemplate, '%#span', span);
   groupTemplate = string.replaceAll(groupTemplate, '%field%', field);
   groupTemplate = string.replaceAll(groupTemplate, '%label%', label);
   groupTemplate = string.replaceAll(groupTemplate, '%help%', help);
