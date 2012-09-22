@@ -15,8 +15,8 @@ var inferEndpoint = function() {
     return loc.protocol + '//' + loc.host + '/api';
   // running locally
   } else {   // if (location.protocol === "file:") {
+    return 'http://localhost:9000/api';
     return 'http://bb-jugar.rhcloud.com/api';
-    //return 'http://bb-jugar.rhcloud.com/api/wines';
   }
 };
 

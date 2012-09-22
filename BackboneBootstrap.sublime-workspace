@@ -1,0 +1,1370 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"list",
+				"listLength1"
+			],
+			[
+				"Bef",
+				"BeforeExample"
+			],
+			[
+				"cn",
+				"containsRegExp"
+			],
+			[
+				"bet",
+				"betweenRegExp"
+			],
+			[
+				"ope",
+				"operator"
+			],
+			[
+				"build",
+				"building"
+			],
+			[
+				"col",
+				"columnInfo"
+			],
+			[
+				"par",
+				"parsedOperator"
+			],
+			[
+				"Condi",
+				"ConditionOperator"
+			],
+			[
+				"set",
+				"setModel"
+			],
+			[
+				"group",
+				"groupTemplate"
+			],
+			[
+				"emp",
+				"emptyTemplate"
+			],
+			[
+				"compile",
+				"compileTemplate"
+			],
+			[
+				"table",
+				"tableFields"
+			],
+			[
+				"Vie",
+				"views"
+			],
+			[
+				"row",
+				"rowTemplate"
+			],
+			[
+				"Vali",
+				"ValidationException"
+			],
+			[
+				"Not",
+				"NotAssigned"
+			],
+			[
+				"toUpper",
+				"toUpperFirst"
+			],
+			[
+				"en",
+				"entity"
+			],
+			[
+				"asS",
+				"asSeq"
+			],
+			[
+				"as",
+				"asSeq"
+			],
+			[
+				"update",
+				"updateCommand"
+			],
+			[
+				"onParams",
+				"onParamsAsSeq"
+			],
+			[
+				"Simp",
+				"SimpleSqlWithParamsAsSeq"
+			],
+			[
+				"def",
+				"defaultParser"
+			],
+			[
+				"simple",
+				"simpleSql"
+			],
+			[
+				"simpl",
+				"simpleSql"
+			],
+			[
+				"ex",
+				"executeInsert"
+			],
+			[
+				"case",
+				"caseSensitive"
+			],
+			[
+				"toLo",
+				"toLowerCase"
+			],
+			[
+				"toL",
+				"toLowerCase"
+			],
+			[
+				"Col",
+				"ColumnInfo"
+			],
+			[
+				"getCol",
+				"getColumnCount"
+			],
+			[
+				"getCo",
+				"getColumnDisplaySize"
+			],
+			[
+				"getCOl",
+				"getColumnLabel"
+			],
+			[
+				"meta",
+				"metaData"
+			],
+			[
+				"bu",
+				"build"
+			],
+			[
+				"Condition",
+				"ConditionBuilder"
+			],
+			[
+				"Condit",
+				"ConditionBuilder"
+			],
+			[
+				"con",
+				"condition"
+			],
+			[
+				"with",
+				"withConnection"
+			],
+			[
+				"parse",
+				"parseSingleCondition"
+			],
+			[
+				"field",
+				"fieldType"
+			],
+			[
+				"op",
+				"operator"
+			],
+			[
+				"toS",
+				"toSqlOperator"
+			],
+			[
+				"Field",
+				"FieldType"
+			],
+			[
+				"Con",
+				"Contains"
+			],
+			[
+				"Fi",
+				"FieldType"
+			],
+			[
+				"getColum",
+				"getColumnCount"
+			],
+			[
+				"Resulta",
+				"ResultSetMetaData"
+			],
+			[
+				"Result",
+				"ResultSetMetaData"
+			],
+			[
+				"Da",
+				"Date"
+			],
+			[
+				"de",
+				"description"
+			],
+			[
+				"eq",
+				"equalTo"
+			],
+			[
+				"Les",
+				"LessOrEqual"
+			],
+			[
+				"condition",
+				"conditionRegExp"
+			],
+			[
+				"Un",
+				"Unknown"
+			],
+			[
+				"Star",
+				"StartsWith"
+			],
+			[
+				"L",
+				"LessOrEqual"
+			],
+			[
+				"gre",
+				"GreaterOrEqual"
+			],
+			[
+				"E",
+				"Equal"
+			],
+			[
+				"re",
+				"render"
+			],
+			[
+				"twi",
+				"twitterView"
+			],
+			[
+				"countr",
+				"countries"
+			],
+			[
+				"base",
+				"baseUrl"
+			],
+			[
+				"Simpl",
+				"SimpleView"
+			],
+			[
+				"Wi",
+				"WidgetsView"
+			],
+			[
+				"brad",
+				"breadcrumb"
+			],
+			[
+				"a",
+				"accessibility"
+			],
+			[
+				"Welcom",
+				"WelcomeModel"
+			],
+			[
+				"Welcome",
+				"WelcomeView"
+			],
+			[
+				"Wel",
+				"WelcomeModel"
+			],
+			[
+				"sub",
+				"subtitle"
+			],
+			[
+				"jq",
+				"jquery"
+			],
+			[
+				"inner",
+				"innerHTML"
+			],
+			[
+				"getE",
+				"getElementById"
+			],
+			[
+				"to",
+				"toProperCase"
+			],
+			[
+				"main",
+				"mainView"
+			],
+			[
+				"at",
+				"attachClick"
+			],
+			[
+				"th",
+				"thead	Tag"
+			],
+			[
+				"mes",
+				"messagesTemplate"
+			],
+			[
+				"acc",
+				"accessibilityBarTemplate"
+			],
+			[
+				"mainn",
+				"mainMenuTemplate"
+			],
+			[
+				"Ma",
+				"MainMenuView"
+			],
+			[
+				"mo",
+				"models"
+			],
+			[
+				"wine",
+				"wineCollection"
+			],
+			[
+				"count",
+				"countryFormatSelection"
+			],
+			[
+				"fil",
+				"filterFields"
+			],
+			[
+				"dom",
+				"originalDom"
+			],
+			[
+				"hi",
+				"highlight"
+			],
+			[
+				"high",
+				"highlighted"
+			],
+			[
+				"ori",
+				"originalHtml"
+			],
+			[
+				"origina",
+				"originalHtml"
+			],
+			[
+				"hight",
+				"highlightItems"
+			],
+			[
+				"exp",
+				"expected"
+			],
+			[
+				"befo",
+				"beforeEach"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"prev",
+				"previous"
+			],
+			[
+				"attr",
+				"attributes"
+			],
+			[
+				"previous",
+				"previousAttributes"
+			],
+			[
+				"er",
+				"errorManager"
+			],
+			[
+				"ero",
+				"errorFields"
+			],
+			[
+				"argumen",
+				"arguments"
+			],
+			[
+				"argum",
+				"arguments"
+			],
+			[
+				"J",
+				"JsValue"
+			],
+			[
+				"Lo",
+				"Logger"
+			],
+			[
+				"isE",
+				"isEmptyWord"
+			],
+			[
+				"get",
+				"getOrElse"
+			],
+			[
+				"Any",
+				"AnyContent"
+			],
+			[
+				"Ba",
+				"BadRequest"
+			],
+			[
+				"q",
+				"queryString"
+			],
+			[
+				"pa",
+				"parseQuery"
+			],
+			[
+				"Json",
+				"JsonBadRequest"
+			],
+			[
+				"Js",
+				"JsonOk"
+			],
+			[
+				"model",
+				"model	Javascript-model (custom)"
+			],
+			[
+				"Win",
+				"Wine"
+			],
+			[
+				"win",
+				"winesView"
+			],
+			[
+				"coll",
+				"collection"
+			],
+			[
+				"gr",
+				"gridView"
+			],
+			[
+				"W",
+				"Wine"
+			],
+			[
+				"te",
+				"template"
+			],
+			[
+				"nav",
+				"navbar"
+			],
+			[
+				"tpl",
+				"tpl	Javascript-template"
+			],
+			[
+				"src",
+				"srcf	Javascript (custom)"
+			],
+			[
+				"po",
+				"pointer"
+			],
+			[
+				"br",
+				"breadcrumb"
+			],
+			[
+				"page",
+				"pagesToShow"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "webapp/index.html",
+			"settings":
+			{
+				"buffer_size": 1364,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/usr/share/applications/chromium-browser.desktop",
+			"settings":
+			{
+				"buffer_size": 10299,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 375.0,
+		"selected_items":
+		[
+			[
+				"sca",
+				"SublimeREPL: Scala"
+			],
+			[
+				"scal",
+				"SublimeREPL: Scala"
+			],
+			[
+				"repl she",
+				"SublimeREPL: Shell"
+			],
+			[
+				"repl sc",
+				"SublimeREPL: Scala"
+			],
+			[
+				"js ",
+				"Format: Javascript"
+			],
+			[
+				"todo",
+				"Show TODOs: Project and open files"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"lower",
+				"Convert Case: Lower Case"
+			],
+			[
+				"remove pa",
+				"Package Control: Remove Package"
+			],
+			[
+				"pack",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"go",
+				"Goto Symbol : Find symbol under caret..."
+			],
+			[
+				"goto",
+				"Goto Symbol : List symbols"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"list pa",
+				"Package Control: List Packages"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"pack in",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"tag",
+				"Tag: Auto-Format Tags on Selection"
+			],
+			[
+				"alg",
+				"Preferences: Alignment Key Bindings – Default"
+			],
+			[
+				"align",
+				"Preferences: Alignment Key Bindings – User"
+			],
+			[
+				"upgr",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"upgra",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"plug",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"modi",
+				"Modific: Show diff"
+			],
+			[
+				"upp",
+				"Convert Case: Upper Case"
+			],
+			[
+				"javas",
+				"Format: Javascript"
+			],
+			[
+				"prin",
+				"Print to HTML: print as HTML to new buffer"
+			],
+			[
+				"tag fo",
+				"Tag: Auto-Format Tags on Document"
+			],
+			[
+				"format",
+				"Tag: Auto-Format Tags on Document"
+			],
+			[
+				"for",
+				"Format: Javascript"
+			],
+			[
+				"forma",
+				"Format: Javascript"
+			],
+			[
+				"taag",
+				"Tag: Insert as Tag"
+			],
+			[
+				"",
+				"About"
+			],
+			[
+				"htm",
+				"Snippet: html"
+			],
+			[
+				"form",
+				"Format: Javascript"
+			],
+			[
+				"git",
+				"Git: Status"
+			],
+			[
+				"ali",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"Snippet: ",
+				"Snippet: Javascript (custom)"
+			],
+			[
+				"tag for se",
+				"Tag: Auto-Format Tags on Selection"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"pretty",
+				"HTMLPrettify: Prettify"
+			],
+			[
+				"rein",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"git di cu",
+				"Git: Diff Current File"
+			],
+			[
+				"git dif cu",
+				"Git: Diff Current File"
+			],
+			[
+				"fo",
+				"Format: Javascript"
+			],
+			[
+				"git dii",
+				"Git: Diff Current File"
+			],
+			[
+				"diff",
+				"Git: Diff Current File"
+			],
+			[
+				"reove",
+				"Package Control: Remove Package"
+			],
+			[
+				"gdc",
+				"Git: Diff Current File"
+			],
+			[
+				"gi dif cu",
+				"Git: Diff Current File"
+			],
+			[
+				"git di",
+				"Git: Diff Current File"
+			],
+			[
+				"gi",
+				"Git: Diff Staged"
+			],
+			[
+				"git dif",
+				"Git: Diff All"
+			],
+			[
+				"git status",
+				"Git: Status"
+			],
+			[
+				"js",
+				"JSHint: Linter"
+			],
+			[
+				"jsh",
+				"JSHint: Linter"
+			],
+			[
+				"instll",
+				"Package Control: Install Package"
+			],
+			[
+				"git sta",
+				"Git: Stash Apply"
+			],
+			[
+				"git ",
+				"Git: Diff Tool"
+			],
+			[
+				"gi stat",
+				"Git: Status"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"INSTALL",
+				"Package Control: Install Package"
+			],
+			[
+				"packa se",
+				"Preferences: Package Control Settings – User"
+			]
+		],
+		"width": 579.0
+	},
+	"console":
+	{
+		"height": 146.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/usr/share/applications/chromium-browser.desktop",
+		"/home/sas/.local/share/applications/eclipse-scala.desktop",
+		"/home/sas/.profile",
+		"/home/sas/.config/sublime-text-2/Packages/SublimeREPL/Main.sublime-menu",
+		"/home/sas/.config/sublime-text-2/Packages/SublimeREPL/SublimeREPL.sublime-settings",
+		"/home/sas/dev/apps/scala-lessons/lesson2/recfun/src/main/scala/recfun/Main.scala",
+		"/home/sas/dev/apps/scala-lessons/scala-lessons.sublime-project",
+		"/home/sas/tmp/situacion sistemas",
+		"/home/sas/dev/bin/sbt",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/test/models/TestSpec.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/conf/evolutions/default/2.sql",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/models/Entity.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/models/Wine.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/test/models/CountrySpec.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/test/testSec.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/test/TestSpec.scala",
+		"/home/sas/dev/play/framework/src/play-test/src/main/java/play/test/Helpers.java",
+		"/home/sas/dev/play/framework/src/play-test/src/main/scala/play/api/test/package.scala",
+		"/home/sas/dev/play/framework/src/play-test/src/main/scala/play/api/test/Helpers.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/conf/evolutions/default/4.sql",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/utils/sql/FieldType.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/utils/query/ConditionParser.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/test/utils/query/ConditionBuilderSpec.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/test/utils/ConvertSpec.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/test/utils/query/ConditionParserSpec.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/utils/query/ConditionBuilder.scala",
+		"/home/sas/dev/play/samples/scala/computer-database/test/ApplicationSpec.scala",
+		"/home/sas/dev/play/samples/scala/computer-database/test/ModelSpec.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/utils/Sql.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/index.html",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/utils/Comparison.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/utils/Conversion.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/utils/sql/ColumnInfo.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/config.js",
+		"/home/sas/.config/sublime-text-2/Packages/User/SideBarEnhancements/Open With/Side Bar.sublime-menu",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/test/utils/query/ConditionSpec.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/views/wines/wineForm.html",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/routers/CrudRouter.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/routers/WineRouter.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/crud/query.html",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/crud/QueryView.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/views/wines/wineQuery.html",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/tmp/select2/demo.html",
+		"/home/sas/dev/apps/BackboneBootstrap/openshift/bb/public/js/tmp/select2/demo.html",
+		"/home/sas/dev/apps/BackboneBootstrap/openshift/bb/openshift_deploy",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/crud/FormView.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/models/WineModel.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/crud/form.html",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/utils/http.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/utils/query.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/crud/table.html",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/models/CountryCollection.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/crud/RowsView.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/BaseView.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/crud/BaseView.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/models/BaseCollection.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/widgets/accessibility-bar.html",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/utils/toastMessage.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/utils/crud.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/main.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/lib/backbone-0.9.2.js",
+		"/home/sas/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
+		"/home/sas/.config/sublime-text-2/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/widgets/WidgetsView.js",
+		"/home/sas/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/utils/string.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/routers/CountryRouter.js",
+		"/home/sas/.config/sublime-text-2/Packages/SublimeCodeIntel/Default (Linux).sublime-keymap",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/models/CountryModel.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/models/WineCollection.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/require-main.js",
+		"/home/sas/dev/apps/BackboneBootstrap/README.md",
+		"/home/sas/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/utils/accessibility.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/utils/convert.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/utils/errorManager.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/utils/views.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/tests/main.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/models/BaseModel.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/crud/TableView.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/crud/filter.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/crud/pageLen.js",
+		"/home/sas/.config/sublime-text-2/Packages/User/sublime-jslint.sublime-settings",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/crud/pages.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/tests/require-main.js",
+		"/home/sas/.config/sublime-text-2/Packages/SublimeCodeIntel/Base File.sublime-settings",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/optimize-java",
+		"/home/sas/.config/sublime-text-2/Packages/SideBarEnhancements/Side Bar.sublime-settings",
+		"/home/sas/.config/sublime-text-2/Packages/sublime-jslint/sublime-jslint.sublime-settings",
+		"/home/sas/.config/sublime-text-2/Packages/Edit History/Edit History.sublime-settings",
+		"/home/sas/.config/sublime-text-2/Packages/Modific/README.md",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/views/wines/FormView.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/views/wines/form.bak.html",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/views/wines/RowsView.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/views/wines/form.html",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/crud/table.js",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/lib/lodash-0.6.0.js",
+		"/home/sas/.config/sublime-text-2/Packages/Alignment/Default (Linux).sublime-keymap",
+		"/home/sas/.config/sublime-text-2/Packages/Terminal/Default (Linux).sublime-keymap",
+		"/home/sas/.config/sublime-text-2/Packages/Terminal/Terminal.sublime-settings",
+		"/home/sas/.config/sublime-text-2/Packages/User/Terminal.sublime-settings",
+		"/home/sas/.config/sublime-text-2/Packages/Alignment/Base File.sublime-settings",
+		"/home/sas/.config/sublime-text-2/Packages/DocBlockr/Base File.sublime-settings",
+		"/home/sas/.config/sublime-text-2/Packages/User/Base File.sublime-settings",
+		"/home/sas/.config/sublime-text-2/Packages/User/Side Bar.sublime-settings",
+		"/home/sas/.config/sublime-text-2/Packages/User/JSON.sublime-settings",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/start",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/openshift_deploy",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/views/crud/filter.html",
+		"/home/sas/dev/apps/BackboneBootstrap/webapp/js/app/main.min.js",
+		"/home/sas/dev/play/samples/scala/computer-database/app/models/Models.scala",
+		"/home/sas/.config/sublime-text-2/Packages/LastEdit/Default (Linux).sublime-keymap",
+		"/home/sas/dev/play/framework/src/anorm/src/main/scala/Anorm.scala",
+		"/home/sas/dev/play/framework/src/anorm/src/main/scala/SqlParser.scala",
+		"/home/sas/dev/play/framework/src/anorm/src/main/scala/SqlStatementParser.scala",
+		"/home/sas/dev/play/framework/src/anorm/src/main/scala/TypeWrangler.scala",
+		"/home/sas/dev/play/framework/src/anorm/src/main/scala/Utils.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/utils/Validate.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/formatters/json/PkFormatter.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/formatters/json/IdFormatter.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/utils/sql/AnormHelper.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/models/Country.scala",
+		"/home/sas/dev/play/framework/src/play/src/main/scala/play/api/mvc/Results.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/exceptions/ValidationException.scala",
+		"/home/sas/.config/sublime-text-2/Packages/User/Edit History.sublime-settings",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/utils/sql/anormHelper.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/test/query/ConditionParserSpec.scala",
+		"/home/sas/dev/apps/BackboneBootstrap/webservice/app/utils/Http.scala"
+	],
+	"find":
+	{
+		"height": 37.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"/home/sas/dev/play,*.scala",
+			"/home/sas/dev/play",
+			"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src",
+			"-*.min.js,/home/sas/dev/apps/BackboneBootstrap/webapp/,-/home/sas/dev/apps/BackboneBootstrap/webapp/js/lib",
+			"-*.min.js,/home/sas/dev/apps/BackboneBootstrap/webapp/",
+			"-*.min.js,/home/sas/dev/apps/BackboneBootstrap/webapp/js",
+			"<project>,-*.min.js",
+			"<project>",
+			"/home/sas/dev/apps/BackboneBootstrap/webapp",
+			"/home/sas/dev/play/framework/src",
+			"/home/sas/dev/play/samples/scala/computer-database",
+			"/home/sas/dev/play/framework/src",
+			"/home/sas/dev/play/framework/src/anorm/src/main/scala",
+			"/home/sas/dev/apps/BackboneBootstrap/webservice/app",
+			"/home/sas/dev/apps/smx/repo",
+			"/home/sas/dev/play/framework/src/anorm/src/main",
+			"/home/sas/dev/apps/BackboneBootstrap/webapp/js/src/tests",
+			"/home/sas/dev/apps/BackboneBootstrap/webapp/js/tests",
+			"/home/sas/dev/apps/BackboneBootstrap/webapp",
+			"/home/sas/dev/apps/BackboneBootstrap/webapp/js",
+			"<project>",
+			"/home/sas/dev/apps/BackboneBootstrap/webservice",
+			"/home/sas/dev/apps/BackboneBootstrap/webapp/js",
+			"/home/sas/jugar/crawler"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			" ",
+			"indigo",
+			"afterContext",
+			"Helpers",
+			"inMemoryDatabase",
+			"inMemory",
+			"}\n",
+			"text",
+			"'text'",
+			"fstring",
+			":",
+			"field",
+			"text",
+			"accept ':' char as separator",
+			"'field should be equal to value'",
+			"correctly assume equal when no operator is specified and the condition is negated",
+			"field like '10%'",
+			"formattedValue",
+			"field between 12 and 15",
+			"formatValue",
+			"      build(\"finteger:*1\", columnsInfo\n      ) must throwA[InvalidQueryConditionException].like {\n        case e => e.getMessage must matching(\"\"\".*Operator '.*' is only allowed for string fields\\..*\"\"\")\n      }\n\n",
+			"'",
+			"NUMERIC",
+			"numeric",
+			"NUMERIC",
+			"numeric",
+			"INTEGER",
+			"integer",
+			"finteger",
+			"integer",
+			"columnIn",
+			" must equalTo(",
+			"form",
+			"hasOwn",
+			"Form",
+			"\n",
+			"ToastMessage",
+			"toast",
+			"previ",
+			"side",
+			"undelegateEvents",
+			"bind",
+			"delegateEvents",
+			"setElement",
+			"viewOptions",
+			"_confi",
+			"Wine",
+			"wine",
+			"Wine",
+			"wineForm",
+			"RowsView",
+			"Grapes",
+			"grapes",
+			"Grapes",
+			"grapes",
+			"tableFields",
+			"  repl( '<input type=\"text\" class=\"span%s\">', ' class=\"span%s\"', '8') =>\n  '<input type=\"text\" class=\"span8\">'\n  \n",
+			"span2",
+			"rowTemplate",
+			"template",
+			"view",
+			"value",
+			"columns",
+			"titlesTemplate",
+			"template",
+			"wine",
+			"Wine",
+			"wine",
+			"Wine",
+			"Wine\n",
+			"Wine",
+			"wine",
+			"year",
+			"description",
+			"enter",
+			"region",
+			"country",
+			"name",
+			"id",
+			"grapes",
+			"name",
+			"id",
+			":",
+			"view",
+			"ToastMessage",
+			"list",
+			"inMemoryDatabase",
+			"NotNull",
+			"withSession",
+			"SqlQuery",
+			"RowParser",
+			"Success",
+			"RowParser",
+			"ToParameterValue",
+			"ToStatement",
+			"ParameterValue",
+			"ToStatement",
+			"ParameterValue",
+			"SimpleSql",
+			"trait Row",
+			"Row",
+			"RowParser",
+			"SimpleSql",
+			"asSimple",
+			"SimpleSql",
+			"SqlQuery",
+			"Sql",
+			"def on",
+			"SqlQuery",
+			"Sql",
+			"SQL",
+			"SimpleSql",
+			"SqlQuery",
+			"Sql.sql",
+			"SQL",
+			"sql",
+			"on",
+			"parser",
+			"as",
+			"like",
+			"Logger",
+			"logger",
+			"intege",
+			"condition",
+			"catch",
+			"logg",
+			"      parseSingleCondition(\"field!value1..value2\")\n        .description must equalTo(\"field should not be between value1 and value2\")\n\n",
+			"\n      "
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"fstring",
+			"text",
+			"\"",
+			"Country",
+			"Bottle",
+			"=",
+			"BaseView",
+			"] ",
+			"'",
+			"ajax.",
+			"ajax",
+			"''",
+			"),\\n(",
+			"\\n",
+			"Country",
+			"countries",
+			"country",
+			"code",
+			"Country",
+			"htmlSource",
+			"grapes",
+			"",
+			"BreadCrumb",
+			"query",
+			"(7",
+			"(6",
+			"(5",
+			"Event",
+			"event",
+			"events"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "webapp/index.html",
+					"settings":
+					{
+						"buffer_size": 1364,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								30,
+								30
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/usr/share/applications/chromium-browser.desktop",
+					"settings":
+					{
+						"buffer_size": 10299,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5243,
+								5243
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2916.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 262.0
+	},
+	"output.git":
+	{
+		"height": 192.0
+	},
+	"output.jslint_result_view":
+	{
+		"height": 68.0
+	},
+	"output.vcs":
+	{
+		"height": 118.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"conparspe.sc",
+				"webservice/test/utils/query/ConditionParserSpec.scala"
+			],
+			[
+				"conpar.s",
+				"apps/BackboneBootstrap/webservice/app/utils/query/ConditionParser.scala"
+			],
+			[
+				"conparser",
+				"webservice/app/utils/query/ConditionParser.scala"
+			],
+			[
+				"",
+				"apps/BackboneBootstrap/webservice/app/utils/query/ConditionParser.scala"
+			],
+			[
+				"qv",
+				"apps/BackboneBootstrap/webapp/js/src/views/crud/QueryView.js"
+			],
+			[
+				"back",
+				"webapp/js/lib/backbone-0.9.2.js"
+			],
+			[
+				"string",
+				"webapp/js/src/utils/string.js"
+			],
+			[
+				"crudro",
+				"webapp/js/src/routers/CrudRouter.js"
+			],
+			[
+				"temwel",
+				"webapp/js/tmp/requirejs-v4/js/templates/welcomeView.html"
+			],
+			[
+				"confi",
+				"webapp/js/config.js"
+			],
+			[
+				"filter",
+				"backbone-test/v4/js/views/crud/filter.js"
+			],
+			[
+				"filte",
+				"backbone-test/v4/js/views/crud/filter.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 355.0,
+	"status_bar_visible": true
+}

@@ -43,8 +43,8 @@ var PagesView = Backbone.View.extend({
         <div><%= from %>-<%= to %> de <%= total %></div> \
       </div> \
       <div class="pagination page"> \
-          <ul> \
-          </ul> \
+        <ul> \
+        </ul> \
       </div> \
   ')
 });

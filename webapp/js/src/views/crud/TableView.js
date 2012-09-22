@@ -29,8 +29,6 @@ var TableView = Backbone.View.extend({
     this.titlesHtml = 
       options.titlesHtml ||
       crud.generateTableTitlesHtml(this.collection.tableFields);
-      
-
   },
 
   render: function() {
@@ -79,7 +77,6 @@ var TableView = Backbone.View.extend({
   configAdvance: function(){
     this.$('.tablePars.advance').slideToggle(200);
   }
-
 
 });
 
