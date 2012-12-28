@@ -26,5 +26,21 @@ POST    /api/countries                     controllers.Countries.save
 GET     /api/countries/:id                 controllers.Countries.show(id: Long)
 DELETE  /api/countries/:id                 controllers.Countries.delete(id: Long)
 
+GET     /api/provincias                     controllers.Provincias.list
+GET     /api/provincias/count               controllers.Provincias.count
+PUT     /api/provincias/:id                 controllers.Provincias.update(id: Long)
+POST    /api/provincias/                    controllers.Provincias.save
+POST    /api/provincias                     controllers.Provincias.save
+GET     /api/provincias/:id                 controllers.Provincias.show(id: Long)
+DELETE  /api/provincias/:id                 controllers.Provincias.delete(id: Long)
+
+GET     /api/provincias/:provinciaId/localidades          controllers.Localidades.list(provinciaId: Long)
+GET     /api/provincias/:provinciaId/localidades/count    controllers.Localidades.count(provinciaId: Long)
+PUT     /api/provincias/:provinciaId/localidades/:id      controllers.Localidades.update(provinciaId: Long, id: Long)
+POST    /api/provincias/:provinciaId/localidades/         controllers.Localidades.save(provinciaId: Long)
+POST    /api/provincias/:provinciaId/localidades          controllers.Localidades.save(provinciaId: Long)
+GET     /api/provincias/:provinciaId/localidades/:id      controllers.Localidades.show(provinciaId: Long, id: Long)
+DELETE  /api/provincias/:provinciaId/localidades/:id      controllers.Localidades.delete(provinciaId: Long, id: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                   controllers.Assets.at(path="/public", file)

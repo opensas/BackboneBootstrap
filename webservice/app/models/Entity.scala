@@ -37,6 +37,7 @@ trait EntityCompanion[A<:Entity] {
 
   val saveCommand: String
   val updateCommand: String
+  lazy val findCommand: String = "select %s from " + tableName
 
   val filterFields: List[String]
 
@@ -73,14 +74,18 @@ trait EntityCompanion[A<:Entity] {
   }
 
   def findById(id: Long): Option[A] = {
-    Logger.info(entityName)
     DB.withConnection { implicit connection =>
       SQL(
-        "select * from %s where id = {id}".format(tableName)
+        (findCommand + " where id = {id}").format("*", tableName)
       ).on(
         'id   -> id
       ).as(simpleParser.singleOpt)
     }
+  }
+
+  def findWithCondition(query: Map[String, Seq[String]], condition: String = ""): List[A] = {
+    val (page, len, order, filter, q) = Http.parseQuery(query)
+    find(page, len, order, filter, q, condition)
   }
 
   def find(query: Map[String, Seq[String]]): List[A] = {
@@ -97,6 +102,11 @@ trait EntityCompanion[A<:Entity] {
     )
   }
 
+  def countWithCondition(query: Map[String, Seq[String]], condition: String = ""): Long = {
+    val (page, len, order, filter, q) = Http.parseQuery(query)
+    count(filter,q, condition)
+  }
+
   def count(query: Map[String, Seq[String]]): Long = {
     val (page, len, order, filter, q) = Http.parseQuery(query)
     count(filter,q)
@@ -109,7 +119,7 @@ trait EntityCompanion[A<:Entity] {
   }
 
   protected def findWithParser[A](
-    page: Int = 1, len: Int = Http.DEFAULT_PAGE_LEN, order: String = "name",
+    page: Int = 1, len: Int = Http.DEFAULT_PAGE_LEN, order: String = "",
     filter: String = "", q: String = "", condition: String = "", fields: String = "*",
     parser: ResultSetParser[A]
   ): A = {
@@ -137,11 +147,18 @@ trait EntityCompanion[A<:Entity] {
         }
       }
 
-      val orderBy = if (order == "") "" else "order by " + order
-      val sql = "select %s from %s %s %s limit {offset}, {len}"
+      val orderBy = (
+        if (order != "")  "order by " + order
+        else              ""
+      )
+
+      val sql = (
+        (findCommand + " %s %s limit {offset}, {len}")
+        .format(fields, where, orderBy)
+      )
 
       SQL(
-        sql.format(fields, tableName, where, orderBy)
+        sql
       ).on(
         'offset     -> (page-1) * len,
         'len        -> len,

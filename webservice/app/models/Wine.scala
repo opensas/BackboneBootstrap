@@ -17,7 +17,7 @@ case class Wine (
   val name:         String = "unknown wine",
   val year:         String = "",
   val grapes:       String = "",
-  val country:      String = "",
+  val country:      Country = Country(),
   val region:       String = "",
   val description:  String = "",
   val picture:      String = ""
@@ -55,29 +55,53 @@ object Wine extends EntityCompanion[Wine] {
       {name}, {year}, {grapes}, {country}, {region}, {description}, {picture}
     )"""
 
-    val updateCommand = """
-      update wine set
-        name        = {name},
-        year        = {year},
-        grapes      = {grapes},
-        country     = {country},
-        region      = {region},
-        description = {description},
-        picture     = {picture}
-      where 
-        id        = {id}"""
+  val updateCommand = """
+    update wine set
+      name        = {name},
+      year        = {year},
+      grapes      = {grapes},
+      country     = {country},
+      region      = {region},
+      description = {description},
+      picture     = {picture}
+    where 
+      id        = {id}"""
+
+  override lazy val findCommand = """
+    select
+      w.id,
+      w.name,
+      w.year,
+      w.grapes,
+
+      w.country_id, 
+        c.code as country_code,
+        c.name as country_name, 
+
+      w.region,
+      w.description,
+      w.picture
+    from 
+                  wine as w 
+      inner join  country as c on   w.country_id = c.id
+  """
 
   val simpleParser: RowParser[Wine] = {
     get[Pk[Long]]("id") ~
     get[String]("name") ~
     get[String]("year") ~
     get[String]("grapes") ~
-    get[String]("country") ~
+    get[Pk[Long]]("country_id") ~
+    get[String]("country_code") ~
+    get[String]("country_name") ~
     get[String]("region") ~
     get[String]("description") ~
     get[String]("picture") map {
-      case id~name~year~grapes~country~region~description~picture => Wine(
-        id, name, year, grapes, country, region, description, picture
+      case id~name~year~grapes~country_id~country_code~country_name~region~description~picture => 
+      Wine(
+        id, name, year, grapes, 
+        Country(country_id, country_code, country_name),
+        region, description, picture
       )
     }
   }
@@ -114,7 +138,8 @@ object Wine extends EntityCompanion[Wine] {
     }
 
     // country
-    if (Validate.isEmptyWord(wine.country)) {
+    // if (Validate.isEmptyWord(wine.country)) {
+    if (wine.country.id == NotAssigned) {
       errors ::= ValidationError("country", "Country not specified")
     }
 

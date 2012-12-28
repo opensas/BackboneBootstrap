@@ -20,7 +20,7 @@ object Http {
 
     val page: Int = map.getOrElse("page","1").toInt
     val len: Int = map.getOrElse("len", DEFAULT_PAGE_LEN.toString).toInt
-    val order = map.getOrElse("order", "name")
+    val order = map.getOrElse("order", "")
     val filter = map.getOrElse("filter", "")
     val q = map.getOrElse("q", "")
 
