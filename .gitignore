@@ -24,7 +24,9 @@ openshift
 # Ignore tmp folder
 /tmp
 
-# Ignore demo folder
-webapp/versions
-# ignore reuiqreJs demos
+# ignore tutorial demos
 webapp/js/tmp/require*
+
+# ignore sublime project file
+*.sublime-project
+*.sublime-workspace
