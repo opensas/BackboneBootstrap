@@ -1,1 +1,0 @@
-java -classpath lib/dist/js.jar:lib/dist/compiler.jar org.mozilla.javascript.tools.shell.Main ../../r.js -o baseUrl=. mainConfigFile=app/require-main.js

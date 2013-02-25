@@ -1,1 +1,0 @@
-node ../../r.js -o baseUrl=. mainConfigFile=app/require-main.js
