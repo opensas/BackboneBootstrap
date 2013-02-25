@@ -1,0 +1,41 @@
+# debug
+set -x 
+
+pushd ../openshift/bb
+
+# remove previous copy of the project
+rm -fr app project public dist target windows start README*
+
+# remove all conf files except openshift.conf
+rm -fr conf/evolutions conf/application.conf conf/routes
+
+mv openshift_deploy openshift_deploy.bak
+
+# copy web service
+cp -r ../../webservice/* .
+
+# restore deploy script
+rm openshift_deploy
+mv openshift_deploy.bak openshift_deploy
+
+# remove compiled files and RUNNING_PID file
+rm -fr dist target RUNNING_PID
+
+# remove public folder of the web service
+rm -fr public/*
+
+# generate the optimized js file
+pushd ../../webapp/js
+./optimize-node
+popd
+
+# copy the webapp to public
+cp -r ../../webapp/* ./public/
+
+# get rid of start scrips
+rm public/openshift_deploy public/start
+
+# run normal deploy on openshift
+./openshift_deploy $@
+
+popd
