@@ -8,7 +8,7 @@ import anorm.SqlParser._
 
 import utils.Validate
 
-import utils.Conversion.pkToLong
+import utils.Conversion.{pkToLong, fkToLong}
 
 case class Wine (
 
@@ -17,7 +17,7 @@ case class Wine (
   val name:         String = "unknown wine",
   val year:         String = "",
   val grapes:       String = "",
-  val country:      Country = Country(),
+  val country:      Option[Country] = None,
   val region:       String = "",
   val description:  String = "",
   val picture:      String = ""
@@ -33,7 +33,7 @@ case class Wine (
     "name"          -> name,
     "year"          -> year,
     "grapes"        -> grapes,
-    "country"       -> country,
+    "country_id"    -> fkToLong(country),
     "region"        -> region,
     "description"   -> description,
     "picture"       -> picture
@@ -41,6 +41,28 @@ case class Wine (
 }
 
 object Wine extends EntityCompanion[Wine] {
+
+  def fromParser(
+    id: Pk[Long]              = NotAssigned,
+    name: String              = "",
+    year: String              = "",
+    grapes: String            = "",
+    country_id: Option[Long]  = None,
+    region: String            = "",
+    description: String       = "",
+    picture: String           = ""
+  ): Wine = {
+    new Wine(
+      id,
+      name,
+      year,
+      grapes,
+      country_id.map(Country.findById _).getOrElse(None),
+      region,
+      description,
+      picture
+    )
+  }
 
   val tableName = "wine"
 
@@ -50,9 +72,9 @@ object Wine extends EntityCompanion[Wine] {
 
   val saveCommand = """
     insert into wine (
-      name, year, grapes, country, region, description, picture
+      name, year, grapes, country_id, region, description, picture
     ) values (
-      {name}, {year}, {grapes}, {country}, {region}, {description}, {picture}
+      {name}, {year}, {grapes}, {country_id}, {region}, {description}, {picture}
     )"""
 
   val updateCommand = """
@@ -60,48 +82,24 @@ object Wine extends EntityCompanion[Wine] {
       name        = {name},
       year        = {year},
       grapes      = {grapes},
-      country     = {country},
+      country_id  = {country_id},
       region      = {region},
       description = {description},
       picture     = {picture}
-    where 
+    where
       id        = {id}"""
-
-  override lazy val findCommand = """
-    select
-      w.id,
-      w.name,
-      w.year,
-      w.grapes,
-
-      w.country_id, 
-        c.code as country_code,
-        c.name as country_name, 
-
-      w.region,
-      w.description,
-      w.picture
-    from 
-                  wine as w 
-      inner join  country as c on   w.country_id = c.id
-  """
 
   val simpleParser: RowParser[Wine] = {
     get[Pk[Long]]("id") ~
     get[String]("name") ~
     get[String]("year") ~
     get[String]("grapes") ~
-    get[Pk[Long]]("country_id") ~
-    get[String]("country_code") ~
-    get[String]("country_name") ~
+    get[Option[Long]]("country_id") ~
     get[String]("region") ~
     get[String]("description") ~
     get[String]("picture") map {
-      case id~name~year~grapes~country_id~country_code~country_name~region~description~picture => 
-      Wine(
-        id, name, year, grapes, 
-        Country(country_id, country_code, country_name),
-        region, description, picture
+      case id~name~year~grapes~country_id~region~description~picture => fromParser(
+        id, name, year, grapes, country_id, region, description, picture
       )
     }
   }
@@ -139,7 +137,7 @@ object Wine extends EntityCompanion[Wine] {
 
     // country
     // if (Validate.isEmptyWord(wine.country)) {
-    if (wine.country.id == NotAssigned) {
+    if (!wine.country.isDefined) {
       errors ::= ValidationError("country", "Country not specified")
     }
 

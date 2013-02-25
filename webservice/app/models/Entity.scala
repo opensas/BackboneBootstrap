@@ -84,43 +84,46 @@ trait EntityCompanion[A<:Entity] {
   }
 
   def findWithCondition(query: Map[String, Seq[String]], condition: String = ""): List[A] = {
-    val (page, len, order, filter, q) = Http.parseQuery(query)
-    find(page, len, order, filter, q, condition)
+    val (page, len, order, q, filter, filterBy) = Http.parseQuery(query)
+    find(page, len, order, q, filter, filterBy, condition)
   }
 
   def find(query: Map[String, Seq[String]]): List[A] = {
-    val (page, len, order, filter, q) = Http.parseQuery(query)
-    find(page, len, order, filter, q)
+    val (page, len, order, q, filter, filterBy) = Http.parseQuery(query)
+    find(page, len, order, q, filter, filterBy)
   }
 
   def find(
-    page: Int = 1, len: Int = Http.DEFAULT_PAGE_LEN, 
-    order: String = defaultOrder, filter: String = "", q: String = "", condition: String = ""
+    page: Int = 1, len: Int = Http.DEFAULT_PAGE_LEN,
+    order: String = defaultOrder, q: String = "",
+    filter: String = "", filterBy: String = "", condition: String = ""
   ): List[A] = {
-    findWithParser(fields="*", page=page, len=len, order=order, 
-      filter=filter, q=q, condition=condition, parser=simpleParser *
+    findWithParser(fields="*", page=page, len=len, order=order, q=q,
+      filter=filter, filterBy=filterBy, condition=condition, parser=simpleParser *
     )
   }
 
   def countWithCondition(query: Map[String, Seq[String]], condition: String = ""): Long = {
-    val (page, len, order, filter, q) = Http.parseQuery(query)
-    count(filter,q, condition)
+    val (page, len, order, q, filter, filterBy) = Http.parseQuery(query)
+    count(q, filter, filterBy, condition)
   }
 
   def count(query: Map[String, Seq[String]]): Long = {
-    val (page, len, order, filter, q) = Http.parseQuery(query)
-    count(filter,q)
+    val (page, len, order, q, filter, filterBy) = Http.parseQuery(query)
+    count(q, filter, filterBy)
   }
 
-  def count(filter: String = "", q: String = "", condition: String = ""): Long = {
-    findWithParser(fields="count(*)", page=1, len=1, order = "", 
-      filter=filter, q=q, condition=condition, parser=scalar[Long].single
+  def count(q: String = "", filter: String = "", filterBy: String = "", condition: String = ""): Long = {
+    findWithParser(fields="count(*)", page=1, len=1, order = "", q=q,
+      filter=filter, filterBy=filterBy, condition=condition, parser=scalar[Long].single
     )
   }
 
   protected def findWithParser[A](
-    page: Int = 1, len: Int = Http.DEFAULT_PAGE_LEN, order: String = "",
-    filter: String = "", q: String = "", condition: String = "", fields: String = "*",
+    page: Int = 1, len: Int = Http.DEFAULT_PAGE_LEN,
+    order: String = "", q: String = "",
+    filter: String = "", filterBy: String,
+    condition: String = "", fields: String = "*",
     parser: ResultSetParser[A]
   ): A = {
     DB.withConnection { implicit connection =>
@@ -128,8 +131,12 @@ trait EntityCompanion[A<:Entity] {
       val where = {
         var conditions: List[String] = List()
         if (filter != "") {
+          val filterFields: List[String] = (
+            if (filterBy == "") this.filterFields
+            else filterBy.split("""\s*,\s*""").toList
+          )
           conditions ::=
-            this.filterFields
+            filterFields
             .map( field => "lower(%s) like {filter}".format(field) )
             .mkString(" or ")
         }
@@ -181,7 +188,7 @@ trait EntityCompanion[A<:Entity] {
         val newId = SQL(saveCommand)
           .on(toParamsValue(entity.asSeq): _*)
           .executeInsert()
-        
+
         val savedEntity = for (
           id <- newId;
           entity <- findById(id)
@@ -210,7 +217,7 @@ trait EntityCompanion[A<:Entity] {
         SQL(updateCommand)
           .on(toParamsValue(entity.asSeq): _*)
           .executeUpdate()
-        
+
         val updatedEntity = for (
           id <- entity.id;
           entity <- findById(id)

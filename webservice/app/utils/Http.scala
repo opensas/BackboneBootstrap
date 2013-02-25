@@ -13,7 +13,7 @@ object Http {
   }
 
     // page, len, order, filter
-  def parseQuery(query: Map[String, Seq[String]]): (Int, Int, String, String, String) = {
+  def parseQuery(query: Map[String, Seq[String]]): (Int, Int, String, String, String, String) = {
     //val map: Map[String, String] = Http.flatQueryString(query)
 
     val map: Map[String, String] = query          // Http.toFlatQueryString
@@ -21,9 +21,10 @@ object Http {
     val page: Int = map.getOrElse("page","1").toInt
     val len: Int = map.getOrElse("len", DEFAULT_PAGE_LEN.toString).toInt
     val order = map.getOrElse("order", "")
-    val filter = map.getOrElse("filter", "")
     val q = map.getOrElse("q", "")
+    val filter = map.getOrElse("filter", "")
+    val filterBy = map.getOrElse("filterBy", "")
 
-    (page, len, order, filter, q)
+    (page, len, order, q, filter, filterBy)
   }
 }

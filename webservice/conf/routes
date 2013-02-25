@@ -26,21 +26,70 @@ POST    /api/countries                     controllers.Countries.save
 GET     /api/countries/:id                 controllers.Countries.show(id: Long)
 DELETE  /api/countries/:id                 controllers.Countries.delete(id: Long)
 
-GET     /api/provincias                     controllers.Provincias.list
-GET     /api/provincias/count               controllers.Provincias.count
-PUT     /api/provincias/:id                 controllers.Provincias.update(id: Long)
-POST    /api/provincias/                    controllers.Provincias.save
-POST    /api/provincias                     controllers.Provincias.save
-GET     /api/provincias/:id                 controllers.Provincias.show(id: Long)
-DELETE  /api/provincias/:id                 controllers.Provincias.delete(id: Long)
+GET     /api/reviews                       controllers.Reviews.list
+GET     /api/reviews/count                 controllers.Reviews.count
+PUT     /api/reviews/:id                   controllers.Reviews.update(id: Long)
+POST    /api/reviews/                      controllers.Reviews.save
+POST    /api/reviews                       controllers.Reviews.save
+GET     /api/reviews/:id                   controllers.Reviews.show(id: Long)
+DELETE  /api/reviews/:id                   controllers.Reviews.delete(id: Long)
 
-GET     /api/provincias/:provinciaId/localidades          controllers.Localidades.list(provinciaId: Long)
-GET     /api/provincias/:provinciaId/localidades/count    controllers.Localidades.count(provinciaId: Long)
-PUT     /api/provincias/:provinciaId/localidades/:id      controllers.Localidades.update(provinciaId: Long, id: Long)
-POST    /api/provincias/:provinciaId/localidades/         controllers.Localidades.save(provinciaId: Long)
-POST    /api/provincias/:provinciaId/localidades          controllers.Localidades.save(provinciaId: Long)
-GET     /api/provincias/:provinciaId/localidades/:id      controllers.Localidades.show(provinciaId: Long, id: Long)
-DELETE  /api/provincias/:provinciaId/localidades/:id      controllers.Localidades.delete(provinciaId: Long, id: Long)
+GET     /api/wines/:wineId/reviews         controllers.WinesReviews.list(wineId: Long)
+GET     /api/wines/:wineId/reviews/count   controllers.WinesReviews.count(wineId: Long)
+PUT     /api/wines/:wineId/reviews/:id     controllers.WinesReviews.update(wineId: Long, id: Long)
+POST    /api/wines/:wineId/reviews/        controllers.WinesReviews.save(wineId: Long)
+POST    /api/wines/:wineId/reviews         controllers.WinesReviews.save(wineId: Long)
+GET     /api/wines/:wineId/reviews/:id     controllers.WinesReviews.show(wineId: Long, id: Long)
+DELETE  /api/wines/:wineId/reviews/:id     controllers.WinesReviews.delete(wineId: Long, id: Long)
+
+GET     /api/Provincia                     controllers.Provincias.list
+GET     /api/Provincia/count               controllers.Provincias.count
+PUT     /api/Provincia/:id                 controllers.Provincias.update(id: Long)
+POST    /api/Provincia/                    controllers.Provincias.save
+POST    /api/Provincia                     controllers.Provincias.save
+GET     /api/Provincia/:id                 controllers.Provincias.show(id: Long)
+DELETE  /api/Provincia/:id                 controllers.Provincias.delete(id: Long)
+
+GET     /api/Provincia/:provinciaId/Localidad          controllers.Localidades.list(provinciaId: Long)
+GET     /api/Provincia/:provinciaId/Localidad/count    controllers.Localidades.count(provinciaId: Long)
+PUT     /api/Provincia/:provinciaId/Localidad/:id      controllers.Localidades.update(provinciaId: Long, id: Long)
+POST    /api/Provincia/:provinciaId/Localidad/         controllers.Localidades.save(provinciaId: Long)
+POST    /api/Provincia/:provinciaId/Localidad          controllers.Localidades.save(provinciaId: Long)
+GET     /api/Provincia/:provinciaId/oLcalidad/:id      controllers.Localidades.show(provinciaId: Long, id: Long)
+DELETE  /api/Provincia/:provinciaId/Localidad/:id      controllers.Localidades.delete(provinciaId: Long, id: Long)
+
+GET     /api/Zona                     controllers.Zonas.list
+GET     /api/Zona/count               controllers.Zonas.count
+PUT     /api/Zona/:id                 controllers.Zonas.update(id: Long)
+POST    /api/Zona/                    controllers.Zonas.save
+POST    /api/Zona                     controllers.Zonas.save
+GET     /api/Zona/:id                 controllers.Zonas.show(id: Long)
+DELETE  /api/Zona/:id                 controllers.Zonas.delete(id: Long)
+
+GET     /api/Test/Provincia                     controllers.Provincias.list
+GET     /api/Test/Provincia/count               controllers.Provincias.count
+PUT     /api/Test/Provincia/:id                 controllers.Provincias.update(id: Long)
+POST    /api/Test/Provincia/                    controllers.Provincias.save
+POST    /api/Test/Provincia                     controllers.Provincias.save
+GET     /api/Test/Provincia/:id                 controllers.Provincias.show(id: Long)
+DELETE  /api/Test/Provincia/:id                 controllers.Provincias.delete(id: Long)
+
+GET     /api/Test/Zona                     controllers.Zonas.list
+GET     /api/Test/Zona/count               controllers.Zonas.count
+PUT     /api/Test/Zona/:id                 controllers.Zonas.update(id: Long)
+POST    /api/Test/Zona/                    controllers.Zonas.save
+POST    /api/Test/Zona                     controllers.Zonas.save
+GET     /api/Test/Zona/:id                 controllers.Zonas.show(id: Long)
+DELETE  /api/Test/Zona/:id                 controllers.Zonas.delete(id: Long)
+
+GET     /api/Menu                     controllers.Menues.list
+GET     /api/Menu/count               controllers.Menues.count
+PUT     /api/Menu/:id                 controllers.Menues.update(id: Long)
+POST    /api/Menu/                    controllers.Menues.save
+POST    /api/Menu                     controllers.Menues.save
+GET     /api/Menu/:id                 controllers.Menues.show(id: Long)
+DELETE  /api/Menu/:id                 controllers.Menues.delete(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                   controllers.Assets.at(path="/public", file)
+# GET     /*file                    controllers.Assets.at(path="/public/minapp", file)
+GET     /*file                    controllers.Assets.at(path="/public/demoapp", file)

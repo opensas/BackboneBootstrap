@@ -22,7 +22,7 @@ case class Localidad (
 
   val provincia_id: Long = -1,
   val codigo: String = "NN",
-  val nombre: String = "provincia desconocida"
+  val descripcion: String = "provincia desconocida"
 )
   extends Entity
 {
@@ -34,7 +34,7 @@ case class Localidad (
     "id"            -> pkToLong(id),
     "provincia_id"  -> provincia_id,
     "codigo"        -> codigo,
-    "nombre"        -> nombre
+    "descripcion"   -> descripcion
   )
 }
 
@@ -44,20 +44,20 @@ object Localidad extends EntityCompanion[Localidad] {
 
   val defaultOrder = "codigo"
 
-  val filterFields = List("codigo", "nombre")
+  val filterFields = List("codigo", "descripcion")
 
   val saveCommand = """
     insert into localidad (
-      provincia_id, codigo, nombre
+      provincia_id, codigo, descripcion
     ) values (
-      {provincia_id}, {codigo}, {nombre}
+      {provincia_id}, {codigo}, {descripcion}
     )"""
 
   val updateCommand = """
     update localidad set
       provincia_id  = {provincia_id},
       codigo        = {codigo},
-      nombre        = {nombre}
+      descripcion   = {descripcion}
     where 
       id            = {id}"""
 
@@ -65,9 +65,9 @@ object Localidad extends EntityCompanion[Localidad] {
     get[Pk[Long]]("id") ~
     get[Long]("provincia_id") ~
     get[String]("codigo") ~
-    get[String]("nombre") map {
-      case id~provincia_id~codigo~nombre => Localidad(
-        id, provincia_id, codigo, nombre
+    get[String]("descripcion") map {
+      case id~provincia_id~codigo~descripcion => Localidad(
+        id, provincia_id, codigo, descripcion
       )
     }
   }
@@ -81,18 +81,18 @@ object Localidad extends EntityCompanion[Localidad] {
     }
 
     if (Validate.isEmptyWord(localidad.codigo)) {
-      errors ::= ValidationError("codigo", "Codigo no especificado")
+      errors ::= ValidationError("codigo", "Código no especificado")
     } else {
       if (isDuplicate(localidad, "codigo")) {
-        errors ::= ValidationError("codigo", "Ya existe una localidad con el codigo '%s'".format(localidad.codigo))
+        errors ::= ValidationError("codigo", "Ya existe una localidad con el código '%s'".format(localidad.codigo))
       }
     }
 
-    if (Validate.isEmptyWord(localidad.nombre)) {
-      errors ::= ValidationError("nombre", "Nombre no especificado")
+    if (Validate.isEmptyWord(localidad.descripcion)) {
+      errors ::= ValidationError("descripcion", "Descripción no especificada")
     } else {
-      if (isDuplicate(localidad, "nombre")) {
-        errors ::= ValidationError("nombre", "Ya existe una localidad con el nombre '%s'".format(localidad.nombre))
+      if (isDuplicate(localidad, "descripcion")) {
+        errors ::= ValidationError("descripcion", "Ya existe una localidad con la descripción '%s'".format(localidad.descripcion))
       }
     }
 

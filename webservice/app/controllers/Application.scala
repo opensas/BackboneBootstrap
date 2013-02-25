@@ -4,7 +4,7 @@ import play.api._
 import play.api.mvc._
 
 object Application extends Controller {
-  
+
   def frontend = Action {
     Redirect(routes.Assets.at("index.html"))
   }

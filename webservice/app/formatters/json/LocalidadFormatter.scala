@@ -17,19 +17,19 @@ object LocalidadFormatter {
 
     def writes(o: Localidad): JsValue = {
       toJson( Map(
-        "id"            -> toJson(o.id),
-        "provincia_id"  -> toJson(o.provincia_id),
-        "codigo"        -> toJson(o.codigo),
-        "nombre"        -> toJson(o.nombre)
+        "LocalidadId"   -> toJson(o.id),
+        "ProvinciaId"   -> toJson(o.provincia_id),
+        "Codigo"        -> toJson(o.codigo),
+        "Descripcion"   -> toJson(o.descripcion)
       ))
     }
 
     def reads(j: JsValue): Localidad = {
       Localidad(
-        id              = (j \ "id")            .as[Option[Pk[Long]]]     .getOrElse(NotAssigned),
-        provincia_id    = (j \ "provincia_id")  .as[Option[Long]]         .getOrElse(-1),
-        codigo          = (j \ "codigo")        .as[Option[String]]       .getOrElse("NN"),
-        nombre          = (j \ "nombre")        .as[Option[String]]       .getOrElse("localidad desconocida")
+        id              = (j \ "LocalidadId")     .as[Option[Pk[Long]]]     .getOrElse(NotAssigned),
+        provincia_id    = (j \ "ProvinciaId")     .as[Option[Long]]         .getOrElse(-1),
+        codigo          = (j \ "Codigo")          .as[Option[String]]       .getOrElse("NN"),
+        descripcion     = (j \ "Descripcion")     .as[Option[String]]       .getOrElse("localidad desconocida")
       )
     }
 

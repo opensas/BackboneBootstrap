@@ -47,4 +47,12 @@ object Conversion {
     pk.map(id=>id).getOrElse(0L)
   }
 
+  def fkToLong(entity: Option[models.Entity]): Long = {
+    entity.map { entity =>
+      entity.id.map(id => id).getOrElse(0L)
+    }.getOrElse {
+      0L
+    }
+  }
+
 }

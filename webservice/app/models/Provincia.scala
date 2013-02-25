@@ -12,7 +12,7 @@ import utils.Validate
 
 import utils.Sql.sanitize
 
-import utils.Conversion.pkToLong
+import utils.Conversion.{pkToLong, fkToLong}
 
 import play.Logger
 
@@ -20,50 +20,74 @@ case class Provincia (
 
   val id: Pk[Long] = NotAssigned,
 
-  val codigo: String = "NN",
-  val nombre: String = "provincia desconocida"
+  val zona: Option[Zona]    = None,
+  val codigo: String        = "NN",
+  val descripcion: String   = "provincia desconocida",
+  val habilitada: Int       = 1
 )
   extends Entity
 {
   def update()  = Provincia.update(this)
   def save()    = Provincia.save(this)
   def delete()  = Provincia.delete(this)
-  
+
   def asSeq(): Seq[(String, Any)] = Seq(
-    "id"      -> pkToLong(id),
-    "codigo"  -> codigo,
-    "nombre"  -> nombre
+    "id"            -> pkToLong(id),
+    "zona_id"       -> fkToLong(zona),
+    "codigo"        -> codigo,
+    "descripcion"   -> descripcion,
+    "habilitada"    -> habilitada
   )
 }
 
 object Provincia extends EntityCompanion[Provincia] {
 
+  def fromParser(
+    id: Pk[Long]            = NotAssigned,
+    zona_id: Option[Long]   = None,
+    codigo: String          = "NN",
+    descripcion: String     = "provincia desconocida",
+    habilitada: Int         = 1
+  ): Provincia = {
+    new Provincia(
+      id,
+      zona_id.map(Zona.findById _).getOrElse(None),
+      codigo,
+      descripcion,
+      habilitada
+    )
+  }
+
   val tableName = "provincia"
 
   val defaultOrder = "codigo"
 
-  val filterFields = List("codigo", "nombre")
+  val filterFields = List("codigo", "descripcion")
 
   val saveCommand = """
     insert into provincia (
-      codigo, nombre
+      zona_id, codigo, descripcion, habilitada
     ) values (
-      {codigo}, {nombre}
+      {zona_id}, {codigo}, {descripcion}, {habilitada}
     )"""
 
   val updateCommand = """
     update provincia set
+      zona_id       = {zona_id},
       codigo        = {codigo},
-      nombre        = {nombre}
-    where 
+      descripcion   = {descripcion},
+      habilitada    = {habilitada}
+    where
       id            = {id}"""
 
   val simpleParser = {
     get[Pk[Long]]("id") ~
+    get[Option[Long]]("zona_id") ~
     get[String]("codigo") ~
-    get[String]("nombre") map {
-      case id~codigo~nombre => Provincia(
-        id, codigo, nombre
+    get[String]("descripcion") ~
+    get[Int]("habilitada") map {
+      case id~zona_id~codigo~descripcion~habilitada => fromParser(
+        id, zona_id, codigo, descripcion, habilitada
       )
     }
   }
@@ -72,20 +96,28 @@ object Provincia extends EntityCompanion[Provincia] {
 
     var errors = List[Error]()
 
+    if (provincia.zona.isEmpty) {
+      errors ::= ValidationError("Zona", "Zona no especificada")
+    }
+
     if (Validate.isEmptyWord(provincia.codigo)) {
-      errors ::= ValidationError("codigo", "Codigo no especificado")
+      errors ::= ValidationError("Codigo", "Código no especificado")
     } else {
       if (isDuplicate(provincia, "codigo")) {
-        errors ::= ValidationError("codigo", "Ya existe una provincia con el codigo '%s'".format(provincia.codigo))
+        errors ::= ValidationError("Codigo", "Ya existe una provincia con el código '%s'".format(provincia.codigo))
       }
     }
 
-    if (Validate.isEmptyWord(provincia.nombre)) {
-      errors ::= ValidationError("nombre", "Nombre no especificado")
+    if (Validate.isEmptyWord(provincia.descripcion)) {
+      errors ::= ValidationError("Descripcion", "Descripción no especificada")
     } else {
-      if (isDuplicate(provincia, "nombre")) {
-        errors ::= ValidationError("nombre", "Ya existe una provincia con el nombre '%s'".format(provincia.nombre))
+      if (isDuplicate(provincia, "descripcion")) {
+        errors ::= ValidationError("Descripcion", "Ya existe una provincia con la descripción '%s'".format(provincia.descripcion))
       }
+    }
+
+    if (provincia.codigo == provincia.descripcion) {
+      errors ::= ValidationError("Codigo & Descripcion", "El codigo no puede ser igual a la descripcion")
     }
 
     errors.reverse
