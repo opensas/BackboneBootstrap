@@ -229,6 +229,13 @@ var BaseModel = Backbone.Model.extend({
     this.responseError = response;
     this.serverErrors = $.parseJSON(this.responseError.responseText);
 
+    // it's not an array, it's just an error, transform it into an array
+    if (_.has(this.serverErrors, 'field') ||
+        _.has(this.serverErrors, 'message')
+    ) {
+      this.serverErrors = [this.serverErrors];
+    }
+
     // add a first error
     var firstError = { field: '', message: 'Los cambios no han sido guardados.' };
     this.serverErrors.splice(0, 0, firstError);
