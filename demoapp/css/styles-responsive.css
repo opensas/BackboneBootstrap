@@ -1,0 +1,86 @@
+/*!
+ * BackboneBootstrap Responsive v0.0.1
+ *
+ * Copyright 2012
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Custom modifications to twitter Bootstrap css files
+ */
+
+@media (max-width: 979px) and (min-width: 768px) {
+  .span1 {
+    width: 60px;
+  }
+}
+
+@media (max-width:  979px) {
+  .navbar-inner-header {
+    background: repeat-x url(../img/banner-deg-gb.jpg);
+    min-height: 70px;
+    padding-left: 20px;
+    border-radius: 0px;
+    border-bottom: 3px solid;
+    height: 100px;
+  }
+  .navbar-inner-header .bg{
+    display: none;
+    height: 100px;
+  }
+}
+
+@media (min-width:  979px) {
+  .navbar-inner-header {
+    background: repeat-x url(../img/banner-deg-gb.jpg);
+    min-height: 70px;
+    padding-left: 20px;
+    border-radius: 0px;
+    border-bottom: 3px solid;
+    height: 100px;
+  }
+
+  .navbar-inner-header .bg {
+    background: url(../img/header-gb.jpg);
+    vertical-align: middle;
+    float: right;
+    width: 762px;
+    height: 100px;
+  }
+  
+  .navbar .nav 
+  {
+    display:list-item!important;
+  } 
+  
+}
+
+@media (min-width: 768px) {
+  .subnav .nav > li > a:after{
+    content: attr(data-title);
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-tabs li{ 
+    display: none; 
+  }
+  .nav-tabs select { 
+    display: inline-block; 
+    width: 100%;
+  }
+
+  .subnav .nav > li + li > a {
+    border-top: 0px;
+  }
+  .subnav .nav > li > a {
+    border: 0;
+    float: left;
+    padding: 5px;
+    width: 30px;
+  }
+
+  .subnav .nav > li > a:after{
+    content: '';
+  }
+
+}
