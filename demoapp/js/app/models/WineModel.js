@@ -44,6 +44,22 @@ var Model = BaseModel.extend({
       ]
     },
     {
+      name     : 'year',
+      type     : 'string',
+      label    : 'Year',
+      defaults : (new Date().getFullYear()).toString(),
+      span     : 3,
+      order    : 'year',
+      help     : 'Enter the year of the wine',
+      validations: [
+        { method: 'required', message: 'The year of the wine cannot be empty.' },
+        { method: 'range',
+          greater: '1900',
+          'lessEqual': (new Date().getFullYear()).toString()
+        }
+      ]
+    },
+    {
       name     : 'grapes',
       type     : 'string',
       label    : 'Grapes',
@@ -107,6 +123,7 @@ var Model = BaseModel.extend({
   formFields: [
     'id',
     'name',
+    'year',
     'grapes',
     'country',
     'region',
@@ -122,12 +139,13 @@ var Model = BaseModel.extend({
   queryFields: [
     { name: 'id', defaults: '', editable: true },
     'name',
+    'year',
     'grapes',
     'region',
     { name: 'description', control: 'textarea', rows: 4 }
   ],
 
-  tableFields: ['id', 'name', 'country', 'region']
+  tableFields: ['id', 'name', 'year', 'country', 'region']
 
 });
 
