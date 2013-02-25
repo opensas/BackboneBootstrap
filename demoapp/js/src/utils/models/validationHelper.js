@@ -151,11 +151,11 @@ validationHelper.validRange = function(options) {
 
   switch (options.field.type.toLowerCase()) {
   case 'number':
-    return validationHelper.numberRange(options);
+    return validationHelper.numberInRange(options);
   case 'date':
-    return validationHelper.dateRange(options);
+    return validationHelper.dateInRange(options);
   case 'string':
-    return validationHelper.stringRange(options);
+    return validationHelper.stringInRange(options);
   }
   return true;
 };
@@ -236,5 +236,42 @@ validationHelper.dateInRange = function(options) {
   return true;
 };
 
+validationHelper.stringInRange = function(options) {
+  var value   = (options.value).toString(),
+      message = options.message,
+      limit;
+
+  // empty date
+  if (!value) return true;
+
+  if (options.lessEqual && value > options.lessEqual.toString()) {
+    message = message || 'El campo "{1}" debe ser menor o igual a {2}.';
+    limit = options.lessEqual;
+  }
+
+  if (options.less && value >= options.less.toString()) {
+    message = message || 'El campo "{1}" debe ser menor a {2}.';
+    limit = options.less;
+  }
+
+  if (options.greatEqual && value < options.greatEqual.toString()) {
+    message = message || 'El campo "{1}" debe ser mayor o igual a {2}.';
+    limit = options.greatEqual;
+  }
+
+  if (options.greater && value <= options.greater.toString()) {
+    message = message || 'El campo "{1}" debe ser mayor a {2}.';
+    limit = options.greater;
+  }
+
+  if (limit) {
+    return {
+      field: options.field.name,
+      message: string.format(message, options.field.label, limit.toString())
+    };
+  }
+
+  return true;
+};
   return validationHelper;
 });
