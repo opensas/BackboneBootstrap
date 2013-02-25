@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Select2 3.1</title>
+
+  <link href="../../../css/bootstrap.css" rel="stylesheet">
+  <link href="../../../css/select2.css" rel="stylesheet">
+
+  <script src="../../lib/jquery-1.8.1.js"></script>
+  <script src="../../lib/select2.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+    <article class="row" id="basics">
+      <div class="span4">
+        <h3>Server side combo - countries</h3>
+        <p>
+          <input type="hidden" value="12" class="bigdrop" id="country" style="width:600px" tabindex="0"/> 
+        </p>
+      </div>
+    </article>
+
+  </div>
+
+</body>
+<script>
+  $(function() {
+
+    var countryFormatResult = function(country) {
+      var markup = "<table class='movie-result'><tr>";
+      markup += "<td class='country-code'>" + countryFormatSelection(country) + "</td>";
+      markup += "</tr></table>"
+      return markup;
+    };
+
+    var countryFormatSelection = function(country) {
+      return country.name + ' (' + country.code + ')';
+    }
+
+    var inferEndpoint = function() {
+      var location = window.location;
+      if (location.hostname.indexOf('rhcloud')!==-1) {
+        return location.origin + '/api/countries';
+      } else {   // if (location.protocol === "file:") {
+        return 'http://localhost:9000/api/countries';
+      }
+    };
+
+    var ajax = {
+      url: inferEndpoint(),
+      len: 20,
+      term: '',
+      timeout: undefined,     // current scheduled but not yet executed request
+      requestSequence: 0,     // sequence used to drop out-of-order responses
+      quietMillis: 300
+    };
+
+    $("#country").select2({
+      placeholder: 'Select a country',
+      minimunInputLenght: 2,
+      query: function(options) {
+        window.clearTimeout(ajax.timeout);
+        ajax.timeout = window.setTimeout(function () {
+          
+          ajax.requestSequence += 1;                 // increment the sequence
+          var requestNumber = ajax.requestSequence;  // this request's sequence number
+          
+          var data = {
+            filter: options.term,
+            page: options.page,
+            len: ajax.len
+          };
+          $.ajax({
+            url: ajax.url,
+            data: data,
+            dataType: 'json',
+            type: 'GET',
+            success: function(data) {
+              if (requestNumber < ajax.requestSequence) {
+                return;
+              }
+              $.ajax({
+                url: ajax.url + '/count',
+                data: { filter: options.term },
+                dataype: 'json',
+                success: function(resp) {
+                  var total = parseInt(resp, 10);
+                  var more = (options.page * ajax.len) < total;
+                  options.callback({results: data, more: more});
+                }
+              });
+            }
+          });
+        }, ajax.quietMillis);
+      },
+
+      initSelection: function (element, callback) {
+        var id = element.val();
+        // no item selected
+        if (id==='') {
+          callback({});
+        } else {
+          $.get(ajax.url+'/'+id, function(data) {
+            callback(data);
+          }, 'json');
+        }
+      },
+      formatResult: countryFormatResult,
+      formatSelection: countryFormatSelection,
+      dropdownCssClass: "bigdrop" // apply css that makes the dropdown taller
+    });
+  });
+
+  $(function(){
+    // $("#country").val('12');
+    $("#country").select2(
+      'val', '12'
+    );
+  });
+
+
+</script>
+</html>
