@@ -8,15 +8,15 @@ define( [
 
 'use strict';
 
-var objects = {};
+var convert = {};
 
-objects.defaultDateFormat     = 'dd-mm-yyyy';
-objects.defaultDateTimeFormat = 'dd-mm-yyyy HH:mm:ss';
-objects.defaultTimeFormat     = 'HH:mm:ss';
+convert.defaultDateFormat     = 'dd-mm-yyyy';
+convert.defaultDateTimeFormat = 'dd-mm-yyyy HH:mm:ss';
+convert.defaultTimeFormat     = 'HH:mm:ss';
 
-objects.ESC_REG_EX            = /[\-{}\[\]+?.,\\\^$|#\s]/g;
+convert.ESC_REG_EX            = /[\-{}\[\]+?.,\\\^$|#\s]/g;
 
-objects.basicType = function(value) {
+convert.basicType = function(value) {
   if      (_.isString(value))     return 'string';
   else if (_.isNumber(value))     return 'number';
   else if (_.isBoolean(value))    return 'boolean';
@@ -26,20 +26,20 @@ objects.basicType = function(value) {
   else                            return 'unknown';
 };
 
-objects.convert = function(value, type) {
+convert.convert = function(value, type) {
 
   switch (type.toLowerCase()) {
   case 'string':
-    return objects.toString(value);
+    return convert.toString(value);
 
   case 'number':
-    return objects.toNumber(value, null);
+    return convert.toNumber(value, null);
 
   case 'boolean':
-    return objects.toBoolean(value, null);
+    return convert.toBoolean(value, null);
 
   case 'date':
-    return objects.toDate(value, null);
+    return convert.toDate(value, null);
 
   default:
     throw new Error('type "' + type + '" not supported!');
@@ -48,12 +48,12 @@ objects.convert = function(value, type) {
   }
 };
 
-objects.format = function(value, options) {
-  var type = objects.basicType(value).toLowerCase();
+convert.format = function(value, options) {
+  var type = convert.basicType(value).toLowerCase();
 
   options = options || {};
 
-  switch (objects.basicType(value)) {
+  switch (convert.basicType(value)) {
   case 'string':
     return value;
 
@@ -61,7 +61,7 @@ objects.format = function(value, options) {
     return value.toString();
 
   case 'boolean':
-    return objects.formatBoolean(value);
+    return convert.formatBoolean(value);
 
   case 'date':
     return value.toString();
@@ -75,11 +75,11 @@ objects.format = function(value, options) {
   }
 };
 
-objects.toString = function(value) {
+convert.toString = function(value) {
   return value.toString();
 };
 
-objects.toNumber = function(value, def) {
+convert.toNumber = function(value, def) {
 
   try {
     if (_.isNumber(value)) return value;
@@ -94,7 +94,7 @@ objects.toNumber = function(value, def) {
 
 };
 
-objects.toBoolean = function(value, def) {
+convert.toBoolean = function(value, def) {
 
   if (value === null || value === undefined || value === NaN) value = '';
 
@@ -108,16 +108,16 @@ objects.toBoolean = function(value, def) {
   return (def === undefined ? null : def);
 };
 
-objects.toDate = function(value, def) {
+convert.toDate = function(value, def) {
 
-  var dateParsed = objects.parseDate(value);
+  var dateParsed = convert.parseDate(value);
 
   if (!dateParsed) return (def === undefined ? null : def);
 
   return new Date(dateParsed[0], dateParsed[1], dateParsed[2]);
 };
 
-objects.parseDate = function(date) {
+convert.parseDate = function(date) {
 
   var regDate, matches, year, month, day, checkDate;
 
@@ -155,8 +155,8 @@ objects.parseDate = function(date) {
   return null;
 };
 
-objects.isValidDate = function(date) {
-  return objects.parseDate(date) !== null;
+convert.isValidDate = function(date) {
+  return convert.parseDate(date) !== null;
 };
 
 // false: no value no es ni integer ni float || value no es finito
@@ -170,17 +170,17 @@ objects.isValidDate = function(date) {
  * @param  {string}  value The string value to check.
  * @return {Boolean}       True if value represents a valid number.
  */
-objects.isNumeric = function(value) {
+convert.isNumeric = function(value) {
   return !isNaN(parseFloat(value)) && isFinite(value);
 };
 
-objects.formatBoolean = function(value, trueValue, falseValue, undefValue) {
+convert.formatBoolean = function(value, trueValue, falseValue, undefValue) {
 
   trueValue   = (trueValue === undefined ? 'Sí' : trueValue);
   falseValue  = (falseValue === undefined ? 'No' : falseValue);
   undefValue  = (undefValue === undefined ? '' : undefValue);
 
-  var booleanValue = objects.toBoolean(value);
+  var booleanValue = convert.toBoolean(value);
 
   if      (booleanValue === true)   return trueValue;
   else if (booleanValue === false)  return falseValue;
@@ -189,9 +189,9 @@ objects.formatBoolean = function(value, trueValue, falseValue, undefValue) {
 };
 
 // escapa los caracteres especiales de expresiones regulares
-objects.escapeRegExp = function(value) {
-  return value.replace(objects.ESC_REG_EX, "\\$&");
+convert.escapeRegExp = function(value) {
+  return value.replace(convert.ESC_REG_EX, "\\$&");
 };
 
-  return objects;
+  return convert;
 });
