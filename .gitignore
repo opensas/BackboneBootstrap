@@ -24,6 +24,9 @@ openshift
 # Ignore tmp folder
 /tmp
 
+# ignore minapp folder
+minapp
+
 # ignore tutorial demos
 webapp/js/tmp/require*
 
