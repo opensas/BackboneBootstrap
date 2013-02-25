@@ -1,0 +1,5 @@
+<select class="<%= spanClass %>" <%= disabled %> id="<%= field.fullName %>">
+<% _.each(items, function(val, key) { %>
+  <option value="<%= key %>" <%= value.toString() === key.toString() ? 'selected' : '' %>><%= val %></option>
+<% }); %>
+</select>

@@ -1,0 +1,213 @@
+/*globals define*/
+
+define( [
+    'jquery', 'lodash',
+    'src/controllers/ApplicationController',
+    'text!src/views/crud/crudContainer.html',
+    'text!src/views/crud/crud.html',
+    'src/views/crud/TableView', 'src/views/crud/RowsView',
+    'src/views/crud/FormView', 'src/views/crud/QueryView',
+    'src/utils/http'
+  ], function(
+    $, _,
+    CrudController,
+    crudContainerTemplate,
+    crudTemplate,
+    TableView, RowsView,
+    FormView, QueryView,
+    http
+  ){
+
+'use strict';
+
+var CrudParentChildController = CrudController.extend({
+
+  parent: undefined;
+
+  children: [],             // child controllers
+  tabs: [],                 // child controllers
+
+  $containerEl: undefined,
+
+  initialize: function(options) {
+
+    options = options || {};
+
+    this.parent = this.parent || options.parent || undefined;
+
+    this.children = this.children || options.children || [];
+
+    // super.initialize
+    CrudController.prototype.initialize.call(this, options);
+
+    this.addChildren(this.children);
+
+  },
+
+  setupContainer: function() {
+    var $crudEl;
+
+    this.$el = $(this.el);
+
+    // debug
+    // this.children = [1];
+
+    if (this.isParent()) {
+      var containerId = this.fullName + '-container';
+      var containerHtml = _.template(crudContainerTemplate, {
+        containerId: containerId
+      });
+      // add the container
+      this.$el.append(containerHtml);
+
+      this.$containerEl = this.$el.find('#' + containerId);
+
+      $crudEl = this.$containerEl;
+    } else {
+      this.$containerEl = undefined;
+      $crudEl = this.$el;
+    }
+
+    var parentId = this.fullName + '-crud';
+
+    var crudHtml = _.template(crudTemplate, {
+      crudId: parentId
+    });
+
+    $crudEl.append(crudHtml);
+
+    this.$crudEl    = $crudEl.find('#' + parentId);
+
+    this.tabs = [{
+      name:       this.name,
+      $el:        this.$crudEl,
+      controller: this
+    }];
+
+  },
+
+  addChildren: function(children) {
+    var Child, child;
+
+    this.children = [];
+
+    if (!children) { return; }
+
+    for(Child in children) {
+      child = new Child({
+        parent:   this,
+        el:       this.$childrenEl
+      });
+
+      if (!child.isChild()) {
+        throw new Error('cannot add a controller which is not a child!');
+      }
+
+      this.children.push(child);
+
+      this.tabs.push({
+        name:       child.name,
+        $el:        child.$crudEl,
+        controller: child
+      });
+
+    }
+
+  },
+
+  hide: function() {
+    if (this.isParent()) {
+      this.$containerEl.hide();
+    } else {
+      this.$crudEl.hide();
+    }
+  },
+
+  show: function() {
+    if (this.isParent()) {
+      this.$containerEl.show();
+    } else {
+      this.$crudEl.show();
+    }
+  },
+
+  isParent: function() {
+    return (this.children.length > 0);
+  },
+
+  // to be overwritten by CrudChildController class
+  isChild: function() { 
+    return (this.parent);
+  },
+
+  list: function(queryParams) {
+    this.model = undefined;
+    this.mode = 'list';
+
+    if (!app.user.can(this.resource, '*')) alert("No tiene permisos para consultar esta información");
+
+    _.extend(this.queryParams, queryParams);
+
+    // this.collection.setParams(http.parseQuery(query));
+    this.collection.setParams(this.queryParams);
+    this.collection.fetch();
+
+    this.formView.hide();
+    this.tableView.show();
+  },
+
+  update: function(id) {
+    this.edit(id);
+  },
+
+  create: function() {
+    this.edit();
+  },
+
+  edit: function(id) {
+    if (id) {   // update
+      this.model = this.collection.get(id);
+      this.mode = this.readOnly ? 'show' : 'update';
+    } else {    // create
+      this.model = new this.Model();
+      this.mode = 'create';
+    }
+
+    this.formView.setModel(this.model);
+    this.formView.render();
+
+    this.tableView.hide();
+    this.formView.show();
+  },
+
+  del: function(id) {
+    var that = this;
+    var prevMode = this.mode;
+    this.mode = 'delete';
+
+    this.model = this.collection.get(id);
+    if (!this.model) {
+      this.modalMessage('El registro especificado no se ha encontrado');
+      this.list();
+      return;
+    }
+    if (this.modalConfirm('¿Está seguro que desea eliminar el registro actual?')) {
+      this.model.destroy( { 
+        wait: true,
+        success: function() {
+          that.modalMessage('El registro se ha eliminado con éxito');
+          that.list();
+        },
+        error: function() {
+          that.modalMessage('No se ha podido eliminar el registro');
+          that.mode = prevMode;
+        },
+      });
+      return;
+    }
+  }
+
+});
+
+  return CrudParentChildController;
+});

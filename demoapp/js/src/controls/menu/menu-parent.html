@@ -1,0 +1,23 @@
+<% if (menu.level === 0) { %>
+  <ul class="nav">
+  <%= children %>
+  </ul>
+<% } %>
+
+<% if (menu.level === 1) { %>
+  <li class="dropdown">
+    <a data-toggle="dropdown" class="dropdown-toggle active" href="#"><%= menu.name %><b class="caret"></b></a>
+    <ul class="dropdown-menu">
+    <%= children %>
+    </ul>
+  </li>
+<% } %>
+
+<% if (menu.level > 1) { %>
+  <li class="dropdown-submenu">
+    <a href="#"><%= menu.name %></a>
+    <ul class="dropdown-menu">
+    <%= children %>
+    </ul>
+  </li>
+<% } %>

@@ -1,0 +1,7 @@
+  <% if (menu.type === 'sep') { %>
+  <li class="divider"></li>
+  <% } else if (!menu.enabled) { %>
+  <li><a class="disabled" href="#"><%= menu.name %></a></li>
+  <% } else { %>
+  <li><a href="<%= rootUrl + menu.url %>"><%= menu.name %></a></li>
+  <% } %>
