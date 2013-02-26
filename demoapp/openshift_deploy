@@ -1,5 +1,5 @@
 # debug
-set -x 
+set -x
 
 pushd ../openshift/bb
 
@@ -11,8 +11,13 @@ rm -fr conf/evolutions conf/application.conf conf/routes
 
 mv openshift_deploy openshift_deploy.bak
 
+# generate the optimized js file
+pushd ../../demoapp/js
+./optimize-node
+popd
+
 # copy web service
-cp -r ../../webservice/* .
+cp -rL ../../webservice/* .
 
 # restore deploy script
 rm openshift_deploy
@@ -21,19 +26,8 @@ mv openshift_deploy.bak openshift_deploy
 # remove compiled files and RUNNING_PID file
 rm -fr dist target RUNNING_PID
 
-# remove public folder of the web service
-rm -fr public/*
-
-# generate the optimized js file
-pushd ../../webapp/js
-./optimize-node
-popd
-
-# copy the webapp to public
-cp -r ../../webapp/* ./public/
-
-# get rid of start scrips
-rm public/openshift_deploy public/start
+# get rid of start scripts
+rm public/demoapp/openshift_deploy public/demoapp/start public/demoapp/tail
 
 # run normal deploy on openshift
 ./openshift_deploy $@
