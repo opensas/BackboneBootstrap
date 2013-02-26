@@ -8,6 +8,10 @@
 \.svn
 \_svn
 
+# ignore zip backup files
+*.zip
+*.rar
+
 # Ignore Play! working directory #
 
 webservice/logs
