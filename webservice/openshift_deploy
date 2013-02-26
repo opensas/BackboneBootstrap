@@ -1,5 +1,5 @@
 # debug
-set -x 
+set -x
 
 pushd ../openshift/bb
 
@@ -32,7 +32,7 @@ popd
 # copy the webapp to public
 cp -r ../../webapp/* ./public/
 
-# get rid of start scrips
+# get rid of start scripts
 rm public/openshift_deploy public/start
 
 # run normal deploy on openshift
