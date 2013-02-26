@@ -66,6 +66,12 @@ object Wine extends EntityCompanion[Wine] {
 
   val tableName = "wine"
 
+  override lazy val findCommand = """
+    |select %s from
+      |wine                                 inner join
+      |country  on wine.country_id = country.id
+    """.stripMargin
+
   val defaultOrder = "country"
 
   val filterFields = List("name", "grapes", "country", "region", "year")
@@ -87,17 +93,17 @@ object Wine extends EntityCompanion[Wine] {
       description = {description},
       picture     = {picture}
     where
-      id        = {id}"""
+      id          = {id}"""
 
   val simpleParser: RowParser[Wine] = {
-    get[Pk[Long]]("id") ~
-    get[String]("name") ~
-    get[String]("year") ~
-    get[String]("grapes") ~
-    get[Option[Long]]("country_id") ~
-    get[String]("region") ~
-    get[String]("description") ~
-    get[String]("picture") map {
+    get[Pk[Long]]("wine.id") ~
+    get[String]("wine.name") ~
+    get[String]("wine.year") ~
+    get[String]("wine.grapes") ~
+    get[Option[Long]]("wine.country_id") ~
+    get[String]("wine.region") ~
+    get[String]("wine.description") ~
+    get[String]("wine.picture") map {
       case id~name~year~grapes~country_id~region~description~picture => fromParser(
         id, name, year, grapes, country_id, region, description, picture
       )
