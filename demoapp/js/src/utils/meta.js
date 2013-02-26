@@ -81,6 +81,7 @@ meta.mockPermissions = function() {
     'provincia-readonly': ['consulta'],
     // 'provincia': ['consulta'],
     'provincia': ['alta', 'baja', 'modificacion', 'consulta'],
+    'tipocomprobante': ['alta', 'baja', 'modificacion', 'consulta'],
     'zona': ['alta', 'baja', 'modificacion', 'consulta'],
     'localidad': ['alta', 'baja', 'modificacion', 'consulta'],
     'menu': ['alta', 'baja', 'modificacion', 'consulta']
