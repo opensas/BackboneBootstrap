@@ -139,7 +139,7 @@ var Model = BaseModel.extend({
   queryFields: [
     { name: 'id', defaults: '', editable: true },
     'name',
-    'year',
+    { name: 'year', defaults: '' },
     'grapes',
     'region',
     { name: 'description', control: 'textarea', rows: 4 }
