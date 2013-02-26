@@ -8,8 +8,13 @@ define( [
 
 'use strict';
 
-// var environment = 'prod';
-var environment = 'devel';
+var environment = 'prod';
+// var environment = 'devel';
+
+// automatically set to work on devel if running on localhost
+if (document.location.host.indexOf('localhost') !== -1) {
+  environment = 'devel';
+}
 
 var environments = {
 
@@ -31,11 +36,12 @@ var environments = {
 
   prod: {
     mode: 'prod',
-    rootUrl: '/app/index.html',
+    rootUrl: '/index.html#',
     endpoint: 'https://bb-jugar.rhcloud.com/api',
 
     meta: {
-      endpoint: 'http://wsssc/rest.asp?'
+      endpoint: 'http://wsssc/rest.asp?',
+      mock: true
     }
   },
 
