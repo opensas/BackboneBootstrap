@@ -4,6 +4,7 @@ define( [
     'lodash',
     'src/controls/BaseControl',
     'src/controls/InputControl',
+    'src/controls/DateControl',
     'src/controls/TextareaControl',
     'src/controls/ComboControl',
     'src/controls/SiNoComboControl',
@@ -13,6 +14,7 @@ define( [
     _,
     BaseControl,
     InputControl,
+    DateControl,
     TextareaControl,
     ComboControl,
     SiNoComboControl,
@@ -94,6 +96,7 @@ controlsHelper.createControl = function(options, extraOptions) {
 
 controlsHelper.constructors = {
   input           : InputControl,
+  date            : DateControl,
   textarea        : TextareaControl,
   combo           : ComboControl,
   sinocombo       : SiNoComboControl,
