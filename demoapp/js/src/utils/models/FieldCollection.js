@@ -1,9 +1,17 @@
 /*globals define*/
 
 define( [
-    'lodash'
+    'lodash',
+    'src/utils/mixins/isPlainObject',
+    'src/utils/models/Field',
+    'src/utils/models/ObjectField',
+    'src/utils/models/DateField'
   ], function(
-    _
+    _,
+    isPlainObject,
+    Field,
+    ObjectField,
+    DateField
   ){
 
 'use strict';
@@ -18,13 +26,16 @@ _.extend(FieldCollection.prototype, {
 
   initialize: function(options) {
 
+    options = options || {};
+
     // it is already a FieldCollection
-    if (options instanceof FieldCollection) throw new Error('already a FieldCollection');
+    if (options instanceof FieldCollection) throw new Error('already a FieldCollection.');
+
+    if (!_.isArray(options)) throw new Error('options should be an array of plain objects.');
 
     // return an empty FieldCollection
     if (!options) return this;
 
-    options = options || {};
     var fields;
 
     // passed the fields as options
@@ -38,7 +49,7 @@ _.extend(FieldCollection.prototype, {
     if (!_.isArray(fields)) throw new Error('options.fields should be an array of fields or an empty value');
 
     _.each(fields, function(field) {
-      this.push(field);
+      this.push(this.createField(field));
     }, this);
 
     return this;
@@ -85,6 +96,30 @@ _.extend(FieldCollection.prototype, {
     return _.map(this, function(field) {
       return field.control;
     });
+  },
+
+  createField: function(options) {
+    var type,
+        FieldConstructor;
+
+    options = options || {};
+
+    if (!_.isPlainObject(options)) throw new Error('options should be a plain object');
+
+    type = (options.type || 'string').toLowerCase();
+
+    if (!_.isString(type)) throw new Error('field.type should be a string.');
+
+    if (type === 'object') {
+      FieldConstructor = ObjectField;
+    } else if (type === 'date') {
+      FieldConstructor = DateField;
+    } else {
+      FieldConstructor = Field;
+    }
+
+    return new FieldConstructor(options);
+
   }
 
 });
