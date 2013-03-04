@@ -2,8 +2,7 @@
 
   <h1>Welcome to BackboneBootstrap backend!</h1>
 
-  <h2>@Wine.count() Wines</h2>
-
+  <h2>@Wine.count() wines</h2>
   <ul>
     <li><a href="@routes.Wines.list()">
       Wines.list() (@routes.Wines.list())
@@ -13,6 +12,67 @@
     </a></li>
     <li><a href="@routes.Wines.show(999)">
       Wines.show(999) (@routes.Wines.show(999) - not found)
+    </a></li>
+
+    <hr />
+
+    <li><a href="@routes.WinesReviews.list(1)">
+      WinesReviews.list(1) (@routes.WinesReviews.list(1)) (reviews for wine number 1)
+    </a></li>
+    <li><a href="@routes.WinesReviews.count(1)">
+      WinesReviews.count(1) (@routes.WinesReviews.count(1)) (number of reviews for wine number 1)
+    </a></li>
+  </ul>
+
+  <h2>@Country.count() countries</h2>
+  <ul>
+    <li><a href="@routes.Countries.list()">
+      Countries.list() (@routes.Countries.list())
+    </a></li>
+    <li><a href="@routes.Countries.show(1)">
+      Countries.show(1) (@routes.Countries.show(1))
+    </a></li>
+    <li><a href="@routes.Countries.show(999)">
+      Countries.show(999) (@routes.Countries.show(999) - not found)
+    </a></li>
+  </ul>
+
+  <h2>@Review.count() reviews</h2>
+  <ul>
+    <li><a href="@routes.Reviews.list()">
+      Reviews.list() (@routes.Reviews.list())
+    </a></li>
+    <li><a href="@routes.Reviews.show(1)">
+      Reviews.show(1) (@routes.Reviews.show(1))
+    </a></li>
+    <li><a href="@routes.Reviews.show(999)">
+      Reviews.show(999) (@routes.Reviews.show(999) - not found)
+    </a></li>
+  </ul>
+
+  <h2>@Review.count() reviews</h2>
+  <ul>
+    <li><a href="@routes.Reviews.list()">
+      Reviews.list() (@routes.Reviews.list())
+    </a></li>
+    <li><a href="@routes.Reviews.show(1)">
+      Reviews.show(1) (@routes.Reviews.show(1))
+    </a></li>
+    <li><a href="@routes.Reviews.show(999)">
+      Reviews.show(999) (@routes.Reviews.show(999) - not found)
+    </a></li>
+  </ul>
+
+  <h2>@Menu.count() menu options</h2>
+  <ul>
+    <li><a href="@routes.Menues.list()">
+      Menues.list() (@routes.Menues.list())
+    </a></li>
+    <li><a href="@routes.Menues.show(1)">
+      Menues.show(1) (@routes.Menues.show(1))
+    </a></li>
+    <li><a href="@routes.Menues.show(999)">
+      Menues.show(999) (@routes.Menues.show(999) - not found)
     </a></li>
   </ul>
 
