@@ -8,7 +8,10 @@ import models.{Provincia, Zona}
 
 import anorm._
 
+import java.util.Date
+
 import PkFormatter._
+import DateFormatter._
 import ZonaFormatter._
 import DateFormatter._
 
@@ -22,7 +25,8 @@ object ProvinciaFormatter {
         "Zona"            -> toJson(o.zona),
         "Codigo"          -> toJson(o.codigo),
         "Descripcion"     -> toJson(o.descripcion),
-        "Habilitada"      -> toJson(o.habilitada)
+        "Habilitada"      -> toJson(o.habilitada),
+        "Fundacion"       -> toJson(o.fundacion)
       ))
     }
 
@@ -32,7 +36,8 @@ object ProvinciaFormatter {
         zona_id     = (j \ "Zona" \ "ZonaId") .as[Option[Long]],
         codigo      = (j \ "Codigo")          .as[Option[String]]    .getOrElse("NN"),
         descripcion = (j \ "Descripcion")     .as[Option[String]]    .getOrElse("provincia desconocida"),
-        habilitada  = (j \ "Habilitada")      .as[Option[Int]]       .getOrElse(1)
+        habilitada  = (j \ "Habilitada")      .as[Option[Int]]       .getOrElse(1),
+        fundacion   = (j \ "Fundacion")       .as[Option[Date]]
       )
     }
 
