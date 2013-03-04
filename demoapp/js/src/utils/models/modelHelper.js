@@ -51,23 +51,16 @@ var modelHelper = {};
  * }
  *
  */
-
-modelHelper.defaultsFromFields = function(fields) {
-  var defaults = {};
-
-  for(var field in fields) {
-    if (_.has(field, 'defaults')) defaults[field.name] = field.defaults;
-  }
-
-  return defaults;
-};
-
 modelHelper.completeModelDefaults = function(Model) {
-  var fields    = Model.prototype.fields || new FieldCollection(),
-      defaults  = Model.prototype.defaults || {};
+  var fields    = Model.prototype.fields || {},
+      defaults  = Model.prototype.defaults || {},
+      defaultsFromFields = {};
 
-  // var defaultsFromFields = modelHelper.defaultsFromFields(fields);
-  var defaultsFromFields = fields.defaults();
+  _.each(fields, function(field) {
+    if (_.has(field, 'defaults')) {
+      defaultsFromFields[field.name] = field.defaults;
+    }
+  });
 
   Model.prototype.defaults = _.extend(_.clone(defaults), defaultsFromFields);
 };
@@ -168,6 +161,7 @@ modelHelper.completeFieldDefinition = function(baseFields, fields) {
   return completedFields;
 };
 
+// TODO: used???
 modelHelper.completeModelFieldsDefinitions = function(Model) {
   var fieldsDefinitions = ['fields', 'formFields', 'queryFields', 'headerFields', 'tableFields'],
       proto             = Model.prototype,
