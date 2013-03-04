@@ -29,7 +29,7 @@ Demo application
 ================
 
 There's a demo application up and running on [openshift](http://www.openshift.com/).
-You can have a look at it at [https://bb-jugar.rhcloud.com/](https://bb-jugar.rhcloud.com/).
+You can have a look at it at [http://bbbootstrap.com.ar/](http://bbbootstrap.com.ar/).
 (Take into account that we left the src files unminified to let you have a look
 at them, so it will take some time for the browser to download every js file).
 
@@ -44,7 +44,7 @@ country), and to test the master-detail feature we added a Reviews entity (every
 wine can have one or more reviews).
 
 You can have a look at the entities, and the endpoints at
-[https://bb-jugar.rhcloud.com/api](https://bb-jugar.rhcloud.com/api)
+[http://bbbootstrap.com.ar/api](http://bbbootstrap.com.ar/api)
 
 The demo application is located at the
 [demoapp](https://github.com/opensas/BackboneBootstrap/tree/master/demoapp)
@@ -87,7 +87,7 @@ the Wine model based on it's schema.
 Clien-side validations from the model schema are checked when editing every
 field. If there's an error it will be shown right next to the control.
 You can try using it the
-[wine crud form](https://bb-jugar.rhcloud.com/index.html#Wine).
+[wine crud form](http://bbbootstrap.com.ar/index.html#Wine).
 Just click on the first wine to edit it, and clear it's name.
 
 - [x] Handling and displaying of server-side validations.
@@ -95,7 +95,7 @@ Just click on the first wine to edit it, and clear it's name.
 Just like with client-side validations, the model will process server-side
 errors and it will display them next to each invalid field.
 You can try using it the
-[wine crud form](https://bb-jugar.rhcloud.com/index.html#Wine).
+[wine crud form](http://bbbootstrap.com.ar/index.html#Wine).
 Just click on the first wine to edit it, enter a duplicated name, like
 'REX HILL' (in uppercase).
 
@@ -105,9 +105,9 @@ main menu options enabled/visibles according to the user's permisions.
 - [x] Automatic main menu buiding from a resource (backbone collection) at the
 server.
 
-The menu you see on the [main page](https://bb-jugar.rhcloud.com) is dinamically
+The menu you see on the [main page](http://bbbootstrap.com.ar) is dinamically
 build from the information available at the
-[menu endpoint](https://bb-jugar.rhcloud.com/api/Menu).
+[menu endpoint](http://bbbootstrap.com.ar/api/Menu).
 
 You should implement a menuAdapter function in your menu collection to adapt
 the output from your endpoint to the fields needed by the
@@ -118,13 +118,13 @@ for more information.
 - [x] Server-side pagination and ordering of collections.
 
 Just click on the header to change the order of the fields. You can give it a
-try if with the [countries crud form](https://bb-jugar.rhcloud.com/index.html#Country).
+try if with the [countries crud form](http://bbbootstrap.com.ar/index.html#Country).
 
 - [x] Rich and flexible query language for server-side filtering of information.
 
 Just click on the nut icon on the top right of the crud form, and the query form
 will appear. You can give it a
-try if with the [countries crud form](https://bb-jugar.rhcloud.com/index.html#Country).
+try if with the [countries crud form](http://bbbootstrap.com.ar/index.html#Country).
 
 You can enter queries like '2..3' in the _id_ field to fetch countries whose ids
 are between two and three, or '<B' in the _name_ field to query countries whose
@@ -147,7 +147,7 @@ definition.
 - [x] Automatic generation of master-detail forms (work in progress).
 
 You can give a try to the master-detail feature with the
-[Wines with reviews](https://bb-jugar.rhcloud.com/index.html#WineParent). Just
+[Wines with reviews](http://bbbootstrap.com.ar/index.html#WineParent). Just
 click on a wine, and the _Reviews_ tab will let you create, edit or delete that
 wine's reviews.
 
@@ -155,12 +155,12 @@ wine's reviews.
 generates a select box using the info from a Backbone Collection.
 
 Check it out in action in the country combo in the
-[wines form](https://bb-jugar.rhcloud.com/index.html#Wine).
+[wines form](http://bbbootstrap.com.ar/index.html#Wine).
 
 - [x] Integration of bootstrap-datepicker for date fields edition
 
 Give it a try in the
-[reviews form](https://bb-jugar.rhcloud.com/index.html#Review).
+[reviews form](http://bbbootstrap.com.ar/index.html#Review).
 
 - [x] Hooks for translating your backend data format to native javascript types
 (specially useful for handling asp.net dates, for example)
