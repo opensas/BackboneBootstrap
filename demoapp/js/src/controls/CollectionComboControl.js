@@ -2,12 +2,10 @@
 
 define( [
     'jquery', 'lodash',
-    'src/controls/ComboControl',
-    'src/utils/string', 'src/utils/crud'
+    'src/controls/ComboControl'
   ], function(
     $, _,
-    ComboControl,
-    string, crud
+    ComboControl
   ){
 
 'use strict';
@@ -42,7 +40,10 @@ var CollectionComboControl = ComboControl.extend({
 
     this.fetched = false;
 
-    if (this.collection.length > 0) this.fetched = true;
+    if (this.collection.length > 0) {
+      this.fetched = true;
+      this.loadItems();
+    }
 
   },
 
@@ -76,7 +77,8 @@ var CollectionComboControl = ComboControl.extend({
     this.collection.on('reset', this.updateItems, this);
     this.collection.on('change', this.updateItems, this);
 
-    if (!this.fetched) this.collection.fetch();
+    if (this.fetched) this.loadItems();
+    else              this.collection.fetch();
   },
 
   updateItems: function() {
