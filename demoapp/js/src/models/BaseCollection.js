@@ -155,8 +155,20 @@ var BaseCollection = Backbone.Collection.extend({
 
     _.bindAll(this, 'fetch', 'fetchTotal');
 
-    this.tableFields = this.model.prototype.tableFields;
-    this.queryFields = this.model.prototype.queryFields;
+    this.initFields();
+    // this.tableFields = this.model.prototype.tableFields;
+    // this.queryFields = this.model.prototype.queryFields;
+  },
+
+  initFields: function() {
+    var proto             = this.model.prototype,
+        instantiateFields = proto.instantiateFields,
+        fields            = proto.fields,
+        tableFields       = proto.tableFields,
+        queryFields       = proto.queryFields;
+
+    this.tableFields = instantiateFields(fields, tableFields);
+    this.queryFields = instantiateFields(fields, queryFields);
   },
 
   setParams: function(params) {
