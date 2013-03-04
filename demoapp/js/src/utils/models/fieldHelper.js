@@ -1,11 +1,16 @@
 /*globals define*/
 
+//TODO: used???
 define( [
     'lodash',
-    'src/utils/models/Field', 'src/utils/models/ObjectField'
+    'src/utils/models/Field',
+    'src/utils/models/ObjectField',
+    'src/utils/models/DateField'
   ], function(
     _,
-    Field, ObjectField
+    Field,
+    ObjectField,
+    DateField
   ) {
 
 'use strict';
@@ -18,6 +23,7 @@ fieldHelper.createField = function(options) {
 
   options = options || {};
 
+  // TODO- raise an Error! we should always receive a plain object!
   // received and already instantiared field, just return it
   if (options instanceof Field) return options;
 
@@ -28,6 +34,8 @@ fieldHelper.createField = function(options) {
 
   if (type === 'object') {
     FieldConstructor = ObjectField;
+  } else if (type === 'date') {
+    FieldConstructor = DateField;
   } else {
     FieldConstructor = Field;
   }

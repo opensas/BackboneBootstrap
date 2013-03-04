@@ -90,32 +90,44 @@ var BaseControl = BaseView.extend({
    * It updates the value of the underlaying field and triggers field
    * validation.
    *
-   * if it's a new record, only process it on blur. If we are editing an exiting
+   * If it's a new record, only process it on blur. If we are editing an exiting
    * record only process it on change. (The idea es that when creating a new
-   * records, error will only be displayed if the user leaves the field without
+   * record, errors will only be displayed if the user leaves the field without
    * entering a valid value).
    *
-   * @param  {Event} e The event fired by the control
+   * You can override this beahviour using the forceUpdate argument. If
+   * forceUpdate is true, the field will be updated without cheking the status
+   * of the record or the triggering event.
+   *
+   * @param  {Event} e             The event fired by the control
+   * @param  {Boolean} forceUpdate Update the field no matter the event that
+   *                               triggered the update.
    * @return {Boolean}   [description]
    */
-  onUpdateField: function(e) {
+  onUpdateField: function(e, forceUpdate) {
 
     var field   = this.field,
         isNew   = this.field.model.isNew(),
         id      = '#' + field.fullName,
         control;
 
-    // new record -> only process blur (lost focus) event
-    if (isNew && e.type !== 'focusout') return false;
+    forceUpdate = (forceUpdate === undefined ? false : forceUpdate);
 
-    // existing record -> only process change event
-    if (!isNew && e.type !== 'change') return false;
+    if (!forceUpdate) {
+      // new record -> only process blur (lost focus) event
+      if (isNew && e.type !== 'focusout') return false;
+
+      // existing record -> only process change event
+      if (!isNew && e.type !== 'change') return false;
+    }
 
     control = this.$byId(id);
     if (control.length === 0) throw new Error('could not find control with id "' + id + '".');
 
     // this will automatically trigger the validation
     field.formattedVal(control.val(), {validate: true});
+    // and now, update the control, just in case the value of the field changed
+    control.val(field.formattedVal());
 
     return true;
   },
@@ -125,6 +137,8 @@ var BaseControl = BaseView.extend({
 
     this.$el = $(this.el);
     if (this.$el.length === 0) throw new Error('can not render control, could not find placeholder for control');
+
+    this.onRender();
 
     // add data for rendering
     this.spanClass = this.span ? 'span' + this.field.span : '';
@@ -143,6 +157,8 @@ var BaseControl = BaseView.extend({
 
     this.renderErrors();
 
+    this.afterRender();
+
     return this;
   },
 
@@ -155,7 +171,8 @@ var BaseControl = BaseView.extend({
       throw new Error('controll with id"' + field.fullName + '" not found.');
     }
 
-    $container = this.$input.parent();
+    // $container = this.$input.parent();
+    $container = this.$el;
     $error = $container.find('ul');
 
     if (field.isValid()) {

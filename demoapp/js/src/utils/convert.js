@@ -1,18 +1,18 @@
 /*globals define, app*/
 
 define( [
-    'lodash'
+    'lodash', 'moment'
   ], function(
-    _
+    _, moment
   ) {
 
 'use strict';
 
 var convert = {};
 
-convert.defaultDateFormat     = 'dd-mm-yyyy';
-convert.defaultDateTimeFormat = 'dd-mm-yyyy HH:mm:ss';
-convert.defaultTimeFormat     = 'HH:mm:ss';
+convert.defaultDateFormat       = 'DD-MM-YYYY';
+convert.defaultDateTimeFormat   = 'DD-MM-YYYY HH:mm:ss';
+convert.defaultTimeFormat       = 'HH:mm:ss';
 
 convert.ESC_REG_EX            = /[\-{}\[\]+?.,\\\^$|#\s]/g;
 
@@ -26,7 +26,7 @@ convert.basicType = function(value) {
   else                            return 'unknown';
 };
 
-convert.convert = function(value, type) {
+convert.to = function(value, type, options) {
 
   switch (type.toLowerCase()) {
   case 'string':
@@ -39,7 +39,8 @@ convert.convert = function(value, type) {
     return convert.toBoolean(value, null);
 
   case 'date':
-    return convert.toDate(value, null);
+    var format = _.isString(options) ? options : undefined;
+    return convert.toDate(value, format);
 
   default:
     throw new Error('type "' + type + '" not supported!');
@@ -64,7 +65,8 @@ convert.format = function(value, options) {
     return convert.formatBoolean(value);
 
   case 'date':
-    return value.toString();
+    var format = _.isString(options) ? options : undefined;
+    return convert.formatDate(value, format);
 
   case 'null':
   case 'undefined':
@@ -80,83 +82,18 @@ convert.toString = function(value) {
 };
 
 convert.toNumber = function(value, def) {
-
+  def = (def === undefined ? null : def);
   try {
     if (_.isNumber(value)) return value;
-    var ret = parseInt(value.toString(), 10);
+    if (!convert.isNumeric(value)) return def;
 
+    var ret = parseInt(value.toString(), 10);
     if (_.isNumber(ret) && !_.isNaN(ret)) return ret;
     return def;
 
   } catch(e) {
-    return (def === undefined ? null : def);
+    return def;
   }
-
-};
-
-convert.toBoolean = function(value, def) {
-
-  if (value === null || value === undefined || value === NaN) value = '';
-
-  var compare     = value.toString().toLowerCase(),
-      trueValues  = ['true', '1', '-1', 'yes', 'on', 'si', 'sí'],
-      falseValues = ['false', '0', 'no', 'off'];
-
-  if (_.contains(trueValues, compare)) return true;
-  if (_.contains(falseValues, compare)) return false;
-
-  return (def === undefined ? null : def);
-};
-
-convert.toDate = function(value, def) {
-
-  var dateParsed = convert.parseDate(value);
-
-  if (!dateParsed) return (def === undefined ? null : def);
-
-  return new Date(dateParsed[0], dateParsed[1], dateParsed[2]);
-};
-
-convert.parseDate = function(date) {
-
-  var regDate, matches, year, month, day, checkDate;
-
-  //initial parse using regular expressions
-  regDate = new RegExp(
-    '^' +                                   // start of the expression
-    '(0?[1-9]|[12][0-9]|3[01])[- /.]' +      // 1..31
-    '(0?[1-9]|1[012])[- /.]' +               // 1..12
-    '((?:19|20)?\\d\\d)' +                  // 19xx 20xx xx xx
-    '$'),
-
-  matches = regDate.exec(date.trim());
-
-  if (!matches) return null;
-
-  day   = parseInt(matches[1], 10);
-  month = parseInt(matches[2], 10) - 1;
-  year  = parseInt(matches[3], 10);
-
-  // only two digits for year, complete it
-  if (year < 1900) {
-    if (year < 60)  year += 1900;
-    else            year += 2000;
-  }
-
-  checkDate = new Date(year, month, day);
-
-  // compare again with the new date to check if it was valid
-  if ( year   === checkDate.getUTCFullYear() &&
-       month  === checkDate.getUTCMonth() &&
-       day    === checkDate.getUTCDate() ) {
-    return [year, month + 1, day];
-  }
-
-  return null;
-};
-
-convert.isValidDate = function(date) {
-  return convert.parseDate(date) !== null;
 };
 
 // false: no value no es ni integer ni float || value no es finito
@@ -174,8 +111,20 @@ convert.isNumeric = function(value) {
   return !isNaN(parseFloat(value)) && isFinite(value);
 };
 
-convert.formatBoolean = function(value, trueValue, falseValue, undefValue) {
+convert.toBoolean = function(value, def) {
+  if (value === null || value === undefined || _.isNaN(value)) value = '';
 
+  var compare     = value.toString().toLowerCase(),
+      trueValues  = ['true', '1', '-1', 'yes', 'on', 'si', 'sí'],
+      falseValues = ['false', '0', 'no', 'off'];
+
+  if (_.contains(trueValues, compare)) return true;
+  if (_.contains(falseValues, compare)) return false;
+
+  return (def === undefined ? null : def);
+};
+
+convert.formatBoolean = function(value, trueValue, falseValue, undefValue) {
   trueValue   = (trueValue === undefined ? 'Sí' : trueValue);
   falseValue  = (falseValue === undefined ? 'No' : falseValue);
   undefValue  = (undefValue === undefined ? '' : undefValue);
@@ -185,7 +134,40 @@ convert.formatBoolean = function(value, trueValue, falseValue, undefValue) {
   if      (booleanValue === true)   return trueValue;
   else if (booleanValue === false)  return falseValue;
   else                              return undefValue;
+};
 
+convert.toDate = function(stringDate, format) {
+  if (!stringDate) return null;
+  if (_.isDate(stringDate)) return stringDate;
+
+  format = format || convert.defaultDateFormat;
+
+  var momentDate = moment(stringDate, format);
+  if (!momentDate || !momentDate.isValid()) return null;
+
+  // only two digits for year
+  var year = momentDate.year();
+  if (year < 100) momentDate.year((year < 69 ? 2000 : 1900) + year);
+
+  var parsedDate = momentDate.toDate();
+  if (!parsedDate) return null;
+
+  return parsedDate;
+};
+
+convert.formatDate = function(rawDate, format) {
+  if (!rawDate) return '';
+
+  format = format || convert.defaultDateFormat;
+
+  var momentDate = moment(rawDate);
+  if (!momentDate || !momentDate.isValid()) return '';
+
+  return momentDate.format(format);
+};
+
+convert.isDate = function(stringDate, format) {
+  return (convert.toDate(stringDate, format) !== null);
 };
 
 // escapa los caracteres especiales de expresiones regulares

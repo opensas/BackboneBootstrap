@@ -44,6 +44,9 @@ var Field = BaseObject.extend({
     if (!this.type) throw new Error('field.type not specified!');
     this.type = this.type.toLowerCase();
 
+    // format to be used to convert from raw value, this.fromRaw
+    this.format = this.format || '';
+
     // added types should register themselves with this._addSupportedTypes
     if (!_.contains(this.supportedTypes, this.type)) {
       throw new TypeError(
@@ -111,8 +114,8 @@ var Field = BaseObject.extend({
   _toRaw: function(formattedValue) {
     // only handles basic types
     // will throw an error if an error is passed
-    // it shoulb be handled by an ObjectField
-    return convert.convert(formattedValue, this.type);
+    // it should be handled by an ObjectField
+    return convert.to(formattedValue, this.type, this.format);
   },
 
   /**
@@ -134,7 +137,7 @@ var Field = BaseObject.extend({
    */
   _fromRaw: function(rawValue) {
     //#TODO - format string!
-    return convert.format(rawValue);
+    return convert.format(rawValue, this.format);
   },
 
   /**
@@ -202,12 +205,19 @@ var Field = BaseObject.extend({
    * in order to display the errors for this field on screen.
    */
   validate: function() {
+    var validations = _.clone(this.validations, true);
+
+    // convert validations to an array
+    if (!_.isArray(validations)) validations = [validations];
 
     // clear errors collection, check http://stackoverflow.com/questions/1232040/how-to-empty-an-array-in-javascript
     this.errors.length = 0;
 
-    _.each(this.validations, function(validation) {
+    _.each(validations, function(validation) {
       var result;
+
+      // convert validation to an object if it's a string
+      if (_.isString(validation)) validation = { method: validation };
 
       // add a reference to the field being tested;
       validation.field = this;
