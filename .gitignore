@@ -12,6 +12,10 @@
 *.zip
 *.rar
 
+# ignore helper scripts
+after-commit.sh
+before-commit.sh
+
 # Ignore Play! working directory #
 
 webservice/logs
