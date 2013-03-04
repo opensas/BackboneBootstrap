@@ -18,7 +18,7 @@ case class Review (
 
   val wine:         Option[Wine] = None,
   val author:       String = "unknown author",
-  val content:      String = "",
+  val text:         String = "",
   val date:         Option[Date] = None
 )
   extends Entity
@@ -31,7 +31,7 @@ case class Review (
     "id"        -> pkToLong(id),
     "wine_id"   -> fkToLong(wine),
     "author"    -> author,
-    "content"   -> content,
+    "text"      -> text,
     "date"      -> date
   )
 }
@@ -42,14 +42,14 @@ object Review extends EntityCompanion[Review] {
     id:           Pk[Long] = NotAssigned,
     wine_id:      Option[Long] = None,
     author:       String = "",
-    content:      String = "",
-    date:         Option[Date]     = None
+    text:         String = "",
+    date:         Option[Date] = None
   ): Review = {
     new Review(
       id,
       wine_id.map(Wine.findById _).getOrElse(None),
       author,
-      content,
+      text,
       date
     )
   }
@@ -58,20 +58,20 @@ object Review extends EntityCompanion[Review] {
 
   val defaultOrder = "date"
 
-  val filterFields = List("author", "content", "date")
+  val filterFields = List("author", "text", "date")
 
   val saveCommand = """
     insert into review (
-      wine_id, author, content, date
+      wine_id, author, text, date
     ) values (
-      {wine_id}, {author}, {content}, {date}
+      {wine_id}, {author}, {text}, {date}
     )"""
 
   val updateCommand = """
     update review set
       wine_id  = {wine_id},
       author   = {author},
-      content  = {content},
+      text  = {text},
       date     = {date}
     where
       id       = {id}"""
@@ -80,10 +80,10 @@ object Review extends EntityCompanion[Review] {
     get[Pk[Long]]("id") ~
     get[Option[Long]]("wine_id") ~
     get[String]("author") ~
-    get[String]("content") ~
+    get[String]("text") ~
     get[Option[Date]]("date") map {
-      case id~wine_id~author~content~date => fromParser(
-        id, wine_id, author, content, date
+      case id~wine_id~author~text~date => fromParser(
+        id, wine_id, author, text, date
       )
     }
   }
@@ -100,11 +100,11 @@ object Review extends EntityCompanion[Review] {
       errors ::= ValidationError("author", "Author not specified")
     }
 
-    if (Validate.isEmptyWord(review.content)) {
-      errors ::= ValidationError("content", "Content not specified")
+    if (Validate.isEmptyWord(review.text)) {
+      errors ::= ValidationError("text", "Text not specified")
     }
 
-    if (review.date.isDefined) {
+    if (!review.date.isDefined) {
       errors ::= ValidationError("date", "Date not specified")
     }
 

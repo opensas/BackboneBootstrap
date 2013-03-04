@@ -24,7 +24,7 @@ object ReviewFormatter {
         "id"          -> toJson(o.id),
         "wine"        -> toJson(o.wine),
         "author"      -> toJson(o.author),
-        "content"     -> toJson(o.content),
+        "text"        -> toJson(o.text),
         "date"        -> toJson(o.date)
       ))
     }
@@ -34,7 +34,7 @@ object ReviewFormatter {
         id       = (j \ "id")           .as[Option[Pk[Long]]] .getOrElse(NotAssigned),
         wine_id  = (j \ "wine" \ "id")  .as[Option[Long]],
         author   = (j \ "author")       .as[Option[String]]   .getOrElse("unknown author"),
-        content  = (j \ "content")      .as[Option[String]]   .getOrElse(""),
+        text     = (j \ "text")         .as[Option[String]]   .getOrElse(""),
         date     = (j \ "date")         .as[Option[Date]]
       )
     }
