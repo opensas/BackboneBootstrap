@@ -76,7 +76,7 @@ trait EntityCompanion[A<:Entity] {
   def findById(id: Long): Option[A] = {
     DB.withConnection { implicit connection =>
       SQL(
-        (findCommand + " where id = {id}").format("*", tableName)
+        (findCommand + " where %s.id = {id}").format("*", tableName)
       ).on(
         'id   -> id
       ).as(simpleParser.singleOpt)
