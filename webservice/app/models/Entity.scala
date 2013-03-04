@@ -63,10 +63,10 @@ trait EntityCompanion[A<:Entity] {
     val exists = {
       // it's a new record
       if (entity.id == NotAssigned) {
-        count(condition = "%s = '%s'".format(field, value))
+        count(condition = "%s.%s = '%s'".format(tableName, field, value))
       } else {
-        count(condition = "id <> %s and %s = '%s'".
-          format(pkToLong(entity.id), field, value)
+        count(condition = "%s.id <> %s and %s.%s = '%s'".
+          format(tableName, pkToLong(entity.id), tableName, field, value)
         )
       }
     }
