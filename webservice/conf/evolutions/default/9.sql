@@ -10,6 +10,7 @@ CREATE TABLE provincia (
   codigo        varchar(20)   NOT NULL,
   descripcion   varchar(50)   NOT NULL,
   habilitada    int(1)        NOT NULL,
+  fundacion     timestamp     NULL,
 
   PRIMARY KEY (id),
   UNIQUE KEY provincia_uk_codigo (codigo),

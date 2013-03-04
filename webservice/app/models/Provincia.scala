@@ -14,16 +14,19 @@ import utils.Sql.sanitize
 
 import utils.Conversion.{pkToLong, fkToLong}
 
+import java.util.Date
+
 import play.Logger
 
 case class Provincia (
 
   val id: Pk[Long] = NotAssigned,
 
-  val zona: Option[Zona]    = None,
-  val codigo: String        = "NN",
-  val descripcion: String   = "provincia desconocida",
-  val habilitada: Int       = 1
+  val zona: Option[Zona]        = None,
+  val codigo: String            = "NN",
+  val descripcion: String       = "provincia desconocida",
+  val habilitada: Int           = 1,
+  val fundacion: Option[Date]   = None
 )
   extends Entity
 {
@@ -36,7 +39,8 @@ case class Provincia (
     "zona_id"       -> fkToLong(zona),
     "codigo"        -> codigo,
     "descripcion"   -> descripcion,
-    "habilitada"    -> habilitada
+    "habilitada"    -> habilitada,
+    "fundacion"     -> fundacion
   )
 }
 
@@ -47,14 +51,16 @@ object Provincia extends EntityCompanion[Provincia] {
     zona_id: Option[Long]   = None,
     codigo: String          = "NN",
     descripcion: String     = "provincia desconocida",
-    habilitada: Int         = 1
+    habilitada: Int         = 1,
+    fundacion: Option[Date] = None
   ): Provincia = {
     new Provincia(
       id,
       zona_id.map(Zona.findById _).getOrElse(None),
       codigo,
       descripcion,
-      habilitada
+      habilitada,
+      fundacion
     )
   }
 
@@ -66,9 +72,9 @@ object Provincia extends EntityCompanion[Provincia] {
 
   val saveCommand = """
     insert into provincia (
-      zona_id, codigo, descripcion, habilitada
+      zona_id, codigo, descripcion, habilitada, fundacion
     ) values (
-      {zona_id}, {codigo}, {descripcion}, {habilitada}
+      {zona_id}, {codigo}, {descripcion}, {habilitada}, {fundacion}
     )"""
 
   val updateCommand = """
@@ -76,7 +82,8 @@ object Provincia extends EntityCompanion[Provincia] {
       zona_id       = {zona_id},
       codigo        = {codigo},
       descripcion   = {descripcion},
-      habilitada    = {habilitada}
+      habilitada    = {habilitada},
+      fundacion     = {fundacion}
     where
       id            = {id}"""
 
@@ -85,9 +92,10 @@ object Provincia extends EntityCompanion[Provincia] {
     get[Option[Long]]("zona_id") ~
     get[String]("codigo") ~
     get[String]("descripcion") ~
-    get[Int]("habilitada") map {
-      case id~zona_id~codigo~descripcion~habilitada => fromParser(
-        id, zona_id, codigo, descripcion, habilitada
+    get[Int]("habilitada") ~
+    get[Option[Date]]("fundacion") map {
+      case id~zona_id~codigo~descripcion~habilitada~fundacion => fromParser(
+        id, zona_id, codigo, descripcion, habilitada, fundacion
       )
     }
   }
