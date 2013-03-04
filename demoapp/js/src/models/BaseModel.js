@@ -7,7 +7,6 @@ define( [
     'src/utils/models/FieldCollection',
     'src/utils/convert', 'src/utils/string',
     'src/utils/mixins/escapeDeep',
-    'src/utils/mixins/cloneDeep',
     'src/utils/mixins/findBy'
   ], function(
     $, _, Backbone,
@@ -16,7 +15,6 @@ define( [
     FieldCollection,
     convert, string,
     escapeDeep,
-    cloneDeep,
     findBy
   ) {
 

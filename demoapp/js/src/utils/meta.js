@@ -46,7 +46,7 @@ meta.loadPermissions = function(config, callback) {
 
 meta.getCurrentUser = function() {
   //#TODO mocked user
-  return 'trabajo\\sscarano';
+  return 'mocked\\user';
 };
 
 meta.fetchPermissions = function(callback) {
