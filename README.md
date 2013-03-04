@@ -4,8 +4,8 @@ BackboneBootstrap
 Basic Backbone application using Twitter Bootstrap to use as a skeleton for new
 applications.
 
-This is my first attempt to develop a rather complete crud application using
-client side technologies like backbone.
+This is my first attempt at developing a complete and full-featured crud
+application using client side technologies like backbone.
 
 This is a work in progress, and is far from becoming a full featured and generic
 framework ready to be used out of the box by the community.
@@ -18,28 +18,25 @@ Rationale
 =========
 
 In the old days of classic asp and php, quite a couple of times we often ended
-up developing my own framework with the features needed for every app. There are
-certain features, like crud forms, validations, pagination, filterting, master-
-detail forms, and several others features that could really let you come out
-with the common parts of an app, and let you concentrate on the heavy stuff.
+up developing our own framework with the features needed for every app. There
+are certain features, like crud forms, validations, pagination, filterting,
+master- detail forms, and several others features that could really let you come
+out with the common parts of an app, and let you concentrate on the heavy stuff.
 
 This project aims to implement features.
 
 Demo application
 ================
 
-There's a demo application up adn running on [openshift](http://www.openshift.com/).
-
+There's a demo application up and running on [openshift](http://www.openshift.com/).
 You can have a look at it at [https://bb-jugar.rhcloud.com/](https://bb-jugar.rhcloud.com/).
-
-(Take into account that the src files are not minified to let you have a look
-at it, so it will take some time for the browser to download every js file).
+(Take into account that we left the src files unminified to let you have a look
+at them, so it will take some time for the browser to download every js file).
 
 To make the demo we prepared a rest web service returning json, inspired in the
-excellent [Wine Cellar backbone tutorial](http://coenraets.org/blog/2011/12/backbone-js-wine-cellar-tutorial-part-1-getting-started/] (github repo at [https://github.com/ccoenraets/backbone-cellar#readme](https://github.com/ccoenraets/backbone-cellar#readme).
-
-The web service is built with play framework and scala. You will find it at the
-webservice folder
+excellent [Wine Cellar backbone tutorial](http://coenraets.org/blog/2011/12/backbone-js-wine-cellar-tutorial-part-1-getting-started/] (github repo at [https://github.com/ccoenraets/backbone-cellar#readme](https://github.com/ccoenraets/backbone-cellar#readme). The web
+service is built with [play framework](http://www.playframework.com/) and
+[scala](http://www.scala-lang.org/). You will find it at the webservice folder
 [here](https://github.com/opensas/BackboneBootstrap/tree/master/webservice).
 
 To test the foreign key we added a Countries endpoint (every wine belongs to a
@@ -73,7 +70,6 @@ Features already working
 
 The idea is to specify as much information about your models in order to create
 fully working forms using that info.
-
 [Here](https://github.com/opensas/BackboneBootstrap/blob/master/demoapp/js/app/models/WineModel.js#L22)
 you can find the schema definition for the wine model.
 
@@ -82,7 +78,6 @@ table headers, master headers).
 
 Taking the schema as a base, it is easy to define new schemas just by specifying
 the differences (you know the 'don't repeat yourself' mantra).
-
 [Here](https://github.com/opensas/BackboneBootstrap/blob/master/demoapp/js/app/models/WineModel.js#L123)
 you can see the definition of the formFields,queryFields and tableFields for
 the Wine model based on it's schema.
@@ -91,20 +86,16 @@ the Wine model based on it's schema.
 
 Clien-side validations from the model schema are checked when editing every
 field. If there's an error it will be shown right next to the control.
-
 You can try using it the
 [wine crud form](https://bb-jugar.rhcloud.com/index.html#Wine).
-
 Just click on the first wine to edit it, and clear it's name.
 
 - [x] Handling and displaying of server-side validations.
 
 Just like with client-side validations, the model will process server-side
 errors and it will display them next to each invalid field.
-
 You can try using it the
 [wine crud form](https://bb-jugar.rhcloud.com/index.html#Wine).
-
 Just click on the first wine to edit it, enter a duplicated name, like
 'REX HILL' (in uppercase).
 
@@ -121,9 +112,7 @@ build from the information available at the
 You should implement a menuAdapter function in your menu collection to adapt
 the output from your endpoint to the fields needed by the
 [MenuItem](https://github.com/opensas/BackboneBootstrap/blob/master/demoapp/js/src/controls/menu/MenuItem.js)
-class.
-
-Have a look at [this example](https://github.com/opensas/BackboneBootstrap/blob/master/demoapp/js/app/models/MenuCollection.js#L24)
+class. Have a look at [this example](https://github.com/opensas/BackboneBootstrap/blob/master/demoapp/js/app/models/MenuCollection.js#L24)
 for more information.
 
 - [x] Server-side pagination and ordering of collections.
@@ -134,15 +123,12 @@ try if with the [countries crud form](https://bb-jugar.rhcloud.com/index.html#Co
 - [x] Rich and flexible query language for server-side filtering of information.
 
 Just click on the nut icon on the top right of the crud form, and the query form
-will appear.
-
-You can give it a
+will appear. You can give it a
 try if with the [countries crud form](https://bb-jugar.rhcloud.com/index.html#Country).
 
-You can enter queries like '2..3' in the id to fetch
-countries whose ids are between two and three, or '<B' in name to query
-countries whose name starts with A, or entering '*A' to get those that end with
-A.
+You can enter queries like '2..3' in the _id_ field to fetch countries whose ids
+are between two and three, or '<B' in the _name_ field to query countries whose
+name starts with A, or entering '*A' to get those that end with A.
 
 - [x] Quick filter using the fields on the table.
 
@@ -161,7 +147,9 @@ definition.
 - [x] Automatic generation of master-detail forms (work in progress).
 
 You can give a try to the master-detail feature with the
-[Wines with reviews](https://bb-jugar.rhcloud.com/index.html#WineParent).
+[Wines with reviews](https://bb-jugar.rhcloud.com/index.html#WineParent). Just
+click on a wine, and the _Reviews_ tab will let you create, edit or delete that
+wine's reviews.
 
 - [x] Handling of foreign-key relations with a CollectionCombo control that
 generates a select box using the info from a Backbone Collection.
@@ -171,10 +159,10 @@ Check it out in action in the country combo in the
 
 - [x] Integration of bootstrap-datepicker for date fields edition
 
-give it a try in the
+Give it a try in the
 [reviews form](https://bb-jugar.rhcloud.com/index.html#Review).
 
-- [x] Hooks for tranlating your backend data format to native javascript types
+- [x] Hooks for translating your backend data format to native javascript types
 (specially useful for handling asp.net dates, for example)
 
 - [x] UI building using overridable templates.
@@ -191,8 +179,9 @@ Features missing
 - [ ] Support for Handlebars precompiled templates. Right now we are using
 underscore templates.
 
-- [ ] Integration fo select2 combo for selecting a record from collections with
-thousands of options.
+- [ ] Integration with
+[select2](http://ivaynberg.github.com/select2/index.html) combo for selecting a
+record from collections with thousands of options.
 
 - [ ] Super-charged combo select using all the features of the crud form.
 Basically if would be a crud form that would allow you to search, create, edit
@@ -216,7 +205,7 @@ And most important
 - [ ] Testing. No tests avaibles so far.
 
 - [ ] Major refactors. Lots of functinality is already working, but the code has
-grown out a little wild. Once we have a faily complete battery test we will
+grown out a little wild. Once we have a fairly complete battery test we will
 start refactoring it all.
 
 Sources of inspiration
@@ -225,24 +214,36 @@ Sources of inspiration
 There are several projects I looked into to see how they solved this problems.
 These are just a fiew of them:
 
-[Backgrid](http://wyuenho.github.com/backgrid/)
-[Backbone pageable](https://github.com/wyuenho/backbone-pageable)
-[Backbone.Schema](https://github.com/DreamTheater/Backbone.Schema)
-[backbone-forms](https://github.com/DreamTheater/Backbone.Schema)
-[Airbnb javascript style guide](https://github.com/airbnb/javascript#readme)
-[backbone.baseview](https://github.com/airbnb/backbone.baseview)
+- [Backgrid](http://wyuenho.github.com/backgrid/)
+
+- [Backbone pageable](https://github.com/wyuenho/backbone-pageable)
+
+- [Backbone.Schema](https://github.com/DreamTheater/Backbone.Schema)
+
+- [backbone-forms](https://github.com/DreamTheater/Backbone.Schema)
+
+- [Airbnb javascript style guide](https://github.com/airbnb/javascript#readme)
+
+- [backbone.baseview](https://github.com/airbnb/backbone.baseview)
 
 Libraries we cannot live without
 ================================
 
-[backbone-0.9.10](http://backbonejs.org/)
-[twitter bootstrap 2.2.2](http://twitter.github.com/bootstrap/)
-[jquery-1.9.1](http://jquery.com/)
-[lodash.compat-1.0.1](http://lodash.com/)
-[jquery-gritter-1.7.4](http://boedesign.com/blog/2009/07/11/growl-for-jquery-gritter/)(for sexy event notifications)
-[moment-2.0.0](http://momentjs.com/) (for date handling)
-[require-2.1.4](http://requirejs.org/)(for module loading and assets minification)
-[text-2.0.5 require plugin](https://github.com/requirejs/text)
+- [backbone-0.9.10](http://backbonejs.org/)
+
+- [twitter bootstrap 2.2.2](http://twitter.github.com/bootstrap/)
+
+- [jquery-1.9.1](http://jquery.com/)
+
+- [lodash.compat-1.0.1](http://lodash.com/)
+
+- [jquery-gritter-1.7.4](http://boedesign.com/blog/2009/07/11/growl-for-jquery-gritter/)(for sexy event notifications)
+
+- [moment-2.0.0](http://momentjs.com/) (for date handling)
+
+- [require-2.1.4](http://requirejs.org/)(for module loading and assets minification)
+
+- [text-2.0.5 require plugin](https://github.com/requirejs/text)
 
 ## License
 
