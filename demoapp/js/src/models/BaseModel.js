@@ -1,19 +1,23 @@
-/*globals define app*/
+/*globals define console, app*/
 
 define( [
     'jquery', 'lodash', 'backbone',
+    'src/models/mixins/dateFormatterModelMixin',
     'src/utils/models/modelHelper',
-    'src/utils/models/fieldHelper',
     'src/utils/models/FieldCollection',
-    'src/utils/convert',
-    'src/utils/mixins/escapeDeep'
+    'src/utils/convert', 'src/utils/string',
+    'src/utils/mixins/escapeDeep',
+    'src/utils/mixins/cloneDeep',
+    'src/utils/mixins/findBy'
   ], function(
     $, _, Backbone,
+    modelMixin,         // dateFormatterModelMixin
     modelHelper,
-    fieldHelper,
     FieldCollection,
-    convert,
-    escapeDeep
+    convert, string,
+    escapeDeep,
+    cloneDeep,
+    findBy
   ) {
 
 'use strict';
@@ -24,7 +28,7 @@ define( [
  * Unlike Backbone's models, BaseModel is aware of the fields of the model,
  * and is able to apply validations when saving them.
  *
- * If has a FieldCollection with all the information neccesary to process the
+ * If has a FieldCollection with all the information neccsary to process the
  * fields.
  *
  * Errors are saved in this.errors array, with the following structure:
@@ -97,28 +101,48 @@ var BaseModel = Backbone.Model.extend({
     name          : undefined,
     label         : undefined,
     fields        : undefined,
+    formFields    : undefined,
+    queryFields   : undefined,
+    tableFields   : undefined,
+    headerFields  : undefined,
     errors        : [],                 // shadow prototype errors array
     responseError : null,
     serverErrors  : []                  // shadow prototype serverErrors array
   },
 
-  initialize: function(options) {
+  // see: http://momentjs.com/docs/#/parsing/string/
+  backendDateFormat: 'YYYY-MM-DDTHH:mm:ss[Z]',  // ISO-8601
 
-    _.defaults(this, options, this.defs);
+  // backendDateFormat: undefined,
 
-    this.setFields(this.fields);
+  initialize: function(attrs) {
 
-    Backbone.Model.prototype.initialize.call(this, options);
+    _.defaults(this, this.defs);
+
+    // this.backendDateFormat =
+    //   this.backendDateFormat || (app ? app.backendDateFormat : undefined);
+
+    // if (this.backendDateFormat) {
+    //   modelMixin.dateFormatterModel(this, this.backendDateFormat);
+    // }
+
+    this.initFields();
+
+    this.label = this.label || this.name;
+
+    // debug
+    //var backend = this.rawToBackend({ Fundacion: new Date() });
+    //var raw = this.backendToRaw(backend);
+
+    Backbone.Model.prototype.initialize.call(this, attrs);
 
     return this;
   },
 
   setFields: function(fields) {
-    this.fields = fields;
-    if (!fields instanceof FieldCollection) {
-      this.fields = new FieldCollection(this.fields);
-    }
+    if (!fields instanceof FieldCollection) throw new Error('fields should be a FieldCollection');
 
+    this.fields = fields;
     this.fields.setModel(this);     // bind fields to this model
   },
 
@@ -389,24 +413,156 @@ var BaseModel = Backbone.Model.extend({
   },
 
   displayAttrs: function(escaped) {
-    var attrs = _.clone(this.attributes);
+    // var attrs = _.clone(this.attributes);
+    var attrs = {};
 
     escaped = (escaped === undefined ? true : escaped);
 
-    _.each(attrs, function(value, key) {
+    _.each(this.fields, function(field) {
 
-      var field = this.fields.findByName(key);
+      var value = field.val(),
+          name = field.name;
 
       if (field && _.isFunction(field.display)) {
-        attrs[key] = field.display(value);
+        attrs[name] = field.display(value, this.attributes, field);
       } else {
-        attrs[key] = value;
+        attrs[name] = value;
       }
 
       // escape deep is used for escaping nested objects
-      if (escaped) attrs[key] = _.escapeDeep(attrs[key]);
+      if (escaped) attrs[name] = _.escapeDeep(attrs[name]);
     }, this);
 
+    return attrs;
+  },
+
+  /**
+   * Initiate each field definition collection.
+   *
+   * It takes this.fields and saves it as schema.
+   *
+   * Then it tries to instantiate a FieldCollection for every fields definition
+   * property. Currently it supports:
+   *
+   * fields: the list of fields to use as a base.
+   *
+   * formfields: fields to use for update and edit form.
+   *
+   * queryFields: fields to use to filter data.
+   *
+   * tableFields: columns to show in the grid.
+   *
+   * headerFields: fields to show on the master panel of a detail crud page.
+   *
+   * @chainable
+   */
+  initFields: function() {
+    var key, value;
+    this.schema = _.clone(this.fields);
+
+    for(key in this) {
+      value = this[key] || [];
+
+      // field should be suffixed with fields
+      if (key !== 'fields' && !string.endsWith(key, 'Fields')) continue;
+
+      // it should be a plain object - skip setFields methods and similar stuff
+      if (!_.isArray(value)) continue;
+
+      // finnally process this field
+      this[key] = this.instantiateFields(this.schema, value);
+      this[key].setModel(this);
+    }
+    return this;
+  },
+
+  /**
+   * It completes the fields definition useing baseFields values, and then
+   * instantiates a new FieldCollection.
+   *
+   * @param  {Array<Object>} baseFields Array of field definitions expressed as
+   *                                    javascript plain objects to use as base.
+   *                                    It usually is the fieldsDefinition
+   *                                    property.
+   * @param  {Array<Object>} newFields  Array of field definitions expressed as
+   *                                    javascript plain objects to override the
+   *                                    base definition.
+   *
+   * @return {FieldCollection}          The newly instantiated field collection
+   *                                    using the settings from baseFields
+   *                                    overriden by newFields.
+   */
+  instantiateFields: function(baseFields, newFields) {
+    var fieldsToInstantiate = [],
+        fieldToInstantiate;
+
+    newFields = newFields || [];
+
+    _.each(newFields, function(newField) {
+
+      // if it's just the field name, transform it to a field definition
+      if (_.isString(newField)) newField = { name: newField };
+
+      // look for the base definition corresponding to this field
+      var baseField = _.findBy(baseFields, 'name', newField.name);
+      // var baseField = _.find(baseFields, function(baseField) {
+      //   return baseField.name === newField.name;
+      // });
+
+      if (!baseField) {
+        console.log(baseFields); console.log(newFields);
+        throw new Error('could not find field "' + newField.name + '" in fields definition.');
+      }
+
+      // overwrite baseField with newField definition
+      fieldToInstantiate = _.extend({}, baseField, newField);
+
+      // add the new field
+      fieldsToInstantiate.push(fieldToInstantiate);
+    });
+
+    return new FieldCollection(fieldsToInstantiate);
+  },
+
+  parse: function(response) {
+    if (_.isFunction(this.backendToRaw)) return this.backendToRaw(response);
+    return response;
+  },
+
+  sync: function(method, model, options) {
+    if (_.isFunction(this.rawToBackend)) {
+      model.set(this.rawToBackend(model.attributes));
+    }
+    return Backbone.Model.prototype.sync.call(this, method, model, options);
+  },
+
+  /**
+   * Parses the raw response in a hash of javascript raw types.
+   *
+   * This is the place to handle conversion from your web service output to
+   * normal javascript types.
+   *
+   * It will be used by the overriden parse method.
+   *
+   * @param  {[type]} response [description]
+   * @return {[type]}          [description]
+   */
+  backendToRaw: function(response) {
+    return response;
+  },
+
+  /**
+   * Converts a hash of attributes to the format required by the backend.
+   *
+   * This is the place to handle conversion normal javascript types to your web
+   * service expected input.
+   *
+   * It will be used by the overriden Backbone.Sync method.
+   *
+   * @param  {[type]} attrs [description]
+   * @return {[type]}          [description]
+   */
+  rawToBackend: function(attrs) {
     return attrs;
   }
 
@@ -416,10 +572,20 @@ var BaseModel = Backbone.Model.extend({
 // enhance field definitions when extending from the base class
 BaseModel.extend = function(options) {
   // first call the original extend method to get the new Model constructor
-  var ExtendedModel = Backbone.Model.extend.call(this, options);
+  var ExtendedModel = Backbone.Model.extend.apply(this, arguments);
 
   // and then, call our modelHelper to extend field definitions of the new constructor
-  modelHelper.enhanceModelFields(ExtendedModel);
+  // modelHelper.enhanceModelFields(ExtendedModel);
+  modelHelper.completeModelDefaults(ExtendedModel);
+
+  var backendDateFormat =
+    ExtendedModel.prototype.backendDateFormat ||
+    (app ? app.backendDateFormat : undefined) ||
+    undefined;
+
+  if (backendDateFormat) {
+    modelMixin.dateFormatterModel(ExtendedModel.prototype, backendDateFormat);
+  }
 
   return ExtendedModel;
 };
