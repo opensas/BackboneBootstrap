@@ -103,7 +103,7 @@ var BaseApp = BaseObject.extend({
     // got to dinamically load the controller
     } else {
       this.controllerModule = this.controllerModule || http.getControllerModuleFromUrl();
-      if (!this.controllerModule) { throw new Error('app.controllerModule not specified and could not inferr it from the url'); }
+      if (!this.controllerModule) throw new Error('app.controllerModule not specified and could not inferr it from the url');
 
       this.requireController(
         this.controllerModule,

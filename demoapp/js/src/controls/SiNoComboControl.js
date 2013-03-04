@@ -2,12 +2,10 @@
 
 define( [
     'lodash',
-    'src/controls/ComboControl',
-    'text!src/controls/combo.html'
+    'src/controls/ComboControl'
   ], function(
     _,
-    ComboControl,
-    comboTemplate
+    ComboControl
   ){
 
 'use strict';
@@ -30,8 +28,6 @@ var SiNoComboControl = ComboControl.extend({
     };
 
     if (_.isArray(this.items)) this.items = this.toItems(this.items);
-
-    this.metaTemplate = this.metaTemplate || comboTemplate;
 
     ComboControl.prototype.initialize.call(this, options);
 

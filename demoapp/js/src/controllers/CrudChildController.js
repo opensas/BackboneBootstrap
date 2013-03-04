@@ -26,7 +26,7 @@ var CrudChildController = CrudController.extend({
     CrudController.prototype.initialize.call(this, options);
 
     this.parent = options.parent || this.parent || undefined;
-    if (!this.parent) { throw new Error('parent not specified!'); }
+    if (!this.parent) throw new Error('parent not specified!');
 
     if (this.children || options.children) {
       throw new Error('CrudChildController cannot have children, use CrudParentController or CrudParentChildController instead!');
@@ -47,7 +47,7 @@ var CrudChildController = CrudController.extend({
   setParentModel: function(model) {
 
     // parent hasn't changed, do nothing
-    if (this.collection.parentId === model.id) { return; }
+    if (this.collection.parentId === model.id) return;
 
     this.parentModel = model;
     this.collection.parentId = this.parentModel.id;
@@ -56,7 +56,7 @@ var CrudChildController = CrudController.extend({
     this.queryParams = {};
 
     // update header
-    this.headerView.render(model);
+    this.headerView.setModel(model).render();
   }
 
 });

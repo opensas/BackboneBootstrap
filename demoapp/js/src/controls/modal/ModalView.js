@@ -32,11 +32,11 @@ var ModalView = BaseView.extend({
     this.$el = $(this.el);
 
     this.content = this.content || '';
-    if (!this.content) { throw new Error('content not specified!'); }
+    if (!this.content) throw new Error('content not specified!');
 
     this.title = this.title || '';
 
-    if (!this.callback) { throw new Error('callback not specified!'); }
+    if (!this.callback) throw new Error('callback not specified!');
 
     this.buttonSize = this.buttonSize || '';
 
@@ -54,9 +54,9 @@ var ModalView = BaseView.extend({
     var buttons = this.htmlButtons(this.buttons);
 
     var html = this.template({
-      title: this.title,
-      content: this.content,
-      buttons: buttons
+      title   : this.title,
+      content : this.content,
+      buttons : buttons
     });
 
     this.$el.html(html);
@@ -66,8 +66,8 @@ var ModalView = BaseView.extend({
   },
 
   events: {
-    'click .btn':   'click',
-    'click .close': 'close'
+    'click .btn'   : 'click',
+    'click .close' : 'close'
   },
 
   show: function() {
@@ -88,15 +88,13 @@ var ModalView = BaseView.extend({
   },
 
   click: function(e) {
-
     e.preventDefault();
 
-    var $button = $(e.currentTarget);
-
-    var label = $button.text().trim();
+    var $button = $(e.currentTarget),
+        label = $button.text().trim();
 
     this.selected = this.buttons[label];
-    if (!this.selected) { throw new Error( 'Could not find button with label "' + label + '"'); }
+    if (!this.selected) throw new Error( 'Could not find button with label "' + label + '"');
 
     this.value = this.selected.value || label;
 
@@ -132,10 +130,10 @@ var ModalView = BaseView.extend({
     buttons = buttons || {};
 
     _.each(buttons, function(button, label) {
-      btnClass =  this.buildClass('btn', button.style);
+      btnClass = this.buildClass('btn', button.style);
       iconClass = this.buildClass('icon', button.icon);
 
-      html += template( {label: label, btnClass: btnClass, iconClass: iconClass});
+      html += template({ label: label, btnClass: btnClass, iconClass: iconClass });
     }, this);
 
     return html;
@@ -143,7 +141,7 @@ var ModalView = BaseView.extend({
 
   buildClass: function(prefix, settings) {
 
-    if (!settings.trim()) { return ''; }
+    if (!settings.trim()) return '';
 
     // split in array and add prefix to each item
     var classes = _.map(settings.split(' '), function(item) {

@@ -1,11 +1,15 @@
 /*globals define,app,console*/
 
 define( [
-    'jquery','jqueryui', 'lodash', 'src/views/BaseView',
+    'jquery',
+    // 'jqueryui',
+    'lodash', 'src/views/BaseView',
     'src/utils/crud', 'src/utils/html',
     'text!src/views/crud/fileUploader.html'
   ], function(
-    $, jui, _, BaseView,
+    $,
+    // jui,
+    _, BaseView,
     crud, html, fileUploaderTemplate
   ) {
 

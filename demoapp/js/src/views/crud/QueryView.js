@@ -79,7 +79,7 @@ var QueryView = ModelView.extend({
       field.type = 'string';
     });
 
-    this.model.set(this.fields.defaults());
+    this.model.set(fields.defaults());
 
     // super.setFields
     ModelView.prototype.setFields.call(this, fields);

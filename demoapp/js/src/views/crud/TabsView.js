@@ -68,8 +68,8 @@ var TabView = BaseView.extend({
 
     this.$el.html(this.template(this.model));
     this.$el.attr('data-toggle', 'tab');
-    if (!this.model.enabled)  { this.$el.addClass('disabled'); }
-    if (this.model.active)    { this.$el.addClass('active'); }
+    if (!this.model.enabled) this.$el.addClass('disabled');
+    if (this.model.active) this.$el.addClass('active');
 
     return this;
   },
@@ -84,7 +84,7 @@ var TabView = BaseView.extend({
 
     if (li.hasClass('disabled') || li.hasClass('active')) { return; }
 
-    this.controller.selectTab( this.model.name );
+    this.controller.selectTab(this.model.name);
   },
 
 // <div class="tabs-view">

@@ -6,7 +6,7 @@ function initSelectTable(jqField,options){
     var formatResult = function(entity) {
       var markup = "<table class='movie-result'><tr>";
       markup += "<td class='country-code'>" + formatSelection(entity) + "</td>";
-      markup += "</tr></table>"
+      markup += "</tr></table>";
       return markup;
     };
 
@@ -15,7 +15,7 @@ function initSelectTable(jqField,options){
 				return entity[fs_];
 			//return country.name + ' (' + country.code + ')';
 				return "";
-    }
+    };
 
     var inferEndpoint = function() {
       return window.location.protocol+'//'+window.location.host +'/'+ ep_;
@@ -36,10 +36,10 @@ function initSelectTable(jqField,options){
       query: function(options) {
         window.clearTimeout(ajax.timeout);
         ajax.timeout = window.setTimeout(function () {
-          
+
           ajax.requestSequence += 1;                 // increment the sequence
           var requestNumber = ajax.requestSequence;  // this request's sequence number
-          
+
           var data = {
             filter: fs_+';LIKE;%'+options.term+'%',
             p: (+options.page-1).toString()+';'+ajax.len,
@@ -69,8 +69,8 @@ function initSelectTable(jqField,options){
           });
         }, ajax.quietMillis);
       },
-			id:function() { 				
-				return id_; 		
+			id:function() {
+				return id_;
 			},
       initSelection: function (element, callback) {
         var id = element.val();
@@ -91,12 +91,11 @@ function initSelectTable(jqField,options){
       dropdownCssClass: "bigdrop" // apply css that makes the dropdown taller
     });
   });
-	input_.on('change',function(e){alert(this.value)});
+	input_.on('change', function(e){alert(this.value);});
   $(function(){
     input_.select2(
       'val', '1'
     );
   });
-
 
 }

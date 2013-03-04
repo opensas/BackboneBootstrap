@@ -19,7 +19,7 @@ var toastMessage = {
     this.$el = $(this.el);
 
     this.elMessage = options.elMessage;
-    if (this.elMessage) { this.$elMessage = $(this.elMessage); }
+    if (this.elMessage) this.$elMessage = $(this.elMessage);
 
     this.message = options.message || 'Cargando...';
   },

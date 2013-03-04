@@ -20,8 +20,6 @@ var BaseController = BaseObject.extend({
 
     _.defaults(this, options);
 
-    //assert(window.app, 'window.app not initialized.');
-
     if (this.resource !== undefined) this.resource = this.resource.toLowerCase();
 
     this.permissions = this.permissions || [];

@@ -47,7 +47,7 @@ string.format = function(text) {
 
 string.capitalize = function(text) {
   if (!_.isString(text)) throw new TypeError('text should be a string');
-  if (text.length <=1) return text.toUpperCase();
+  if (text.length <= 1) return text.toUpperCase();
 
   return text.substr(0,1).toUpperCase() + text.substr(1);
 };
@@ -55,6 +55,11 @@ string.capitalize = function(text) {
 string.startsWith = function(text, start) {
   if (text.length < start.length) return false;
   return text.substr(0, start.length) === start;
+};
+
+string.endsWith = function(text, ends) {
+  if (text.length < ends.length) return false;
+  return text.substr(-ends.length, ends.length) === ends;
 };
 
   return string;

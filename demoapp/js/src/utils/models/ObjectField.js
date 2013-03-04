@@ -73,7 +73,7 @@ var ObjectField = Field.extend({
     return Field.prototype.setDefaults.call(this, type);
   },
 
-  //#TODO - #necessary???
+  //#TODO - #used???
   idVal: function(idValue) {
     var object = this.val();
 

@@ -15,68 +15,68 @@ define( [
 'use strict';
 
 /**
-  Este control, se encarga de listar entidades que persisten en BBDD, paginando la cantidad de items
-  que despliega, y permitiendo el filtrado por matcheo de texto ingresado.
-  Al cambiar de valor, en el caso de actualización de una entidad ya creada, se encarga de impactar
-  el cambio dentro del atributo del modelo al que refiere.
+  Este control, se encarga de listar entidades que persisten en BBDD, paginando
+  la cantidad de items que despliega, y permitiendo el filtrado por matcheo de
+  texto ingresado.
 
-  valores obligatorios que deben estar presentes en el objeto comboOptions definido en el atributo del modelo que requiere de un DBComboControl. Los valores, aparentemente, repetidos fueron incluidos
-  por los siguientes factores:
-  1.- El atributo 'value' del nodo 'input#entidadID' es abusado entre la función doRender y el pluggin.
-    doRender, lo toma para obtener el nombre de la FK, y el pluggin como indicador de la entidad
-    seleccionada (el valor de FK).
+  Al cambiar de valor, en el caso de actualización de una entidad ya creada, se
+  encarga de impactar el cambio dentro del atributo del modelo al que refiere.
+
+  Valores obligatorios que deben estar presentes en el objeto comboOptions
+  definido en el atributo del modelo que requiere de un DBComboControl. Los
+  valores, aparentemente, repetidos fueron incluidos por los siguientes
+  factores:
+
+  1.- El atributo 'value' del nodo 'input#entidadID' es abusado entre la función
+    doRender y el pluggin.
+
+    doRender, lo toma para obtener el nombre de la FK, y el pluggin como
+    indicador de la entidad seleccionada (el valor de FK).
+
     TODO: Esta dualidad es una incosistencia de diseño, que sería bueno
     cambiarla, pero por razones de tiempo no lo haré)
+
     Debido a lo anterior, el nombre de la FK aparece dos veces.
-  2.- En casos como el inner join de menu.MenuPadreiD con menu.MenuId, deben indicarse tanto el nombre
-    de la FK, como el de la PK de la entidad relacionada, y luego para fijar el valor que tomará la FK.
+
+  2.- En casos como el inner join de menu.MenuPadreiD con menu.MenuId, deben
+    indicarse tanto el nombre de la FK, como el de la PK de la entidad
+    relacionada, y luego para fijar el valor que tomará la FK.
     Menu.MenuPadreId = MenuJoineado.MenuId.
-  3.- Algunas FKs guardan el valor numérico de la entidad relacionada como Menu.MenuPadreId, mientras
-    que en otros casos guarda toda la entidad como el caso de ActividadAFIP.TipoActividadAFIP, en este
-    atributo, se indica la entidad relacionada, pero no su PK.
+
+  3.- Algunas FKs guardan el valor numérico de la entidad relacionada como
+    Menu.MenuPadreId, mientras que en otros casos guarda toda la entidad como el
+    caso de ActividadAFIP.TipoActividadAFIP, en este atributo, se indica la
+    entidad relacionada, pero no su PK.
 
   comboOptions: {
-    relatedId:  nombre de la Key de la entidad foránea que se tomará para actualizar el valor de la
-                FK de la entidad en edición
-                (MenuEnEdicion.MenuPadreId = MenuJoineado.MenuId), este caso, indicará 'MenuId'.
+    relatedId:  nombre de la Key de la entidad foránea que se tomará para
+                actualizar el valor de la FK de la entidad en edición
+                (MenuEnEdicion.MenuPadreId = MenuJoineado.MenuId), este caso,
+                indicará 'MenuId'.
                 (ActividadAFIPEnEdicion.TipoActividadAFIP.TipoActividadAFIPId =
-                TipoActividadAFIP.TipoActividadAFIPId), en este otro caso será 'TipoActividadAFIPId'
+                TipoActividadAFIP.TipoActividadAFIPId), en este otro caso será
+                'TipoActividadAFIPId'
 
     entity:     entidad que será listada
-    field:      nombre de la FK, a veces, refiere al nombre de la FK, y otras al nombre de la entidad
-                de la FK, dependiendo de la definición de los campos del modelo.
-    id:         Representa el nombre de la Key que usará el pluggin como indicador de la entidad
-                seleccionada en el combo, siempre tendrá el nombre del atributo de modelo que
-                permita fijar cual de las entidades listadas es la seleccionada. Se emplea en el caso
-                de las FK que almacenan al object entero, para discrinar su key, o como el nombre de
-                las FKs como en el caso de Menu.MenuPadreId.
+
+    field:      nombre de la FK, a veces, refiere al nombre de la FK, y otras al
+                nombre de la entidad de la FK, dependiendo de la definición de
+                los campos del modelo.
+
+    id:         Representa el nombre de la Key que usará el pluggin como
+                indicador de la entidad seleccionada en el combo, siempre tendrá
+                el nombre del atributo de modelo que permita fijar cual de las
+                entidades listadas es la seleccionada. Se emplea en el caso de
+                las FK que almacenan al object entero, para discrinar su key, o
+                como el nombre de las FKs como en el caso de Menu.MenuPadreId.
+
     endPoint:   subdirectorio para generar el url de los ajax's
-    value:      Nombre del campo que se está joineando (este atributo es el inconsistente)
+
+    value:      Nombre del campo que se está joineando (este atributo es el
+                inconsistente)
+
     fields:     campos que se listaran en los items del combo
   }
-
-  factura: {
-    facturaId: 1,
-    numero: 00001-1244,
-    cliente: {
-      clienteId: 34,
-      nombre: 'xxx'
-    },
-    clienteSustituto: {
-      clienteId: 34,
-      nombre: 'xxx'
-    }
-
-    menu: {
-      menuId: 3,
-      menuPadreId: 3,
-      menuPadre: {
-        menuId
-      }
-
-
-
-
   */
 var  DBComboControl = BaseControl.extend({
 
@@ -103,7 +103,7 @@ var  DBComboControl = BaseControl.extend({
 
     if (!options.field.comboOptions) throw new TypeError('field.comboOptions not specified');
 
-    this.controlTemplate = this.metaTemplate = this.metaTemplate || dbComboTemplate;
+    this.controlTemplate = this.metaTemplate || dbComboTemplate;
 
     this.jqField = this.getSelectContainer();
 
@@ -111,18 +111,20 @@ var  DBComboControl = BaseControl.extend({
   },
 
   /**
-    Recibe el nodo interno al pluggin select2 (no disponible durante la creación, ni inicialización,
-    se genera dinámicamente por select2). Este es el nodo que dispara el blur del pluggin.
-    En esta función se disparará el blur sobre el input#entidadID para actualizar el estado del modelo.
+    Recibe el nodo interno al pluggin select2 (no disponible durante la
+    creación, ni inicialización, se genera dinámicamente por select2).
+    Este es el nodo que dispara el blur del pluggin.
+    En esta función se disparará el blur sobre el input#entidadID para
+    actualizar el estado del modelo.
   */
   _blur: function(o){
-    var jqTarget=$('input.bigdrop[type="hidden"]',o.parentNode.parentNode),
-      value=jqTarget.data().select2.data(),
-      id=jqTarget.attr('id'),
-      relatedId='',
-      change = {},
-      keyValue = id,
-      val=this.model.get(keyValue);
+    var jqTarget  = $('input.bigdrop[type="hidden"]', o.parentNode.parentNode),
+        value     = jqTarget.data().select2.data(),
+        id        = jqTarget.attr('id'),
+        relatedId = '',
+        change    = {},
+        keyValue  = id,
+        val       = this.model.get(keyValue);
 
     if (val instanceof Object)      // cuando la FK es el objeto relacionado, y no (como en
       change[id] = value;           // menu.MenuPadreId solo el valor numérico) se cambia todo
@@ -163,13 +165,13 @@ var  DBComboControl = BaseControl.extend({
     BaseControl.prototype.render.call(this);
 
     //
-    var options=this.field.comboOptions,
-      jqField = this.getSelectContainer(),    // input#entidadId
-      keyValue = options.value,               // nombre de la FK de la entidad principal
-      val=this.model.get(keyValue);           // valor de la FK (puede ser el objeto relacionado
-                                              // o el valor del id de la entidad relacionada
+    var options   = this.field.comboOptions,
+        jqField   = this.getSelectContainer(),  // input#entidadId
+        keyValue  = options.value,              // nombre de la FK de la entidad principal
+        val       = this.model.get(keyValue);   // valor de la FK (puede ser el objeto relacionado
+                                                // o el valor del id de la entidad relacionada
     if (val instanceof Object) {
-      val=val[options.id];              // cuando el valor de la FK es el objeto, se reemplaza
+      val = val[options.id];            // cuando el valor de la FK es el objeto, se reemplaza
     }                                   // por su id
 
     jqField.attr('value',val);    // se asigna el valor del id de la FK en el nodo, para ser leído
@@ -198,7 +200,7 @@ var  DBComboControl = BaseControl.extend({
       "blur",
       "a.select2-choice",
       function (){
-        _this._blur(this)
+        _this._blur(this);
       }
     );
 

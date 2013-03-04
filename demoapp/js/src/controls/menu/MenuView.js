@@ -3,10 +3,10 @@
 define( [
     'jquery', 'lodash',
     'src/views/BaseView',
-    'text!src/controls/menu/menu-container.html',
-    'text!src/controls/menu/menu-user.html',
-    'text!src/controls/menu/menu-parent.html',
-    'text!src/controls/menu/menu-child.html'
+    'text!./menu-container.html',
+    'text!./menu-user.html',
+    'text!./menu-parent.html',
+    'text!./menu-child.html'
   ], function(
     $, _,
     BaseView,

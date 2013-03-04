@@ -30,7 +30,7 @@ var CrudParentController = CrudController.extend({
 
     this.children = this.children || options.children || [];
 
-    if (this.children.length === 0) { throw new Error('Parent controller has no children defined!'); }
+    if (this.children.length === 0) throw new Error('Parent controller has no children defined!');
 
     if (this.parent) {
       throw new Error('CrudParentController cannot have a parent, use CrudChildController or CrudParentChildController instead!');
@@ -131,17 +131,17 @@ var CrudParentController = CrudController.extend({
     var tab = _.find(this.tabs, function(tab) { return tab.name === tabName; } );
     var controller;
 
-    if (!tab) { throw new Error('Could not find tab with name "' + tabName + '".'); }
+    if (!tab) throw new Error('Could not find tab with name "' + tabName + '".');
     // tab already active, just exit
-    if (tab.active) { return; }
-    if (!tab.enabled) { throw new Error('The tab "' + tabName + '" is not enabled.'); }
+    if (tab.active) return;
+    if (!tab.enabled) throw new Error('The tab "' + tabName + '" is not enabled.');
 
     _.each(this.tabs, function(tab) {
       controller = tab.controller;
       if (tab.name === tabName) {
         tab.active = true;
         if (tab.isChild) {
-          controller.setParentModel(this.model); 
+          controller.setParentModel(this.model);
           controller.start();
         }
         controller.show();
@@ -163,7 +163,7 @@ var CrudParentController = CrudController.extend({
         tab.enabled = (this.model && !this.model.isNew());
       }
     }, this);
-    if (renderView) { this.tabsView.render(); }
+    if (renderView) this.tabsView.render();
   },
 
   isParent: function() { return true; },

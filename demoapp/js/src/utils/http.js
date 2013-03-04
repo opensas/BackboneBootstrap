@@ -51,8 +51,8 @@ http.addParams = function(source, add) {
     }
   }
 
-  if (typeof source === 'string') {source = http.parseQuery(source);}
-  if (typeof add === 'string')    {add = http.parseQuery(add);}
+  if (typeof source === 'string') source = http.parseQuery(source);
+  if (typeof add === 'string')    add = http.parseQuery(add);
 
   for (prop in add) {
     if (add.hasOwnProperty(prop)) {
@@ -69,11 +69,11 @@ http.parseQuery = function(url) {
 
   var parsed = {};
 
-  if (query.page    !== undefined)  {parsed.page   = query.page;}
-  if (query.len     !== undefined)  {parsed.len    = query.len;}
-  if (query.order   !== undefined)  {parsed.order  = query.order;}
-  if (query.filter  !== undefined)  {parsed.filter = query.filter;}
-  if (query.q       !== undefined)  {parsed.q      = query.q;}
+  if (query.page    !== undefined)  parsed.page   = query.page;
+  if (query.len     !== undefined)  parsed.len    = query.len;
+  if (query.order   !== undefined)  parsed.order  = query.order;
+  if (query.filter  !== undefined)  parsed.filter = query.filter;
+  if (query.q       !== undefined)  parsed.q      = query.q;
 
   return parsed;
 };

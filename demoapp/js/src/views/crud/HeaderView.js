@@ -1,89 +1,103 @@
-/*globals define, app, document, console*/
+/*globals define,app,console*/
 
 define( [
-    'jquery','jqueryui', 'lodash', 'src/views/BaseView',
-    'text!src/views/crud/header.html',
-    'src/utils/crud'
+    'lodash', 'src/views/crud/ModelView',
+    'text!./header.html'
   ], function(
-    $, jui, _, BaseView,
-    headerTemplate,
-    crud
+    _, ModelView,
+    headerTemplate
   ) {
 
 'use strict';
 
-var HeaderView = BaseView.extend({
+/**
+ * HeaderView renders the master fields of a master detail Controller. It's a
+ * read'only panel, so all fields specified are rendered using non editable
+ * controls.
+ *
+ * @class HeaderView
+ * @extends ModelView
+ */
+var HeaderView = ModelView.extend({
 
-  title: '',
-
-  template: undefined,
-
-  fields: undefined,
+  /**
+   * @property {BaseModel} model The parent model to use as source for the
+   *                             controls.
+   */
+  model: undefined,
 
   initialize: function(options) {
     options = options || {};
-    BaseView.prototype.initialize.call(this, options);
 
-    this.title = options.title || '';
+    _.defaults(this, options);
 
-    if (options.template) this.template = this.compileTemplate(options.template);
+    this.title = this.title || '';
 
-    this.fields = this.fields || options.fields || undefined;
+    // set the template container
+    this.containerTemplate = this.containerTemplate || headerTemplate;
 
-  },
-
-  // check that we have a valid function template
-  _ensureTemplate: function() {
-    var template = this.template;
-    if (_.isFunction(template)) { return; }
-
-    if (!template) { template = this.getDefaultTemplate(); }
-
-    this.template = this.compileTemplate(template);
-  },
-
-  // automatically generate a default template from the data in this.fields
-  getDefaultTemplate: function() {
-    var controlsTemplate = crud.generateFormTemplate(this.fields);
-    var template = headerTemplate.replace('%controls%', controlsTemplate);
-
-    return template;
-  },
-
-  validateModel: function(model) {
-    if (model) { this.model = model; }
-
-    if (!this.model) { throw new Error('model not specified!'); }
-
-    this.title = this.title || this.model.name || '';
-
-    this.fields = this.fields ||
-      this.model.headerFields || this.model.formFields || undefined;
-
-    if (!this.template && !this.fields) {
-      throw new Error('No template nor fields definition specified!');
-    }
+    ModelView.prototype.initialize.call(this, options);
 
   },
 
-  render: function(model) {
+  /**
+   * Bind the specified model to the fields and controls collection.
+   *
+   * It just calls super.setModel, adding a _title property taken from the
+   * model's label.
+   *
+   * @param {BaseModel} model Model to set as the datasource for controls.
+   *
+   * @override
+   * @chainable
+   */
+  setModel: function(model) {
 
-    this.validateModel(model);
+    // use the fields from model.headerFields if not specified
+    if (model && !this.fields) this.fields = model.headerFields;
 
-    this._ensureTemplate();
+    // super.setModel
+    ModelView.prototype.setModel.call(this, model);
 
-    var templateData = this.model.toJSON();
-    templateData._title = this.title;
-
-    this.$el.html(this.template(templateData));
-
-    // in the header no control is editable
-    crud.disableControls(this.el);
-
-    // init
-    crud.initControls(this);
+    this.title = this.title || (this.model ? this.model.label : '');
 
     return this;
+  },
+
+  /**
+   * Set the controls collection to use for this view.
+   *
+   * After calling suepr.setControls it set the editable property of each
+   * control to false.
+   *
+   * @param {Array<src.BaseControl|string>} controls
+   *              Controls to use for this view.
+   *
+   * @override
+   * @chainable
+   */
+  setControls: function(controls) {
+    ModelView.prototype.setControls.call(this, controls);
+
+    if (this.controls) {
+      _.each(this.controls, function(control) {
+        control.editable = false;
+      });
+    }
+    return this;
+  },
+
+  /**
+   * Renders the form view.
+   *
+   * It calls super.render and also passes the _title property.
+   *
+   * @override
+   * @chainable
+   */
+  render: function() {
+    //super.render, passing the title as aditional data
+    return ModelView.prototype.render.call(this, { _title: this.title });
   }
 
 });

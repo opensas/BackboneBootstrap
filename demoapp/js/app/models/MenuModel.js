@@ -23,7 +23,7 @@ var Model = BaseModel.extend({
       label    : 'Nro Menú',
       defaults : '',
       editable : false,
-      span     : 2,
+      span     : 3,
       order    : 'MenuId'
     },
     {

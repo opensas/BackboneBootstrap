@@ -1,11 +1,11 @@
 /*globals define*/
 
 define( [
-    'jquery', 'lodash',
+    'lodash',
     'src/controls/BaseControl',
-    'text!src/controls/combo.html'
+    'text!./combo.html'
   ], function(
-    $, _,
+    _,
     BaseControl,
     comboTemplate
   ){

@@ -80,9 +80,7 @@ env.load = function(environments, environmentName) {
   }
 
   return _.merge(environment, base);
-
 };
-
 
   return env;
 });

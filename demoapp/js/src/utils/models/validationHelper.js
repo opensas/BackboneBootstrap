@@ -22,7 +22,7 @@ validationHelper.validate = function(options) {
   var validation  = options.method || '',
       method      = 'valid' + string.capitalize(validation);
 
-  if (!validation) throw new TypeError('validation not specified!');
+  if (!validation) throw new TypeError('validation method not specified!');
 
   if (!_.has(validationHelper, method)) {
 
@@ -67,24 +67,26 @@ validationHelper.validFormat = function(options) {
 };
 
 validationHelper.numberFormat = function(options) {
-  options.message = options.message || 'El campo "{1}" debe ser un número.';
+  var message = options.message || 'El campo "{1}" debe ser un número.';
 
   if (isNaN(options.value)) {
     return {
       field:    options.field.name,
-      message:  string.format(options.message, options.field.label)
+      message:  string.format(message, options.field.label)
     };
   }
   return true;
 },
 
 validationHelper.dateFormat = function(options) {
-  options.message = options.message || 'El campo "{1}" debe ser una fecha válida.';
+  var field   = options.field,
+      message = options.message || 'El campo "{1}" debe ser una fecha válida.',
+      format  = options.format || field.format || '';
 
-  if (!convert.isValidDate(options.value)) {
+  if (!convert.isDate(options.value, format)) {
     return {
-      field:    options.field.name,
-      message:  string.format(options.message, options.field.label)
+      field:    field.name,
+      message:  string.format(message, field.label)
     };
   }
   return true;
@@ -168,65 +170,65 @@ validationHelper.numberInRange = function(options) {
   // empty or invalid number
   if (value === undefined || value === null) return true;
 
-  if (options.lessEqual && value > options.lessEqual) {
+  if (options.lessEqual !== undefined  && value > options.lessEqual) {
     message = message || 'El campo "{1}" debe ser menor o igual a {2}.';
     limit = options.lessEqual;
   }
 
-  if (options.less && value >= options.less) {
+  if (options.less !== undefined  && value >= options.less) {
     message = message || 'El campo "{1}" debe ser menor a {2}.';
     limit = options.less;
   }
 
-  if (options.greatEqual && value < options.greatEqual) {
+  if (options.greatEqual !== undefined  && value < options.greatEqual) {
     message = message || 'El campo "{1}" debe ser mayor o igual a {2}.';
     limit = options.greatEqual;
   }
 
-  if (options.greater && value <= options.greater) {
+  if (options.greater !== undefined  && value <= options.greater) {
     message = message || 'El campo "{1}" debe ser mayor a {2}.';
     limit = options.greater;
   }
 
-  if (limit) {
+  if (limit !== undefined ) {
     return {
       field: options.field.name,
       message: string.format(message, options.field.label, limit)
     };
-  }
+   }
 
   return true;
 };
 
 validationHelper.dateInRange = function(options) {
-  var value   = convert.toDate(options.value),
+  var value   = convert.toDate(options.value, options.format),
       message = options.message,
       limit;
 
   // empty date
   if (!value) return true;
 
-  if (options.lessEqual && value > convert.toDate(options.lessEqual)) {
+  if (options.lessEqual  !== undefined  && value > convert.toDate(options.lessEqual)) {
     message = message || 'El campo "{1}" debe ser menor o igual a {2}.';
     limit = options.lessEqual;
   }
 
-  if (options.less && value >= convert.toDate(options.less)) {
+  if (options.less !== undefined  && value >= convert.toDate(options.less)) {
     message = message || 'El campo "{1}" debe ser menor a {2}.';
     limit = options.less;
   }
 
-  if (options.greatEqual && value < convert.toDate(options.greatEqual)) {
+  if (options.greatEqual !== undefined  && value < convert.toDate(options.greatEqual)) {
     message = message || 'El campo "{1}" debe ser mayor o igual a {2}.';
     limit = options.greatEqual;
   }
 
-  if (options.greater && value <= convert.toDate(options.greater)) {
+  if (options.greater !== undefined  && value <= convert.toDate(options.greater)) {
     message = message || 'El campo "{1}" debe ser mayor a {2}.';
     limit = options.greater;
   }
 
-  if (limit) {
+  if (limit !== undefined ) {
     return {
       field: options.field.name,
       message: string.format(message, options.field.label, limit)
@@ -244,27 +246,27 @@ validationHelper.stringInRange = function(options) {
   // empty date
   if (!value) return true;
 
-  if (options.lessEqual && value > options.lessEqual.toString()) {
+  if (options.lessEqual !== undefined && value > options.lessEqual.toString()) {
     message = message || 'El campo "{1}" debe ser menor o igual a {2}.';
     limit = options.lessEqual;
   }
 
-  if (options.less && value >= options.less.toString()) {
+  if (options.less !== undefined && value >= options.less.toString()) {
     message = message || 'El campo "{1}" debe ser menor a {2}.';
     limit = options.less;
   }
 
-  if (options.greatEqual && value < options.greatEqual.toString()) {
+  if (options.greatEqual !== undefined && value < options.greatEqual.toString()) {
     message = message || 'El campo "{1}" debe ser mayor o igual a {2}.';
     limit = options.greatEqual;
   }
 
-  if (options.greater && value <= options.greater.toString()) {
+  if (options.greater !== undefined && value <= options.greater.toString()) {
     message = message || 'El campo "{1}" debe ser mayor a {2}.';
     limit = options.greater;
   }
 
-  if (limit) {
+  if (limit !== undefined ) {
     return {
       field: options.field.name,
       message: string.format(message, options.field.label, limit.toString())

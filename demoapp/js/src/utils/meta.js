@@ -73,18 +73,31 @@ meta.mockPermissions = function() {
     'acceso offline': ['consulta'],
     'wine': ['alta', 'baja', 'modificacion', 'consulta'],
     'country': ['alta', 'baja', 'modificacion', 'consulta'],
+    'review': ['alta', 'baja', 'modificacion', 'consulta'],
 
-    'accion': ['alta', 'baja', 'modificacion', 'consulta'],
     // 'provincia': ['consulta'],
     // 'provincia': ['modificacion', 'consulta'],
+    'accion': ['alta', 'baja', 'modificacion', 'consulta'],
     'proveedor': ['alta', 'baja', 'modificacion', 'consulta'],
     'provincia-readonly': ['consulta'],
     // 'provincia': ['consulta'],
+    'situacioniva': ['alta', 'baja', 'modificacion', 'consulta'],
+    'categoriasituacioniva': ['alta', 'baja', 'modificacion', 'consulta'],
     'provincia': ['alta', 'baja', 'modificacion', 'consulta'],
     'tipocomprobante': ['alta', 'baja', 'modificacion', 'consulta'],
+    'comprobante': ['alta', 'baja', 'modificacion', 'consulta'],
+    'comprobanteitem': ['alta', 'baja', 'modificacion', 'consulta'],
+    'tiporetencion': ['alta', 'baja', 'modificacion', 'consulta'],
     'zona': ['alta', 'baja', 'modificacion', 'consulta'],
     'localidad': ['alta', 'baja', 'modificacion', 'consulta'],
-    'menu': ['alta', 'baja', 'modificacion', 'consulta']
+    'menu': ['alta', 'baja', 'modificacion', 'consulta'],
+    'tipoactividadafip': ['alta', 'baja', 'modificacion', 'consulta'],
+    'actividadafip': ['alta', 'baja', 'modificacion', 'consulta'],
+    'tipoasociacion': ['alta', 'baja', 'modificacion', 'consulta'],
+    'tipoadjudicacion': ['alta', 'baja', 'modificacion', 'consulta'],
+    'tipoprocedimiento': ['alta', 'baja', 'modificacion', 'consulta'],
+    'tipopersona': ['alta', 'baja', 'modificacion', 'consulta'],
+    'tipodomicilio': ['alta', 'baja', 'modificacion', 'consulta']
   };
 };
 

@@ -12,8 +12,8 @@ var Model = BaseModel.extend({
   name:         'Menu',
   idAttribute:  'MenuId',
 
-  // override fields definition when creating your own
-  fields: {}
+  // you should override fields definition when creating your own
+  fields: undefined
 });
 
   return Model;

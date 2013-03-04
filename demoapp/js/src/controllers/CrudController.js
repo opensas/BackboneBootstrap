@@ -84,7 +84,7 @@ var CrudController = ApplicationController.extend({
 
     // create the div that will contain al the child forms
     // and initialized this.$el and this.$crudEl
-    this._createContainer();
+    this.createContainer();
 
     // try to get the tableField (columns) from the collection
     this.tableFields = this.tableFields || this.collection.tableFields;
@@ -125,8 +125,8 @@ var CrudController = ApplicationController.extend({
   },
 
   /**
-   * Generates the html container of the crud forms
-   * and assign this.$el and this.$crudEl
+   * Generates the html container of the crud forms and assign this.$el and
+   * this.$crudEl.
    *
    * @chainable
    *
@@ -140,7 +140,7 @@ var CrudController = ApplicationController.extend({
    * </div>
    *
    */
-  _createContainer: function() {
+  createContainer: function() {
     var crudId = this.fullName + '-crud';
 
     this.$el = $(this.el);

@@ -21,9 +21,9 @@ var InputControl = BaseControl.extend({
     this.addSupportedType('input');
     this.controlType = this.controlType || 'input';
 
-    if (!this.inputType) { this.inputType = 'text'; }
+    if (!this.inputType) this.inputType = 'text';
 
-    this.controlTemplate = this.metaTemplate ||
+    this.controlTemplate = this.controlTemplate ||
       '<input type="<%= inputType %>" class="<%= spanClass %>" ' +
       '<%= disabled %> id="<%= field.fullName %>" ' +
       'value="<%= value %>" />';

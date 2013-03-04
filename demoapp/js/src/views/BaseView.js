@@ -80,6 +80,13 @@ var BaseView = Backbone.View.extend({
   $byId: function(selector) {
     if (selector.substr(0,1) !== '#') selector = '#' + selector;
     return this.$el.find(selector.replace('.', '\\.'));
+  },
+
+  onRender: function() {
+    return this;
+  },
+  afterRender: function() {
+    return this;
   }
 
 });
