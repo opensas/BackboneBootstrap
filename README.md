@@ -19,7 +19,7 @@ Rationale
 
 In the old days of classic asp and php, quite a couple of times we often ended
 up developing our own framework with the features needed for every app. There
-are certain features, like crud forms, validations, pagination, filterting,
+are certain features, like crud forms, validations, pagination, filtering,
 master- detail forms, and several others features that could really let you come
 out with the common parts of an app, and let you concentrate on the heavy stuff.
 
