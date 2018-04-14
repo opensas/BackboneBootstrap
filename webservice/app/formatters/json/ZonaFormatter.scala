@@ -3,6 +3,7 @@ package formatters.json
 import play.api.libs.json.Format
 import play.api.libs.json.JsValue
 import play.api.libs.json.Json.toJson
+import play.api.libs.json.{JsResult, JsSuccess}
 
 import models.Zona
 
@@ -23,12 +24,12 @@ object ZonaFormatter {
       ))
     }
 
-    def reads(j: JsValue): Zona = {
-      Zona(
+    def reads(j: JsValue): JsResult[Zona] = {
+      JsSuccess(Zona(
         id          = (j \ "ZonaId")      .as[Option[Pk[Long]]] .getOrElse(NotAssigned),
         codigo      = (j \ "Codigo")      .as[Option[String]]   .getOrElse("NN"),
         descripcion = (j \ "Descripcion") .as[Option[String]]   .getOrElse("zona desconocida")
-      )
+      ))
     }
 
   }

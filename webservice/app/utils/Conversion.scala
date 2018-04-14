@@ -15,13 +15,16 @@ object Conversion {
 
   def toLong(v: Boolean): Long = if (v==true) 1 else 0
 
-  def toDate(date: String, format: String = "yyyy-MM-dd hh:mm:ss"): Option[Date] = {
-    val dateFormat = new SimpleDateFormat(format)
+  def toDate(date: String, dateFormat: SimpleDateFormat): Option[Date] = {
     try {
       Some(dateFormat.parse(date))
     } catch {
-      case e => None
+      case e : Throwable => None
     }
+  }
+
+  def toDate(date: String, format: String = "yyyy-MM-dd hh:mm:ss"): Option[Date] = {
+    toDate(date, new SimpleDateFormat(format))
   }
 
   def toUpperFirst(value: String): String = {

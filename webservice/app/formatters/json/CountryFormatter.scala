@@ -3,6 +3,7 @@ package formatters.json
 import play.api.libs.json.Format
 import play.api.libs.json.JsValue
 import play.api.libs.json.Json.toJson
+import play.api.libs.json.{JsResult, JsSuccess}
 
 import java.util.Date
 
@@ -25,12 +26,12 @@ object CountryFormatter {
       ))
     }
 
-    def reads(j: JsValue): Country = {
-      Country(
+    def reads(j: JsValue): JsResult[Country] = {
+      JsSuccess(Country(
         id = (j \ "id").as[Option[Pk[Long]]]                  .getOrElse(NotAssigned),
         code = (j \ "code").as[Option[String]]                .getOrElse("NN"),
         name = (j \ "name").as[Option[String]]                .getOrElse("unknown country")
-      )
+      ))
     }
 
   }

@@ -3,6 +3,7 @@ package formatters.json
 import play.api.libs.json.Format
 import play.api.libs.json.JsValue
 import play.api.libs.json.Json.toJson
+import play.api.libs.json.{JsResult, JsSuccess}
 
 import models.Menu
 
@@ -30,8 +31,8 @@ object MenuFormatter {
       ))
     }
 
-    def reads(j: JsValue): Menu = {
-      Menu(
+    def reads(j: JsValue): JsResult[Menu] = {
+      JsSuccess(Menu(
         MenuId      = (j \ "MenuId")        .as[Option[Pk[Long]]]     .getOrElse(NotAssigned),
         Tipo        = (j \ "Tipo")          .as[Option[String]]       .getOrElse("menu"),
         MenuPadreId = (j \ "MenuPadreId")   .as[Option[Option[Long]]] .getOrElse(None),
@@ -42,7 +43,7 @@ object MenuFormatter {
         Permiso     = (j \ "Permiso")       .as[Option[String]]       .getOrElse(""),
         Ayuda       = (j \ "Ayuda")         .as[Option[String]]       .getOrElse(""),
         Mostrar     = (j \ "Mostrar")       .as[Option[Boolean]]      .getOrElse(true)
-      )
+      ))
     }
 
   }

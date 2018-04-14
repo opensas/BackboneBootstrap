@@ -3,6 +3,7 @@ package formatters.json
 import play.api.libs.json.Format
 import play.api.libs.json.JsValue
 import play.api.libs.json.Json.toJson
+import play.api.libs.json.{JsResult, JsSuccess}
 
 import models.{Provincia, Zona}
 
@@ -30,15 +31,15 @@ object ProvinciaFormatter {
       ))
     }
 
-    def reads(j: JsValue): Provincia = {
-      Provincia.fromParser(
+    def reads(j: JsValue): JsResult[Provincia] = {
+      JsSuccess(Provincia.fromParser(
         id          = (j \ "ProvinciaId")     .as[Option[Pk[Long]]]  .getOrElse(NotAssigned),
         zona_id     = (j \ "Zona" \ "ZonaId") .as[Option[Long]],
         codigo      = (j \ "Codigo")          .as[Option[String]]    .getOrElse("NN"),
         descripcion = (j \ "Descripcion")     .as[Option[String]]    .getOrElse("provincia desconocida"),
         habilitada  = (j \ "Habilitada")      .as[Option[Int]]       .getOrElse(1),
         fundacion   = (j \ "Fundacion")       .as[Option[Date]]
-      )
+      ))
     }
 
   }

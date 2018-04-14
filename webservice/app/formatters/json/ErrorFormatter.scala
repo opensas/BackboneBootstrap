@@ -3,6 +3,7 @@ package formatters.json
 import play.api.libs.json.Format
 import play.api.libs.json.JsValue
 import play.api.libs.json.Json.toJson
+import play.api.libs.json.{JsResult, JsSuccess}
 
 import models.Error
 
@@ -20,14 +21,14 @@ object ErrorFormatter {
       ))
     }
 
-    def reads(j: JsValue): Error = {
-      new Error(
+    def reads(j: JsValue): JsResult[Error] = {
+      JsSuccess(Error(
         status            = (j \ "status").as[Int],
         errorCode         = (j \ "errorCode").as[Int],
         field             = (j \ "field").as[String],
         message           = (j \ "message").as[String],
         developerMessage  = (j \ "developerMessage").as[String]
-      )
+      ))
     }
 
   }

@@ -30,7 +30,7 @@ object ColumnInfo {
       )
     }
     try {
-      ColumnInfo( 
+      ColumnInfo(
         meta.getCatalogName(index), meta.getTableName(index),
         meta.getColumnName(index), meta.getColumnLabel(index),
         meta.getColumnType(index), meta.getColumnTypeName(index),
@@ -60,7 +60,7 @@ object ColumnInfo {
       try {
         return ColumnInfo(resultSet.getMetaData)
       } catch {
-        case e => {
+        case e : Throwable => {
           throw new ColumnInfoException(
             "Error fetching column info for table '%s'.".format(tableName), e
           )
@@ -69,7 +69,7 @@ object ColumnInfo {
         resultSet.close
       }
     } catch {
-      case e => {
+      case e : Throwable => {
         throw new ColumnInfoException(
           "Error fetching column info for table '%s'. Couldn't open resultset".format(tableName), e
         )

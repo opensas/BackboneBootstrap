@@ -5,6 +5,8 @@ import play.api.libs.json.JsValue
 import play.api.libs.json.Format
 import play.api.libs.json.{JsUndefined, JsNull}
 
+import play.api.libs.json.{JsResult, JsSuccess, JsError}
+
 import java.util.Date
 import java.text.SimpleDateFormat
 
@@ -27,11 +29,15 @@ object DateFormatter {
       )
     }
 
-    def reads(j: JsValue): Option[Date] = {
+    def reads(j: JsValue): JsResult[Option[Date]] = {
       if (j.isInstanceOf[JsUndefined] || j == JsNull) {
-        None
+        JsSuccess(None)
       } else {
-        toDate(j.as[String], "yyyy-MM-dd'T'hh:mm:ss'Z'")
+        toDate(j.as[String], dateFormat).map(
+          date => JsSuccess(Some(date))
+        ).getOrElse(
+          JsError("could not parse date. Valid format: %s".format(dateFormat))
+        )
       }
     }
   }
